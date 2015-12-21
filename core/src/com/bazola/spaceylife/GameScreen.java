@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Map.Entry;
 
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -25,6 +26,8 @@ public class GameScreen extends BZScreenAdapter {
     private double timeSinceLastUpdate = 0;
     private double timeBetweenUpdates = 100;
     
+    private SimpleDirectionGestureDetector swipeRecognizer;
+    
     private final List<Image> starImages = new ArrayList<Image>();
     private final List<AlienImage> alienImages = new ArrayList<AlienImage>();
     
@@ -38,8 +41,32 @@ public class GameScreen extends BZScreenAdapter {
     	
     	this.game = new MainGame(this.WORLD_WIDTH, this.WORLD_HEIGHT, this);
     	
+    	this.addSwipeRecognizer();
+    	
     	this.addActorsToStage();
     }
+    
+	private void addSwipeRecognizer() {
+		this.swipeRecognizer = new SimpleDirectionGestureDetector(new SimpleDirectionGestureDetector.DirectionListener() {
+    		@Override
+    		public void onUp() {
+    		}
+    		@Override
+    		public void onRight() {
+    		}
+    		@Override
+    		public void onLeft() {
+    		}
+    		@Override
+    		public void onDown() {
+    		}
+    		@Override
+    		public void singleTap(float x, float y) {
+    			GameScreen.this.tappedScreen(x, y);
+    		}
+    	});
+		this.libGDXGame.inputHandler.addProcessor(this.swipeRecognizer);
+	}
     
     private void addActorsToStage() {
     	Image gridImage = new Image(this.libGDXGame.gridBackground);
@@ -107,6 +134,9 @@ public class GameScreen extends BZScreenAdapter {
         }
 	}
 	
+	/**
+	 * Just spawn one alien at the moment for testing
+	 */
 	private boolean alienSpawned = false;
 	
 	public void alienSpawned(Alien alien) {
@@ -114,6 +144,13 @@ public class GameScreen extends BZScreenAdapter {
 		image.setAnimation(this.libGDXGame.alienMove01);
 		this.alienImages.add(image);
 		this.libGDXGame.stage.addActor(image);
+	}
+	
+	private void tappedScreen(float x, float y) {
+		//convert screen to stage coordinates
+		Vector3 touchPoint = new Vector3();
+		this.libGDXGame.camera.unproject(touchPoint.set(x, y, 0));
+		this.game.setPlayerMarkedPoint(new MapPoint((int)touchPoint.x, (int)touchPoint.y));
 	}
 
 	@Override

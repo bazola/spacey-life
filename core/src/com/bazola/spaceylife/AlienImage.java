@@ -21,6 +21,7 @@ public class AlienImage extends Image {
 	
 	public void update() {
 		this.setPosition(alien.getPosition().x, alien.getPosition().y);
+		this.setRotation((float)alien.getAngle());
 	}
 	
 	public void setAnimation(Animation animation) {

@@ -19,6 +19,8 @@ public class MainGame {
 	
 	private List<Alien> playerAliens = new ArrayList<Alien>();
 	
+	private MapPoint playerMarkedPoint;
+	
 	public MainGame(int width, int height, GameScreen gameScreen) {
 		this.gameScreen = gameScreen;
 		this.worldWidth = width;
@@ -27,12 +29,9 @@ public class MainGame {
 		this.universe = new UniverseGenerator(width, height, this.gameScreen.random);
 	
 		this.setPlayerAndAIHomeworlds();
-		
-		System.out.println(this.playerHomeworld.getPosition().toString());
-		System.out.println(this.aiHomeworld.getPosition().toString());
 	}
 	
-	public void setPlayerAndAIHomeworlds() {
+	private void setPlayerAndAIHomeworlds() {
 		//player in bottom corner
 		int searchSize = this.worldWidth / 10;
 		MapPoint playerSearchLocation = new MapPoint(searchSize, searchSize);
@@ -66,8 +65,17 @@ public class MainGame {
 		return null;
 	}
 	
+	public void setPlayerMarkedPoint(MapPoint point) {
+		this.playerMarkedPoint = point;
+	}
+	
 	public void update() {
-		
+		for (Alien alien : this.playerAliens) {
+			if (this.playerMarkedPoint != null) {
+				alien.setDestination(this.playerMarkedPoint);
+			}
+			alien.move();
+		}
 	}
 	
 	public Star getPlayerHomeworld() {
@@ -84,6 +92,7 @@ public class MainGame {
 	
 	public void spawnAlien() {
 		Alien alien = new Alien(this.playerHomeworld.getPosition());
+		this.playerAliens.add(alien);
 		this.gameScreen.alienSpawned(alien);
 	}
 	
