@@ -1,0 +1,286 @@
+
+spacesimIcons.png
+size: 128,128
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+alert
+  rotate: false
+  xy: 92, 78
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+barrel
+  rotate: false
+  xy: 2, 110
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+bomb
+  rotate: false
+  xy: 2, 92
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+bottle
+  rotate: false
+  xy: 20, 110
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+cancel
+  rotate: false
+  xy: 2, 74
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+chart
+  rotate: false
+  xy: 20, 92
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+chip
+  rotate: false
+  xy: 38, 110
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+computer
+  rotate: false
+  xy: 2, 56
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+confirm
+  rotate: false
+  xy: 20, 74
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+construction
+  rotate: false
+  xy: 38, 92
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+copper
+  rotate: false
+  xy: 56, 110
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+down_arrow
+  rotate: false
+  xy: 2, 38
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+eagle
+  rotate: false
+  xy: 20, 56
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+eye
+  rotate: false
+  xy: 56, 24
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+factory
+  rotate: false
+  xy: 38, 74
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+fly
+  rotate: false
+  xy: 56, 92
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+fuel
+  rotate: false
+  xy: 74, 110
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+gold
+  rotate: false
+  xy: 2, 20
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+goods
+  rotate: false
+  xy: 2, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+heal
+  rotate: false
+  xy: 20, 38
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+heart
+  rotate: false
+  xy: 74, 42
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+info
+  rotate: false
+  xy: 38, 56
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+medal
+  rotate: false
+  xy: 92, 64
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+missle
+  rotate: false
+  xy: 56, 74
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+money
+  rotate: false
+  xy: 74, 92
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+mouth
+  rotate: false
+  xy: 106, 78
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+needle
+  rotate: false
+  xy: 92, 110
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+people
+  rotate: false
+  xy: 110, 110
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+person01
+  rotate: false
+  xy: 20, 20
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+person02
+  rotate: false
+  xy: 20, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+person03
+  rotate: false
+  xy: 38, 38
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+poison
+  rotate: false
+  xy: 56, 56
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+red_circle
+  rotate: false
+  xy: 74, 74
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+scan
+  rotate: false
+  xy: 92, 92
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+silver
+  rotate: false
+  xy: 110, 92
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+skull
+  rotate: false
+  xy: 56, 10
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+skull_big
+  rotate: false
+  xy: 38, 20
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+steel
+  rotate: false
+  xy: 38, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+up_arrow
+  rotate: false
+  xy: 56, 38
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+wrench
+  rotate: false
+  xy: 74, 56
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1

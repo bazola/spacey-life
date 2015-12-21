@@ -1,0 +1,132 @@
+
+ships01.png
+size: 128,64
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+aiColony01
+  rotate: false
+  xy: 2, 38
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+aiFighter01
+  rotate: false
+  xy: 2, 20
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+aiFlagship01
+  rotate: false
+  xy: 20, 38
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+aiFrigate01
+  rotate: false
+  xy: 2, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+aiScout01
+  rotate: false
+  xy: 20, 20
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+aiTransport01
+  rotate: false
+  xy: 38, 38
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+enemyColony01
+  rotate: false
+  xy: 20, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+enemyFighter01
+  rotate: false
+  xy: 38, 20
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+enemyFlagship01
+  rotate: false
+  xy: 56, 38
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+enemyFrigate01
+  rotate: false
+  xy: 38, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+enemyScout01
+  rotate: false
+  xy: 56, 20
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+enemyTransport01
+  rotate: false
+  xy: 74, 38
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+playerColony01
+  rotate: false
+  xy: 56, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+playerFighter01
+  rotate: false
+  xy: 74, 20
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+playerFlagship01
+  rotate: false
+  xy: 92, 38
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+playerFrigate01
+  rotate: false
+  xy: 110, 38
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+playerScout01
+  rotate: false
+  xy: 74, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+playerTransport01
+  rotate: false
+  xy: 92, 20
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
