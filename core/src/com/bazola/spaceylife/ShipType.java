@@ -1,8 +1,5 @@
 package com.bazola.spaceylife;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public enum ShipType {
 	AI_COLONY("aiColony01"),
 	AI_FIGHTER("aiFighter01"),
@@ -29,16 +26,5 @@ public enum ShipType {
 	
 	private ShipType(String fileName) {
 		this.fileName = fileName;
-	}
-	
-	public static List<ShipType> playerControlledShips() {
-		List<ShipType> playerControlledShips = new ArrayList<ShipType>();
-		playerControlledShips.add(PLAYER_COLONY);
-		playerControlledShips.add(PLAYER_FIGHTER);
-		playerControlledShips.add(PLAYER_FLAGSHIP);
-		playerControlledShips.add(PLAYER_FRIGATE);
-		playerControlledShips.add(PLAYER_SCOUT);
-		playerControlledShips.add(PLAYER_TRANSPORT);
-		return playerControlledShips;
 	}
 }

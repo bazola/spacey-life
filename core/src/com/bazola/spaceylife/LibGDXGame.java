@@ -183,6 +183,14 @@ public class LibGDXGame extends Game {
 		return textures;
 	}
 	
+    @Override
+    public void resize(int width, int height) {
+        super.resize(width, height);
+        this.backgroundStage.getViewport().update(width, height, false);
+        this.stage.getViewport().update(width, height, false);
+        this.hudStage.getViewport().update(width, height, true);
+    }
+	
 	@Override
 	public void dispose() {
 		this.gridBackground.dispose();
