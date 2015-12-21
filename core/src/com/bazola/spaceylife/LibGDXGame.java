@@ -9,6 +9,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -52,6 +53,8 @@ public class LibGDXGame extends Game {
 	public Texture gridBackground;
 	
 	public Texture alien01;
+	
+	public Animation alienMove01;
 	
 	public Skin skin;
 	
@@ -103,6 +106,16 @@ public class LibGDXGame extends Game {
 		this.gridBackground = new Texture("Grid3.png");
 		
 		this.alien01 = new Texture("baseSlimeEyes.png");
+		
+		Texture alienMove01 = new Texture("slime_moving_01.png");
+		Texture alienMove02 = new Texture("slime_moving_02.png");
+		Texture alienMove03 = new Texture("slime_moving_03.png");
+		TextureRegion[] regions = new TextureRegion[4];
+		regions[0] = new TextureRegion(alienMove01);
+		regions[1] = new TextureRegion(alienMove02);
+		regions[2] = new TextureRegion(alienMove03);
+		regions[3] = new TextureRegion(alienMove02);
+		this.alienMove01 = new Animation(1/6f, regions);
 		
 		this.starTextures = this.loadStarTextures();
 		this.shipTextures = this.loadShipTextures();

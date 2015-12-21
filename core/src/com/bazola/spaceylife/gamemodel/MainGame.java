@@ -1,5 +1,8 @@
 package com.bazola.spaceylife.gamemodel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.bazola.spaceylife.GameScreen;
 
 public class MainGame {
@@ -13,6 +16,8 @@ public class MainGame {
 	
 	private Star playerHomeworld;
 	private Star aiHomeworld;
+	
+	private List<Alien> playerAliens = new ArrayList<Alien>();
 	
 	public MainGame(int width, int height, GameScreen gameScreen) {
 		this.gameScreen = gameScreen;
@@ -71,6 +76,15 @@ public class MainGame {
 	
 	public Star getAIHomeworld() {
 		return this.aiHomeworld;
+	}
+	
+	public List<Alien> getPlayerAliens() {
+		return this.playerAliens;
+	}
+	
+	public void spawnAlien() {
+		Alien alien = new Alien(this.playerHomeworld.getPosition());
+		this.gameScreen.alienSpawned(alien);
 	}
 	
 	/*

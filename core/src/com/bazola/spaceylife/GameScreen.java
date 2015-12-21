@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.bazola.spaceylife.gamemodel.Alien;
 import com.bazola.spaceylife.gamemodel.MainGame;
 import com.bazola.spaceylife.gamemodel.MapPoint;
 import com.bazola.spaceylife.gamemodel.Star;
@@ -25,6 +26,7 @@ public class GameScreen extends BZScreenAdapter {
     private double timeBetweenUpdates = 100;
     
     private final List<Image> starImages = new ArrayList<Image>();
+    private final List<AlienImage> alienImages = new ArrayList<AlienImage>();
     
     private int WORLD_WIDTH = 4500;
     private int WORLD_HEIGHT = 3000;
@@ -85,16 +87,33 @@ public class GameScreen extends BZScreenAdapter {
         this.timeSinceLastUpdate += timeElapsed;
         
         if (this.timeSinceLastRender > this.timeBewteenRenders) {
-        	this.timeSinceLastRender = 0;
         	
-        	//update actors here
+        	for (AlienImage image : this.alienImages) {
+        		image.update();
+        	}
+        	
+        	this.timeSinceLastRender = 0;
         }
         
         if (this.timeSinceLastUpdate > this.timeBetweenUpdates) {
         	this.timeSinceLastUpdate = 0;
         	
         	this.game.update();
+        	
+        	if (!alienSpawned) {
+        		this.game.spawnAlien();
+        		alienSpawned = true;
+        	}
         }
+	}
+	
+	private boolean alienSpawned = false;
+	
+	public void alienSpawned(Alien alien) {
+		AlienImage image = new AlienImage(this.libGDXGame.alien01, alien);
+		image.setAnimation(this.libGDXGame.alienMove01);
+		this.alienImages.add(image);
+		this.libGDXGame.stage.addActor(image);
 	}
 
 	@Override
