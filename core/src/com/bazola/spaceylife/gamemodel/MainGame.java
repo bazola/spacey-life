@@ -8,14 +8,69 @@ public class MainGame {
 	
 	public final UniverseGenerator universe;
 	
+	private final int worldWidth;
+	private final int worldHeight;
+	
+	private Star playerHomeworld;
+	private Star aiHomeworld;
+	
 	public MainGame(int width, int height, GameScreen gameScreen) {
 		this.gameScreen = gameScreen;
+		this.worldWidth = width;
+		this.worldHeight = height;
 		
 		this.universe = new UniverseGenerator(width, height, this.gameScreen.random);
+	
+		this.setPlayerAndAIHomeworlds();
+		
+		System.out.println(this.playerHomeworld.getPosition().toString());
+		System.out.println(this.aiHomeworld.getPosition().toString());
+	}
+	
+	public void setPlayerAndAIHomeworlds() {
+		//player in bottom corner
+		int searchSize = this.worldWidth / 10;
+		MapPoint playerSearchLocation = new MapPoint(searchSize, searchSize);
+		this.playerHomeworld = this.findStarInRange(searchSize, playerSearchLocation);
+		//increase the search size if a star is not found
+		int count = 1;
+		while(this.playerHomeworld == null) {
+			this.playerHomeworld = this.findStarInRange(searchSize * count, playerSearchLocation);
+			count++;
+		}
+		
+		//ai in top opposite corner
+		MapPoint aiSearchLocation = new MapPoint(this.worldWidth - searchSize, this.worldHeight - searchSize);
+		this.aiHomeworld = this.findStarInRange(searchSize, aiSearchLocation);
+		count = 1;
+		while (this.aiHomeworld == null) {
+			this.aiHomeworld = this.findStarInRange(searchSize * count, aiSearchLocation);
+			count++;
+		}
+	}
+	
+	private Star findStarInRange(int searchSize, MapPoint playerSearchLocation) {
+		for (MapPoint starPoint : this.universe.getStars().keySet()) {
+			if (starPoint.x <= playerSearchLocation.x + searchSize &&
+				starPoint.x >= playerSearchLocation.x - searchSize &&
+				starPoint.y <= playerSearchLocation.y + searchSize &&
+				starPoint.y >= playerSearchLocation.y - searchSize) {
+				return this.universe.getStars().get(starPoint);
+			}
+		}
+		return null;
 	}
 	
 	public void update() {
 		
+	}
+	
+	public Star getPlayerHomeworld() {
+		return this.playerHomeworld;
+	}
+	
+	public Star getAIHomeworld() {
+		return this.aiHomeworld;
 	}
 	
 	/*

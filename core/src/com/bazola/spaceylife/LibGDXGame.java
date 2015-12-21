@@ -51,6 +51,8 @@ public class LibGDXGame extends Game {
 	
 	public Texture gridBackground;
 	
+	public Texture alien01;
+	
 	public Skin skin;
 	
 	private GameScreen gameScreen;
@@ -99,6 +101,8 @@ public class LibGDXGame extends Game {
 	
 	private void loadResources() {
 		this.gridBackground = new Texture("Grid3.png");
+		
+		this.alien01 = new Texture("baseSlimeEyes.png");
 		
 		this.starTextures = this.loadStarTextures();
 		this.shipTextures = this.loadShipTextures();
