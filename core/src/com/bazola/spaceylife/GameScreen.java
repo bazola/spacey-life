@@ -1,9 +1,20 @@
 package com.bazola.spaceylife;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Map.Entry;
+
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.bazola.spaceylife.gamemodel.MainGame;
+import com.bazola.spaceylife.gamemodel.MapPoint;
+import com.bazola.spaceylife.gamemodel.Star;
 
 public class GameScreen extends BZScreenAdapter {
+	
+	public final Random random = new Random();
 	
 	private final LibGDXGame libGDXGame;
 	
@@ -13,17 +24,36 @@ public class GameScreen extends BZScreenAdapter {
     private double timeSinceLastUpdate = 0;
     private double timeBetweenUpdates = 100;
     
+    private final List<Image> starImages = new ArrayList<Image>();
+    
+    private int WORLD_WIDTH = 4500;
+    private int WORLD_HEIGHT = 3000;
+    
+    private final MainGame game;
+    
     public GameScreen(LibGDXGame libGDXGame) {
     	this.libGDXGame = libGDXGame;
+    	
+    	this.game = new MainGame(this.WORLD_WIDTH, this.WORLD_HEIGHT, this);
     	
     	this.addActorsToStage();
     }
     
     private void addActorsToStage() {
     	Image gridImage = new Image(this.libGDXGame.gridBackground);
-    	//gridImage.scaleBy(this.BACKGROUND_SCALE);
-    	gridImage.setSize(LibGDXGame.STAGE_WIDTH, LibGDXGame.STAGE_HEIGHT);
+    	gridImage.setSize(this.WORLD_WIDTH, this.WORLD_HEIGHT);
     	this.libGDXGame.stage.addActor(gridImage);
+    	
+    	this.starImages.clear();
+
+    	for (Entry<MapPoint, Star> star : this.game.universe.getStars().entrySet()) {
+    		Image starImage = new Image(this.libGDXGame.starTextures.get(star.getValue().type));
+    		starImage.setOrigin(Align.center);
+    		starImage.setPosition(star.getKey().x, star.getKey().y);
+    		
+    		this.starImages.add(starImage);
+    		this.libGDXGame.stage.addActor(starImage);
+    	}
     }
     
 	@Override
@@ -63,7 +93,7 @@ public class GameScreen extends BZScreenAdapter {
         if (this.timeSinceLastUpdate > this.timeBetweenUpdates) {
         	this.timeSinceLastUpdate = 0;
         	
-        	//update game here
+        	this.game.update();
         }
 	}
 
