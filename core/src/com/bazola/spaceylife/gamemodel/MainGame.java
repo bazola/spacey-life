@@ -19,7 +19,8 @@ public class MainGame {
 	
 	private List<Alien> playerAliens = new ArrayList<Alien>();
 	
-	private MapPoint playerMarkedPoint;
+	private List<PlayerFlag> playerFlags = new ArrayList<PlayerFlag>();
+	private int flagLimit = 3;
 	
 	public MainGame(int width, int height, GameScreen gameScreen) {
 		this.gameScreen = gameScreen;
@@ -66,13 +67,24 @@ public class MainGame {
 	}
 	
 	public void setPlayerMarkedPoint(MapPoint point) {
-		this.playerMarkedPoint = point;
+		if (this.playerFlags.size() < this.flagLimit) {
+			PlayerFlag flag = new PlayerFlag(point);
+			this.playerFlags.add(flag);
+			this.gameScreen.flagSpawned(flag);
+		} else {
+			//shuffle to last index
+			PlayerFlag flag = this.playerFlags.remove(0);
+			this.playerFlags.add(flag);
+			flag.setPosition(point);
+			this.gameScreen.spawnRadarRingsAtFlagPlace(flag);
+		}
 	}
 	
 	public void update() {
 		for (Alien alien : this.playerAliens) {
-			if (this.playerMarkedPoint != null) {
-				alien.setDestination(this.playerMarkedPoint);
+			if (this.playerFlags.size() > 0) {
+				//move to the last flag
+				alien.setDestination(this.playerFlags.get(this.playerFlags.size() - 1).getPosition());
 			}
 			alien.move();
 		}

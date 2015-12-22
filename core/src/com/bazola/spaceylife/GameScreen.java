@@ -6,13 +6,13 @@ import java.util.Random;
 import java.util.Map.Entry;
 
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.bazola.spaceylife.gamemodel.Alien;
 import com.bazola.spaceylife.gamemodel.MainGame;
 import com.bazola.spaceylife.gamemodel.MapPoint;
+import com.bazola.spaceylife.gamemodel.PlayerFlag;
 import com.bazola.spaceylife.gamemodel.Star;
 
 public class GameScreen extends BZScreenAdapter {
@@ -147,30 +147,41 @@ public class GameScreen extends BZScreenAdapter {
 		this.libGDXGame.stage.addActor(image);
 	}
 	
+	public void flagSpawned(PlayerFlag flag) {
+		AnimatedImage flagImage = new AnimatedImage(this.libGDXGame.flagWave01);
+		flagImage.setPosition(flag.getPosition().x, flag.getPosition().y);
+		flagImage.setSize(this.WORLD_WIDTH/50, this.WORLD_WIDTH/50);
+		this.libGDXGame.stage.addActor(flagImage);
+		
+		flag.setImage(flagImage);
+		
+		this.spawnRadarRingsAtFlagPlace(flag);
+	}
+	
+	public void spawnRadarRingsAtFlagPlace(PlayerFlag flag) {
+		
+		RadarRing radarRing = new RadarRing(this.libGDXGame.radarRing01, 
+											this.WORLD_WIDTH / 200, 
+											flag.getPosition().x, 
+											flag.getPosition().y);
+		
+		//instead of creating a delay action and making a second ring,
+		//create a smaller one with an offset at the same time
+		float offset = 5;
+		RadarRing radarRing2 = new RadarRing(this.libGDXGame.radarRing01, 
+				 							 this.WORLD_WIDTH / 160,
+				 							 flag.getPosition().x - offset, 
+				 							 flag.getPosition().y - offset);
+		
+		this.libGDXGame.stage.addActor(radarRing);
+		this.libGDXGame.stage.addActor(radarRing2);
+	}
+	
 	private void tappedScreen(float x, float y) {
 		//convert screen to stage coordinates
 		Vector3 touchPoint = new Vector3();
 		this.libGDXGame.camera.unproject(touchPoint.set(x, y, 0));
 		this.game.setPlayerMarkedPoint(new MapPoint((int)touchPoint.x, (int)touchPoint.y));
-		
-		AnimatedImage flagImage = new AnimatedImage(this.libGDXGame.flagWave01);
-		flagImage.setPosition(touchPoint.x, touchPoint.y);
-		flagImage.setSize(this.WORLD_WIDTH/50, this.WORLD_WIDTH/50);
-		this.libGDXGame.stage.addActor(flagImage);
-		
-		RadarRing radarRing = new RadarRing(this.libGDXGame.radarRing01, 
-										    this.WORLD_WIDTH / 200, 
-										    touchPoint.x, 
-										    touchPoint.y);
-		//instead of creating a delay action and making a second ring,
-		//create a smaller one with an offset at the same time
-		float offset = 5;
-		RadarRing radarRing2 = new RadarRing(this.libGDXGame.radarRing01, 
-											 this.WORLD_WIDTH / 160,
-											 touchPoint.x - offset, 
-											 touchPoint.y - offset);
-		this.libGDXGame.stage.addActor(radarRing);
-		this.libGDXGame.stage.addActor(radarRing2);
 	}
 
 	@Override
