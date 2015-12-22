@@ -7,7 +7,6 @@ import java.util.Map.Entry;
 
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.bazola.spaceylife.gamemodel.Alien;
 import com.bazola.spaceylife.gamemodel.MainGame;
@@ -29,7 +28,7 @@ public class GameScreen extends BZScreenAdapter {
     
     private SimpleDirectionGestureDetector swipeRecognizer;
     
-    private final List<Image> starImages = new ArrayList<Image>();
+    private final List<StarImage> starImages = new ArrayList<StarImage>();
     private final List<AlienImage> alienImages = new ArrayList<AlienImage>();
     
     private int WORLD_WIDTH = 4500;
@@ -77,12 +76,13 @@ public class GameScreen extends BZScreenAdapter {
     	this.starImages.clear();
 
     	for (Entry<MapPoint, Star> star : this.game.universe.getStars().entrySet()) {
-    		Image starImage = new Image(this.libGDXGame.starTextures.get(star.getValue().type));
-    		starImage.setOrigin(Align.center);
-    		starImage.setPosition(star.getKey().x, star.getKey().y);
-    		
+    		StarImage starImage = new StarImage(star.getValue(),
+    											star.getKey(), 
+    											this.libGDXGame.starTextures.get(star.getValue().type),
+    											this.libGDXGame.aiPlanetCover01,
+    											this.libGDXGame.playerPlanetCover01,
+    											this.libGDXGame.stage);
     		this.starImages.add(starImage);
-    		this.libGDXGame.stage.addActor(starImage);
     	}
     }
     
@@ -117,6 +117,10 @@ public class GameScreen extends BZScreenAdapter {
         if (this.timeSinceLastRender > this.timeBewteenRenders) {
         	
         	for (AlienImage image : this.alienImages) {
+        		image.update();
+        	}
+        	
+        	for (StarImage image : this.starImages) {
         		image.update();
         	}
         	

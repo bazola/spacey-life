@@ -10,16 +10,29 @@ public class Star {
 	
 	private final MapPoint position;
 	
-	//private final Random random;
+	private StarState state;
 	
 	public Star(Random random, MapPoint position) {
 		this.position = position;
-		
-		//this.random = random;
+
 		this.type = StarType.values()[random.nextInt(StarType.values().length)];
+	
+		this.state = StarState.NEUTRAL;
 	}
 
 	public MapPoint getPosition() {
 		return this.position;
+	}
+	
+	public StarState getState() {
+		return this.state;
+	}
+	
+	public void setPlayerControlled() {
+		this.state = StarState.PLAYER_CONTROLLED;
+	}
+	
+	public void setAIControlled() {
+		this.state = StarState.AI_CONTROLLED;
 	}
 }

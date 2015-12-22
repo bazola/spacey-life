@@ -43,6 +43,7 @@ public class MainGame {
 			this.playerHomeworld = this.findStarInRange(searchSize * count, playerSearchLocation);
 			count++;
 		}
+		this.playerHomeworld.setPlayerControlled();
 		
 		//ai in top opposite corner
 		MapPoint aiSearchLocation = new MapPoint(this.worldWidth - searchSize, this.worldHeight - searchSize);
@@ -52,6 +53,7 @@ public class MainGame {
 			this.aiHomeworld = this.findStarInRange(searchSize * count, aiSearchLocation);
 			count++;
 		}
+		this.aiHomeworld.setAIControlled();
 	}
 	
 	private Star findStarInRange(int searchSize, MapPoint playerSearchLocation) {
@@ -67,6 +69,7 @@ public class MainGame {
 	}
 	
 	public void setPlayerMarkedPoint(MapPoint point) {
+		//create new flags up to the limit
 		if (this.playerFlags.size() < this.flagLimit) {
 			PlayerFlag flag = new PlayerFlag(point);
 			this.playerFlags.add(flag);

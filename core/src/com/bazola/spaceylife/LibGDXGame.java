@@ -51,10 +51,10 @@ public class LibGDXGame extends Game {
 	public Map<PlanetType, TextureRegion> planetTextures;
 	
 	public Texture gridBackground;
-	
 	public Texture radarRing01;
-	
 	public Texture alien01;
+	public Texture aiPlanetCover01;
+	public Texture playerPlanetCover01;
 	
 	public Animation alienMove01;
 	public Animation flagWave01;
@@ -112,6 +112,9 @@ public class LibGDXGame extends Game {
 		
 		this.alien01 = new Texture("baseSlimeEyes.png");
 		
+		this.aiPlanetCover01 = new Texture("aiStation02.png");
+		this.playerPlanetCover01 = new Texture("alienCovering01.png");
+		
 		Texture alienMove01 = new Texture("slime_moving_01.png");
 		Texture alienMove02 = new Texture("slime_moving_02.png");
 		Texture alienMove03 = new Texture("slime_moving_03.png");
@@ -155,7 +158,7 @@ public class LibGDXGame extends Game {
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 	
 		super.render();
@@ -227,6 +230,14 @@ public class LibGDXGame extends Game {
 	@Override
 	public void dispose() {
 		this.gridBackground.dispose();
+		this.radarRing01.dispose();
+		this.alien01.dispose();
+		this.aiPlanetCover01.dispose();
+		this.playerPlanetCover01.dispose();
+		
+		//public Animation alienMove01;
+		//public Animation flagWave01;
+		
 		this.starAtlasForDispose.dispose();
 		this.shipAtlasForDispose.dispose();
 		this.planetAtlasForDispose.dispose();

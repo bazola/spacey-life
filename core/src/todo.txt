@@ -1,0 +1,6 @@
+todo
+
+idea:
+scroll pane of flags along the bottom
+tap a flag to enable it, so you can choose how many flags
+double tap to zoom to the flag
