@@ -2,6 +2,7 @@ package com.bazola.spaceylife;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.bazola.spaceylife.gamemodel.Alien;
@@ -12,9 +13,14 @@ public class AlienImage extends Image {
 	
 	private Animation animation;
 	private float stateTime = 0;
+	
+	public Rectangle rectangle;
 
 	public AlienImage(Texture texture, Alien alien) {
 		super(texture);
+		
+		this.rectangle = new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+		
 		this.alien = alien;
 		this.update();
 	}
@@ -22,10 +28,15 @@ public class AlienImage extends Image {
 	public void update() {
 		this.setPosition(alien.getPosition().x, alien.getPosition().y);
 		this.setRotation((float)alien.getAngle());
+		this.rectangle.setPosition(alien.getPosition().x, alien.getPosition().y);
 	}
 	
 	public void setAnimation(Animation animation) {
 		this.animation = animation;
+	}
+	
+	public Alien getAlien() {
+		return this.alien;
 	}
 	
     @Override

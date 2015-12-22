@@ -118,6 +118,8 @@ public class GameScreen extends BZScreenAdapter {
         	
         	for (AlienImage image : this.alienImages) {
         		image.update();
+        		
+        		this.findCollision(image);
         	}
         	
         	for (StarImage image : this.starImages) {
@@ -132,17 +134,43 @@ public class GameScreen extends BZScreenAdapter {
         	
         	this.game.update();
         	
-        	if (!alienSpawned) {
+        	if (this.alienImages.size() < this.maxAliens) {
         		this.game.spawnAlien();
-        		alienSpawned = true;
         	}
         }
 	}
 	
-	/**
-	 * Just spawn one alien at the moment for testing
-	 */
-	private boolean alienSpawned = false;
+	private void findCollision(AlienImage image) {
+		for (AlienImage alienImage : this.alienImages) {
+			
+			if (image.equals(alienImage)) {
+				continue;
+			}
+			
+			if (image.rectangle.overlaps(alienImage.rectangle)) {
+				
+				//System.out.println("overlap found");
+				//System.out.println("rec1 = " + image.rectangle.toString());
+				//System.out.println("rec2 = " + alienImage.rectangle.toString());
+			
+				int maxDistance = 30;
+				int randomX = this.random.nextInt(maxDistance);
+				int randomY = this.random.nextInt(maxDistance);
+				//50% chance to move negative instead of positive
+				if (this.random.nextBoolean()) {
+					randomX *= -1;
+				}
+				if (this.random.nextBoolean()) {
+					randomY *= -1;
+				}
+				
+				image.getAlien().setDestination(new MapPoint(image.getAlien().getPosition().x + randomX,
+															 image.getAlien().getPosition().y + randomY));
+			}
+		}
+	}
+
+	private int maxAliens = 50;
 	
 	public void alienSpawned(Alien alien) {
 		AlienImage image = new AlienImage(this.libGDXGame.alien01, alien);

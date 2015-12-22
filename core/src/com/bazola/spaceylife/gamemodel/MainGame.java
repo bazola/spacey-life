@@ -22,6 +22,9 @@ public class MainGame {
 	private List<PlayerFlag> playerFlags = new ArrayList<PlayerFlag>();
 	private int flagLimit = 3;
 	
+	//bigger clusters require a bigger number
+	private int minDistanceFromFlag = 100;
+	
 	public MainGame(int width, int height, GameScreen gameScreen) {
 		this.gameScreen = gameScreen;
 		this.worldWidth = width;
@@ -86,8 +89,11 @@ public class MainGame {
 	public void update() {
 		for (Alien alien : this.playerAliens) {
 			if (this.playerFlags.size() > 0) {
+				PlayerFlag targetFlag = this.playerFlags.get(this.playerFlags.size() - 1);
 				//move to the last flag
-				alien.setDestination(this.playerFlags.get(this.playerFlags.size() - 1).getPosition());
+				if (this.calculateDistance(targetFlag.getPosition(), alien.getPosition()) > this.minDistanceFromFlag) {
+					alien.setDestination(targetFlag.getPosition());
+				}
 			}
 			alien.move();
 		}
@@ -111,6 +117,10 @@ public class MainGame {
 		this.gameScreen.alienSpawned(alien);
 	}
 	
+	private double calculateDistance(MapPoint destination, MapPoint origin) {
+		return Math.hypot(destination.x - origin.x, destination.y - origin.y);
+	}
+	
 	/*
 	private Star findClosestStar(Collection<Star> stars, Star originStar) {
 		double smallestDistance = 1000000; //make sure that any distance will be less
@@ -125,10 +135,6 @@ public class MainGame {
 			}
 		}
 		return closestStar;
-	}
-	
-	private double calculateDistance(MapPoint destination, MapPoint origin) {
-		return Math.hypot(destination.x - origin.x, destination.y - origin.y);
 	}
 	*/
 }

@@ -4,3 +4,7 @@ idea:
 scroll pane of flags along the bottom
 tap a flag to enable it, so you can choose how many flags
 double tap to zoom to the flag
+
+ai:
+they need to constantly check the active flags so that they do not need
+to complete the movement to a flag that is not there anymore
