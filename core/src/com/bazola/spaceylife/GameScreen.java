@@ -151,6 +151,11 @@ public class GameScreen extends BZScreenAdapter {
 		Vector3 touchPoint = new Vector3();
 		this.libGDXGame.camera.unproject(touchPoint.set(x, y, 0));
 		this.game.setPlayerMarkedPoint(new MapPoint((int)touchPoint.x, (int)touchPoint.y));
+		
+		AnimatedImage flagImage = new AnimatedImage(this.libGDXGame.flagWave01);
+		flagImage.setPosition(touchPoint.x, touchPoint.y);
+		flagImage.setSize(this.WORLD_WIDTH/50, this.WORLD_WIDTH/50);
+		this.libGDXGame.stage.addActor(flagImage);
 	}
 
 	@Override

@@ -55,6 +55,7 @@ public class LibGDXGame extends Game {
 	public Texture alien01;
 	
 	public Animation alienMove01;
+	public Animation flagWave01;
 	
 	public Skin skin;
 	
@@ -116,6 +117,17 @@ public class LibGDXGame extends Game {
 		regions[2] = new TextureRegion(alienMove03);
 		regions[3] = new TextureRegion(alienMove02);
 		this.alienMove01 = new Animation(1/6f, regions);
+		
+		Texture flagWave01 = new Texture("redFlag01.png");
+		Texture flagWave02 = new Texture("redFlag02.png");
+		Texture flagWave03 = new Texture("redFlag03.png");
+		Texture flagWave04 = new Texture("redFlag04.png");
+		TextureRegion[] flagRegions = new TextureRegion[4];
+		flagRegions[0] = new TextureRegion(flagWave01);
+		flagRegions[1] = new TextureRegion(flagWave02);
+		flagRegions[2] = new TextureRegion(flagWave03);
+		flagRegions[3] = new TextureRegion(flagWave04);
+		this.flagWave01 = new Animation(1/6f, flagRegions);
 		
 		this.starTextures = this.loadStarTextures();
 		this.shipTextures = this.loadShipTextures();
