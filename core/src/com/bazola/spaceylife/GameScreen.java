@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.Map.Entry;
 
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -156,6 +157,20 @@ public class GameScreen extends BZScreenAdapter {
 		flagImage.setPosition(touchPoint.x, touchPoint.y);
 		flagImage.setSize(this.WORLD_WIDTH/50, this.WORLD_WIDTH/50);
 		this.libGDXGame.stage.addActor(flagImage);
+		
+		RadarRing radarRing = new RadarRing(this.libGDXGame.radarRing01, 
+										    this.WORLD_WIDTH / 200, 
+										    touchPoint.x, 
+										    touchPoint.y);
+		//instead of creating a delay action and making a second ring,
+		//create a smaller one with an offset at the same time
+		float offset = 5;
+		RadarRing radarRing2 = new RadarRing(this.libGDXGame.radarRing01, 
+											 this.WORLD_WIDTH / 160,
+											 touchPoint.x - offset, 
+											 touchPoint.y - offset);
+		this.libGDXGame.stage.addActor(radarRing);
+		this.libGDXGame.stage.addActor(radarRing2);
 	}
 
 	@Override

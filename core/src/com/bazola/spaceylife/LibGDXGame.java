@@ -52,6 +52,8 @@ public class LibGDXGame extends Game {
 	
 	public Texture gridBackground;
 	
+	public Texture radarRing01;
+	
 	public Texture alien01;
 	
 	public Animation alienMove01;
@@ -105,6 +107,8 @@ public class LibGDXGame extends Game {
 	
 	private void loadResources() {
 		this.gridBackground = new Texture("Grid3.png");
+		
+		this.radarRing01 = new Texture("radarCircle02_white.png");
 		
 		this.alien01 = new Texture("baseSlimeEyes.png");
 		
