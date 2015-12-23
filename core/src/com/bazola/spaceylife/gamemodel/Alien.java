@@ -27,8 +27,12 @@ public class Alien {
 	
 	private int overlapMoveDistance = 30;
 	
-	//bigger clusters require a bigger number
+	/**
+	 * These variables are used to allow aliens to move to avoid overlapping each
+	 * other without getting another assignment to move to their destination.
+	 */
 	private int minDistanceFromFlag = 100;
+	private int minDistanceFromPlanet = 25;
 	
 	private int sensorDistance = 100;
 	
@@ -104,8 +108,10 @@ public class Alien {
 			for (MapPointDistanceTuple tuple : closebyPointsForSort) {
 				Star star = stars.get(tuple.point);
 				if (star.getState() != StarState.PLAYER_CONTROLLED) {
-					this.setPlanetDestination(star.getPosition());
-					return;
+					if (this.calculateDistance(star.getPosition(), this.position) > this.minDistanceFromPlanet) {
+						this.setPlanetDestination(star.getPosition());
+						return;
+					}
 				}
 			}
 		}
@@ -136,7 +142,6 @@ public class Alien {
 			}
 		}
 	}
-	
 	
 	private double calculateDistance(MapPoint destination, MapPoint origin) {
 		return Math.hypot(destination.x - origin.x, destination.y - origin.y);
@@ -187,7 +192,7 @@ public class Alien {
 		double goalDistance = Math.sqrt((deltaX * deltaX) + (deltaY * deltaY));
 		if (goalDistance > this.speed) {
 			
-			System.out.println("goal distance greater");
+			//System.out.println("goal distance greater");
 			
 			double ratio = this.speed / goalDistance;
 			double xMove = ratio * deltaX;
@@ -198,7 +203,7 @@ public class Alien {
 			this.angle = this.getAngle(previousPosition, this.position);
 		} else {
 			
-			System.out.println("goal distance not greater");
+			//System.out.println("goal distance not greater");
 			
 			this.position = this.pointPair.secondPoint;
 			this.state = MoveState.RESTING;

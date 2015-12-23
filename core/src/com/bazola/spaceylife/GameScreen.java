@@ -138,7 +138,7 @@ public class GameScreen extends BZScreenAdapter {
         }
 	}
 	
-	private int maxAliens = 50;
+	private int maxAliens = 20;
 	
 	public void alienSpawned(Alien alien) {
 		AlienImage image = new AlienImage(this.libGDXGame.alien01, alien);
