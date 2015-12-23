@@ -92,7 +92,7 @@ public class MainGame {
 				PlayerFlag targetFlag = this.playerFlags.get(this.playerFlags.size() - 1);
 				//move to the last flag
 				if (this.calculateDistance(targetFlag.getPosition(), alien.getPosition()) > this.minDistanceFromFlag) {
-					alien.setDestination(targetFlag.getPosition());
+					alien.setFlagDestination(targetFlag.getPosition());
 				}
 			}
 			alien.move();

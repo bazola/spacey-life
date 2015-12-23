@@ -164,8 +164,8 @@ public class GameScreen extends BZScreenAdapter {
 					randomY *= -1;
 				}
 				
-				image.getAlien().setDestination(new MapPoint(image.getAlien().getPosition().x + randomX,
-															 image.getAlien().getPosition().y + randomY));
+				image.getAlien().setOverlapDestination(new MapPoint(image.getAlien().getPosition().x + randomX,
+															 		image.getAlien().getPosition().y + randomY));
 			}
 		}
 	}

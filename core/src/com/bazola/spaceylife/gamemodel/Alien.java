@@ -30,12 +30,17 @@ public class Alien {
 		return this.angle;
 	}
 	
-	public void setDestination(MapPoint destination) {
+	public void setFlagDestination(MapPoint destination) {
+		this.pointPair = new MapPointPair(this.position, destination);
+		this.state = MoveState.MOVING_TO_FLAG;
+	}
+	
+	public void setOverlapDestination(MapPoint destination) {
 		if (this.state != MoveState.RESTING) {
 			return;
 		}
 		this.pointPair = new MapPointPair(this.position, destination);
-		this.state = MoveState.MOVING;
+		this.state = MoveState.MOVING_FOR_OVERLAP;
 	}
 	
 	public void move() {
