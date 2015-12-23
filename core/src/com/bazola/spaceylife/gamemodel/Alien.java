@@ -1,5 +1,8 @@
 package com.bazola.spaceylife.gamemodel;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -27,6 +30,14 @@ public class Alien {
 	//bigger clusters require a bigger number
 	private int minDistanceFromFlag = 100;
 	
+	private int sensorDistance = 100;
+	
+	private Comparator<MapPointDistanceTuple> distanceComparator = new Comparator<MapPointDistanceTuple>() {
+	    public int compare(MapPointDistanceTuple a, MapPointDistanceTuple b) {
+	        return Double.compare(a.distance, b.distance); //changed back to ascending
+	    }
+	};
+	
 	public Alien(MapPoint position, Random random) {
 		this.position = position;
 		this.random = random;
@@ -53,12 +64,23 @@ public class Alien {
 	public double getAngle() {
 		return this.angle;
 	}
-	
+
 	public void update(List<PlayerFlag> playerFlags, Map<MapPoint, Star>stars, List<Alien> playerAliens) {
 		
 		//update rectangle position
 		this.rectangle.setPosition(this.position.x, this.position.y);
 		
+		this.moveToPlayerFlag(playerFlags);
+		
+		this.moveToEmptyPlanet(stars);
+		
+		this.moveForOverlap(playerAliens);
+		
+		//this should always be the last part of the update phase
+		this.move();
+	}
+	
+	private void moveToPlayerFlag(List<PlayerFlag> playerFlags) {
 		//move to player flag first
 		if (playerFlags.size() > 0) {
 			PlayerFlag targetFlag = playerFlags.get(playerFlags.size() - 1);
@@ -67,9 +89,32 @@ public class Alien {
 				this.setFlagDestination(targetFlag.getPosition());
 			}
 		}
-		
+	}
+	
+	private void moveToEmptyPlanet(Map<MapPoint, Star> stars) {
+		List<MapPointDistanceTuple> closebyPointsForSort = new ArrayList<MapPointDistanceTuple>();
+		for (MapPoint point : stars.keySet()) {
+			double distance = this.calculateDistance(point, this.position);
+			if (distance <= this.sensorDistance) {
+				closebyPointsForSort.add(new MapPointDistanceTuple(point, distance));
+			}
+		}
+		Collections.sort(closebyPointsForSort, this.distanceComparator);
+		if (closebyPointsForSort.size() > 0) {
+			for (MapPointDistanceTuple tuple : closebyPointsForSort) {
+				Star star = stars.get(tuple.point);
+				if (star.getState() != StarState.PLAYER_CONTROLLED) {
+					this.setPlanetDestination(star.getPosition());
+					return;
+				}
+			}
+		}
+	}
+	
+	private void moveForOverlap(List<Alien> playerAliens) {
 		//move away if overlapping other alien
 		for (Alien alien : playerAliens) {
+			
 			if (this.equals(alien)) {
 				continue;
 			}
@@ -90,10 +135,8 @@ public class Alien {
 														this.position.y + randomY));
 			}
 		}
-		
-		//this should always be the last part of the update phase
-		this.move();
 	}
+	
 	
 	private double calculateDistance(MapPoint destination, MapPoint origin) {
 		return Math.hypot(destination.x - origin.x, destination.y - origin.y);
@@ -102,6 +145,14 @@ public class Alien {
 	public void setFlagDestination(MapPoint destination) {
 		this.pointPair = new MapPointPair(this.position, destination);
 		this.state = MoveState.MOVING_TO_FLAG;
+	}
+	
+	public void setPlanetDestination(MapPoint destination) {
+		if (this.state == MoveState.MOVING_TO_FLAG) {
+			return;
+		}
+		this.pointPair = new MapPointPair(this.position, destination);
+		this.state = MoveState.MOVING_TO_PLANET;
 	}
 	
 	public void setOverlapDestination(MapPoint destination) {
@@ -136,7 +187,7 @@ public class Alien {
 		double goalDistance = Math.sqrt((deltaX * deltaX) + (deltaY * deltaY));
 		if (goalDistance > this.speed) {
 			
-			//System.out.println("goal distance greater");
+			System.out.println("goal distance greater");
 			
 			double ratio = this.speed / goalDistance;
 			double xMove = ratio * deltaX;
@@ -147,7 +198,7 @@ public class Alien {
 			this.angle = this.getAngle(previousPosition, this.position);
 		} else {
 			
-			//System.out.println("goal distance not greater");
+			System.out.println("goal distance not greater");
 			
 			this.position = this.pointPair.secondPoint;
 			this.state = MoveState.RESTING;
