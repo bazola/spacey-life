@@ -6,12 +6,17 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.bazola.spaceylife.gamemodel.Alien;
+import com.bazola.spaceylife.gamemodel.AlienState;
 
 public class AlienImage extends Image {
 	
 	private final Alien alien;
 	
-	private Animation animation;
+	private Animation moveAnimation;
+	private Animation eatAnimation;
+	
+	private Animation activeAnimation;
+	
 	private float stateTime = 0;
 	
 	public AlienImage(Texture texture, Alien alien) {
@@ -26,10 +31,20 @@ public class AlienImage extends Image {
 	public void update() {
 		this.setPosition(alien.getPosition().x, alien.getPosition().y);
 		this.setRotation((float)alien.getAngle());
+		
+		if (this.alien.state == AlienState.EATING_PLANET) {
+			this.activeAnimation = this.eatAnimation;
+		} else {
+			this.activeAnimation = this.moveAnimation;
+		}
 	}
 	
-	public void setAnimation(Animation animation) {
-		this.animation = animation;
+	public void setMoveAnimation(Animation animation) {
+		this.moveAnimation = animation;
+	}
+	
+	public void setEatAnimation(Animation animation) {
+		this.eatAnimation = animation;
 	}
 	
 	public Alien getAlien() {
@@ -39,9 +54,9 @@ public class AlienImage extends Image {
     @Override
     public void act(float delta) {
     	super.act(delta);
-    	if (this.animation == null) {
+    	if (this.activeAnimation == null) {
     		return;
     	}
-        ((TextureRegionDrawable)getDrawable()).setRegion(animation.getKeyFrame(stateTime+=delta, true));
+        ((TextureRegionDrawable)getDrawable()).setRegion(activeAnimation.getKeyFrame(stateTime+=delta, true));
     }
 }

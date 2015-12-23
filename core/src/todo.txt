@@ -8,3 +8,13 @@ double tap to zoom to the flag
 ai:
 they need to constantly check the active flags so that they do not need
 to complete the movement to a flag that is not there anymore
+
+universe:
+create concrete areas of the universe that have a "region" name as well as characteristics
+nebula
+galaxy center
+star cluster
+star arm
+place with fog of war
+These areas would be randomly generated during universe creation, and then there would
+be an exploration/discovery element to the game.

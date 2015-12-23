@@ -57,6 +57,8 @@ public class LibGDXGame extends Game {
 	public Texture playerPlanetCover01;
 	
 	public Animation alienMove01;
+	public Animation alienEat01;
+	
 	public Animation flagWave01;
 	
 	public Skin skin;
@@ -124,6 +126,30 @@ public class LibGDXGame extends Game {
 		regions[2] = new TextureRegion(alienMove03);
 		regions[3] = new TextureRegion(alienMove02);
 		this.alienMove01 = new Animation(1/6f, regions);
+		
+		Texture alienEat01 = new Texture("slime_eat_01.png");
+		Texture alienEat02 = new Texture("slime_eat_02.png");
+		Texture alienEat03 = new Texture("slime_eat_03.png");
+		Texture alienEat04 = new Texture("slime_eat_04.png");
+		Texture alienEat05 = new Texture("slime_eat_05.png");
+		Texture alienEat06 = new Texture("slime_eat_06.png");
+		Texture alienEat07 = new Texture("slime_eat_07.png");
+		Texture alienEat08 = new Texture("slime_eat_08.png");
+		TextureRegion[] eatRegions = new TextureRegion[13];
+		eatRegions[0] = new TextureRegion(alienEat01);
+		eatRegions[1] = new TextureRegion(alienEat02);
+		eatRegions[2] = new TextureRegion(alienEat03);
+		eatRegions[3] = new TextureRegion(alienEat04);
+		eatRegions[4] = new TextureRegion(alienEat05);
+		eatRegions[5] = new TextureRegion(alienEat06);
+		eatRegions[6] = new TextureRegion(alienEat07);
+		eatRegions[7] = new TextureRegion(alienEat08);
+		eatRegions[8] = new TextureRegion(alienEat07);
+		eatRegions[9] = new TextureRegion(alienEat06);
+		eatRegions[10] = new TextureRegion(alienEat05);
+		eatRegions[11] = new TextureRegion(alienEat04);
+		eatRegions[12] = new TextureRegion(alienEat03);
+		this.alienEat01 = new Animation(1/6f, eatRegions);
 		
 		Texture flagWave01 = new Texture("redFlag01.png");
 		Texture flagWave02 = new Texture("redFlag02.png");

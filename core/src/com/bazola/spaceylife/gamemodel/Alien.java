@@ -21,7 +21,7 @@ public class Alien {
 	
 	private int speed;
 	
-	public MoveState state;
+	public AlienState state;
 	
 	private Rectangle rectangle;
 	
@@ -35,6 +35,9 @@ public class Alien {
 	private int minDistanceFromPlanet = 25;
 	
 	private int sensorDistance = 100;
+	
+	private int numTicksToEat = 50;
+	private int eatCount = 0;
 	
 	private Comparator<MapPointDistanceTuple> distanceComparator = new Comparator<MapPointDistanceTuple>() {
 	    public int compare(MapPointDistanceTuple a, MapPointDistanceTuple b) {
@@ -50,7 +53,7 @@ public class Alien {
 		
 		this.speed = 10;
 		
-		this.state = MoveState.RESTING;
+		this.state = AlienState.RESTING;
 	}
 	
 	public void setRectangle(Rectangle rectangle) {
@@ -71,17 +74,23 @@ public class Alien {
 
 	public void update(List<PlayerFlag> playerFlags, Map<MapPoint, Star>stars, List<Alien> playerAliens) {
 		
-		//update rectangle position
-		this.rectangle.setPosition(this.position.x, this.position.y);
-		
-		this.moveToPlayerFlag(playerFlags);
-		
-		this.moveToEmptyPlanet(stars);
-		
-		this.moveForOverlap(playerAliens);
-		
-		//this should always be the last part of the update phase
-		this.move();
+		if (this.state == AlienState.EATING_PLANET) {
+			this.eatCount++;
+			if (this.eatCount > this.numTicksToEat) {
+				this.eatCount = 0;
+				this.state = AlienState.RESTING;
+			}
+			System.out.println(eatCount);
+		} else {
+			this.moveToPlayerFlag(playerFlags);
+			
+			this.moveToEmptyPlanet(stars);
+			
+			this.moveForOverlap(playerAliens);
+			
+			this.move();
+			this.rectangle.setPosition(this.position.x, this.position.y);
+		}
 	}
 	
 	private void moveToPlayerFlag(List<PlayerFlag> playerFlags) {
@@ -149,40 +158,38 @@ public class Alien {
 	
 	public void setFlagDestination(MapPoint destination) {
 		this.pointPair = new MapPointPair(this.position, destination);
-		this.state = MoveState.MOVING_TO_FLAG;
+		this.state = AlienState.MOVING_TO_FLAG;
 	}
 	
 	public void setPlanetDestination(MapPoint destination) {
-		if (this.state == MoveState.MOVING_TO_FLAG) {
+		if (this.state == AlienState.MOVING_TO_FLAG) {
 			return;
 		}
 		this.pointPair = new MapPointPair(this.position, destination);
-		this.state = MoveState.MOVING_TO_PLANET;
+		this.state = AlienState.MOVING_TO_PLANET;
 	}
 	
 	public void setOverlapDestination(MapPoint destination) {
-		if (this.state != MoveState.RESTING) {
+		if (this.state != AlienState.RESTING) {
 			return;
 		}
 		this.pointPair = new MapPointPair(this.position, destination);
-		this.state = MoveState.MOVING_FOR_OVERLAP;
+		this.state = AlienState.MOVING_FOR_OVERLAP;
+	}
+	
+	private void enterRestingState() {
+		if (this.state != AlienState.MOVING_TO_PLANET) {
+			this.state = AlienState.RESTING;
+		} else {
+			this.state = AlienState.EATING_PLANET;
+		}
 	}
 	
 	public void move() {
 		
-		if (this.pointPair == null) {
-			this.state = MoveState.RESTING;
-		
-			//System.out.println("point pair null");
-			
-			return;
-		}
-		
-		if (this.position.equals(this.pointPair.secondPoint)) {
-			this.state = MoveState.RESTING;
-			
-			//System.out.println("point equals second point");
-			
+		if (this.pointPair == null ||
+			this.position.equals(this.pointPair.secondPoint)) {
+			this.enterRestingState();
 			return;
 		}
 		
@@ -202,11 +209,8 @@ public class Alien {
 			this.position = new MapPoint((int)(xMove + this.position.x), (int)(yMove + this.position.y));
 			this.angle = this.getAngle(previousPosition, this.position);
 		} else {
-			
-			//System.out.println("goal distance not greater");
-			
 			this.position = this.pointPair.secondPoint;
-			this.state = MoveState.RESTING;
+			this.enterRestingState();
 		}
 	}
 	

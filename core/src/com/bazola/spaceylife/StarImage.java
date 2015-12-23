@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.Align;
 import com.bazola.spaceylife.gamemodel.MapPoint;
 import com.bazola.spaceylife.gamemodel.Star;
 
@@ -20,6 +21,8 @@ public class StarImage extends Image {
 		this.star = star;
 		
 		stage.addActor(this);
+		
+		this.setAlign(Align.center);
 		
 		this.setPosition(position.x, position.y);
 		
