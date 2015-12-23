@@ -91,23 +91,7 @@ public class MainGame {
 	
 	public void update() {
 		for (Alien alien : this.playerAliens) {
-			
-			//Right now, this method tells the aliens what to do
-			/*
-			if (this.playerFlags.size() > 0) {
-				PlayerFlag targetFlag = this.playerFlags.get(this.playerFlags.size() - 1);
-				//move to the last flag
-				if (this.calculateDistance(targetFlag.getPosition(), alien.getPosition()) > this.minDistanceFromFlag) {
-					alien.setFlagDestination(targetFlag.getPosition());
-				}
-			}
-			*/
-			
 			alien.update(this.playerFlags, this.universe.getStars(), this.playerAliens);
-			
-			//need to change things so that the aliens decide for themselves
-			
-			//alien.move();
 		}
 	}
 	

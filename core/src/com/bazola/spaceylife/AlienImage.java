@@ -14,12 +14,8 @@ public class AlienImage extends Image {
 	private Animation animation;
 	private float stateTime = 0;
 	
-	//public Rectangle rectangle;
-
 	public AlienImage(Texture texture, Alien alien) {
 		super(texture);
-		
-		//this.rectangle = new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight());
 		
 		this.alien = alien;
 		this.alien.setRectangle(new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight()));
