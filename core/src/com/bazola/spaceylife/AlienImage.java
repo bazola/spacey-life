@@ -14,21 +14,22 @@ public class AlienImage extends Image {
 	private Animation animation;
 	private float stateTime = 0;
 	
-	public Rectangle rectangle;
+	//public Rectangle rectangle;
 
 	public AlienImage(Texture texture, Alien alien) {
 		super(texture);
 		
-		this.rectangle = new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+		//this.rectangle = new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight());
 		
 		this.alien = alien;
+		this.alien.setRectangle(new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight()));
+		
 		this.update();
 	}
 	
 	public void update() {
 		this.setPosition(alien.getPosition().x, alien.getPosition().y);
 		this.setRotation((float)alien.getAngle());
-		this.rectangle.setPosition(alien.getPosition().x, alien.getPosition().y);
 	}
 	
 	public void setAnimation(Animation animation) {

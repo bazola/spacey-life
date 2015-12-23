@@ -1,7 +1,15 @@
 package com.bazola.spaceylife.gamemodel;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
+import com.badlogic.gdx.math.Rectangle;
+
 public class Alien {
 
+	private final Random random;
+	
 	private MapPoint position;
 	
 	private MapPointPair pointPair;
@@ -12,8 +20,16 @@ public class Alien {
 	
 	public MoveState state;
 	
-	public Alien(MapPoint position) {
+	private Rectangle rectangle;
+	
+	private int overlapMoveDistance = 30;
+	
+	//bigger clusters require a bigger number
+	private int minDistanceFromFlag = 100;
+	
+	public Alien(MapPoint position, Random random) {
 		this.position = position;
+		this.random = random;
 		
 		this.angle = 0;
 		
@@ -22,12 +38,65 @@ public class Alien {
 		this.state = MoveState.RESTING;
 	}
 	
+	public void setRectangle(Rectangle rectangle) {
+		this.rectangle = rectangle;
+	}
+	
+	public Rectangle getRectangle() {
+		return this.rectangle;
+	}
+	
 	public MapPoint getPosition() {
 		return this.position;
 	}
 	
 	public double getAngle() {
 		return this.angle;
+	}
+	
+	public void update(List<PlayerFlag> playerFlags, Map<MapPoint, Star>stars, List<Alien> playerAliens) {
+		
+		//update rectangle position
+		this.rectangle.setPosition(this.position.x, this.position.y);
+		
+		//move to player flag first
+		if (playerFlags.size() > 0) {
+			PlayerFlag targetFlag = playerFlags.get(playerFlags.size() - 1);
+			//move to the last flag
+			if (this.calculateDistance(targetFlag.getPosition(), this.position) > this.minDistanceFromFlag) {
+				this.setFlagDestination(targetFlag.getPosition());
+			}
+		}
+		
+		//move away if overlapping other alien
+		for (Alien alien : playerAliens) {
+			if (this.equals(alien)) {
+				continue;
+			}
+			
+			if (this.rectangle.overlaps(alien.getRectangle())) {
+
+				int randomX = this.random.nextInt(this.overlapMoveDistance);
+				int randomY = this.random.nextInt(this.overlapMoveDistance);
+				//50% chance to move negative instead of positive
+				if (this.random.nextBoolean()) {
+					randomX *= -1;
+				}
+				if (this.random.nextBoolean()) {
+					randomY *= -1;
+				}
+				
+				this.setOverlapDestination(new MapPoint(this.position.x + randomX,
+														this.position.y + randomY));
+			}
+		}
+		
+		//this should always be the last part of the update phase
+		this.move();
+	}
+	
+	private double calculateDistance(MapPoint destination, MapPoint origin) {
+		return Math.hypot(destination.x - origin.x, destination.y - origin.y);
 	}
 	
 	public void setFlagDestination(MapPoint destination) {

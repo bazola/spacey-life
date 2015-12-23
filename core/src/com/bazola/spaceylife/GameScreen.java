@@ -118,8 +118,6 @@ public class GameScreen extends BZScreenAdapter {
         	
         	for (AlienImage image : this.alienImages) {
         		image.update();
-        		
-        		this.findCollision(image);
         	}
         	
         	for (StarImage image : this.starImages) {
@@ -140,6 +138,7 @@ public class GameScreen extends BZScreenAdapter {
         }
 	}
 	
+	/*
 	private void findCollision(AlienImage image) {
 		for (AlienImage alienImage : this.alienImages) {
 			
@@ -169,6 +168,7 @@ public class GameScreen extends BZScreenAdapter {
 			}
 		}
 	}
+	*/
 
 	private int maxAliens = 50;
 	

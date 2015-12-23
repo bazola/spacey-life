@@ -2,12 +2,15 @@ package com.bazola.spaceylife.gamemodel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import com.bazola.spaceylife.GameScreen;
 
 public class MainGame {
 	
 	private final GameScreen gameScreen;
+	
+	private final Random random;
 	
 	public final UniverseGenerator universe;
 	
@@ -22,15 +25,15 @@ public class MainGame {
 	private List<PlayerFlag> playerFlags = new ArrayList<PlayerFlag>();
 	private int flagLimit = 3;
 	
-	//bigger clusters require a bigger number
-	private int minDistanceFromFlag = 100;
-	
 	public MainGame(int width, int height, GameScreen gameScreen) {
 		this.gameScreen = gameScreen;
+		
+		this.random = this.gameScreen.random;
+		
 		this.worldWidth = width;
 		this.worldHeight = height;
 		
-		this.universe = new UniverseGenerator(width, height, this.gameScreen.random);
+		this.universe = new UniverseGenerator(width, height, this.random);
 	
 		this.setPlayerAndAIHomeworlds();
 	}
@@ -88,6 +91,9 @@ public class MainGame {
 	
 	public void update() {
 		for (Alien alien : this.playerAliens) {
+			
+			//Right now, this method tells the aliens what to do
+			/*
 			if (this.playerFlags.size() > 0) {
 				PlayerFlag targetFlag = this.playerFlags.get(this.playerFlags.size() - 1);
 				//move to the last flag
@@ -95,7 +101,13 @@ public class MainGame {
 					alien.setFlagDestination(targetFlag.getPosition());
 				}
 			}
-			alien.move();
+			*/
+			
+			alien.update(this.playerFlags, this.universe.getStars(), this.playerAliens);
+			
+			//need to change things so that the aliens decide for themselves
+			
+			//alien.move();
 		}
 	}
 	
@@ -112,15 +124,10 @@ public class MainGame {
 	}
 	
 	public void spawnAlien() {
-		Alien alien = new Alien(this.playerHomeworld.getPosition());
+		Alien alien = new Alien(this.playerHomeworld.getPosition(), this.random);
 		this.playerAliens.add(alien);
 		this.gameScreen.alienSpawned(alien);
-	}
-	
-	private double calculateDistance(MapPoint destination, MapPoint origin) {
-		return Math.hypot(destination.x - origin.x, destination.y - origin.y);
-	}
-	
+	}	
 	/*
 	private Star findClosestStar(Collection<Star> stars, Star originStar) {
 		double smallestDistance = 1000000; //make sure that any distance will be less
@@ -135,6 +142,10 @@ public class MainGame {
 			}
 		}
 		return closestStar;
+	}
+	
+	private double calculateDistance(MapPoint destination, MapPoint origin) {
+		return Math.hypot(destination.x - origin.x, destination.y - origin.y);
 	}
 	*/
 }
