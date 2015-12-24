@@ -19,6 +19,10 @@ public class EnemyShipImage extends Image {
 		this.update();
 	}
 	
+	public EnemyShip getEnemyShip() {
+		return this.enemyShip;
+	}
+	
 	public void update() {
 		this.setPosition(this.enemyShip.getPosition().x, this.enemyShip.getPosition().y);
 		this.setRotation((float)enemyShip.getAngle());

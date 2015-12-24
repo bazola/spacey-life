@@ -20,6 +20,9 @@ public enum AlienState implements State<Alien> {
 			
 			if (entity.isAtDestination()) {
 				switch(entity.stateMachine.getPreviousState()) {
+				case CHASE_ENEMY:
+					entity.reachedEnemy();
+					break;
 				case SEARCH_STAR:
 					entity.stateMachine.changeState(AlienState.EAT_STAR);
 					break;
@@ -45,6 +48,13 @@ public enum AlienState implements State<Alien> {
 		}
 	},
 	
+	CHASE_ENEMY {
+		@Override
+		public void enter(Alien entity) {
+			entity.setDestinationForChaseEnemy();
+		}
+	},
+	
 	EAT_STAR {
 		@Override
 		public void update(Alien entity) {
@@ -61,14 +71,21 @@ public enum AlienState implements State<Alien> {
 	@Override
 	public void update(Alien entity) {
 		
+		//if not moving, but overlapping, resolve that before anything else
 		if (entity.isOverlappingNeighbor() &&
 			entity.stateMachine.getCurrentState() != AlienState.MOVE) {
 			entity.stateMachine.changeState(AlienState.FIX_OVERLAP);
 		
 		} else {
-			if (entity.isFlagAvailable() &&
+			//search for enemies first
+			if (entity.searchForNearbyEnemy()) {
+				entity.stateMachine.changeState(AlienState.CHASE_ENEMY);
+			//then for flags
+			} else if (entity.isFlagAvailable() &&
 				!entity.isFlagNearEnough()) {
 				entity.stateMachine.changeState(AlienState.SEARCH_FLAG);
+				
+			//then eatable stars
 			} else {
 				if (entity.searchForEatableStar()) {
 					entity.stateMachine.changeState(AlienState.SEARCH_STAR);

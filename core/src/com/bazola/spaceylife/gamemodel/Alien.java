@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Rectangle;
 public class Alien {
 
 	private final Random random;
+	private final MainGame game;
 	
 	private MapPoint position;
 	
@@ -36,8 +37,16 @@ public class Alien {
 	
 	private int sensorDistance = 100;
 	
+	private int eatRange = 5;
+	
 	private Comparator<MapPointDistanceTuple> distanceComparator = new Comparator<MapPointDistanceTuple>() {
 	    public int compare(MapPointDistanceTuple a, MapPointDistanceTuple b) {
+	        return Double.compare(a.distance, b.distance); //changed back to ascending
+	    }
+	};
+	
+	private Comparator<EnemyDistanceTuple> distanceComparatorEnemy = new Comparator<EnemyDistanceTuple>() {
+	    public int compare(EnemyDistanceTuple a, EnemyDistanceTuple b) {
 	        return Double.compare(a.distance, b.distance); //changed back to ascending
 	    }
 	};
@@ -47,12 +56,16 @@ public class Alien {
 	private List<PlayerFlag> playerFlags;
 	private List<Alien> playerAliens;
 	private Map<MapPoint, Star> stars;
+	private List<EnemyShip> enemyShips;
 	
 	private Star targetStar;
 	
-	public Alien(MapPoint position, Random random) {
+	private EnemyShip targetEnemy;
+	
+	public Alien(MapPoint position, Random random, MainGame game) {
 		this.position = position;
 		this.random = random;
+		this.game = game;
 		
 		this.stateMachine = new DefaultStateMachine<Alien, AlienState>(this);
 		this.stateMachine.changeState(AlienState.IDLE);
@@ -78,11 +91,12 @@ public class Alien {
 		return this.angle;
 	}
 
-	public void update(List<PlayerFlag> playerFlags, Map<MapPoint, Star>stars, List<Alien> playerAliens) {
+	public void update(List<PlayerFlag> playerFlags, Map<MapPoint, Star>stars, List<Alien> playerAliens, List<EnemyShip> enemyShips) {
 		
 		this.playerFlags = playerFlags;
 		this.stars = stars;
 		this.playerAliens = playerAliens;
+		this.enemyShips = enemyShips;
 		
 		this.stateMachine.update();
 	}
@@ -122,6 +136,25 @@ public class Alien {
 	public boolean isFlagNearEnough() {
 		PlayerFlag targetFlag = playerFlags.get(playerFlags.size() - 1);
 		return this.calculateDistance(targetFlag.getPosition(), this.position) < this.minDistanceFromFlag;
+	}
+	
+	public boolean searchForNearbyEnemy() {
+		List<EnemyDistanceTuple> closebyPointsForSort = new ArrayList<EnemyDistanceTuple>();
+		for (EnemyShip enemyShip : this.enemyShips) {
+			double distance = this.calculateDistance(enemyShip.getPosition(), this.position);
+			if (distance <= this.sensorDistance) {
+				closebyPointsForSort.add(new EnemyDistanceTuple(enemyShip, distance));
+			}
+		}
+		Collections.sort(closebyPointsForSort, this.distanceComparatorEnemy);
+		if (closebyPointsForSort.size() > 0) {
+			
+			this.targetEnemy = closebyPointsForSort.get(0).enemy;
+			
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public boolean searchForEatableStar() {
@@ -177,6 +210,26 @@ public class Alien {
 		} else {
 			this.pointPair = new MapPointPair(this.position, this.targetStar.getPosition());
 			this.stateMachine.changeState(AlienState.MOVE);
+		}
+	}
+	
+	public void setDestinationForChaseEnemy() {
+		if (this.targetEnemy != null) {
+			this.pointPair = new MapPointPair(this.position, this.targetEnemy.getPosition());
+			this.stateMachine.changeState(AlienState.MOVE);
+		}
+	}
+	
+	public void reachedEnemy() {
+		if (this.targetEnemy == null) {
+			this.stateMachine.changeState(AlienState.IDLE);
+			return;
+		}
+		if (this.calculateDistance(this.targetEnemy.getPosition(), this.position) <= this.eatRange) {
+			this.game.alienEatingEnemy(this, this.targetEnemy);
+			this.targetEnemy = null;
+		} else {
+			this.stateMachine.changeState(AlienState.IDLE);
 		}
 	}
 	

@@ -173,6 +173,19 @@ public class GameScreen extends BZScreenAdapter {
 		this.libGDXGame.stage.addActor(laserImage);
 	}
 	
+	public void enemyKilled(EnemyShip enemyShip) {
+		EnemyShipImage imageToRemove = null;
+		for (EnemyShipImage image : this.enemyShipImages) {
+			if (image.getEnemyShip().equals(enemyShip)) {
+				imageToRemove = image;
+			}
+		}
+		if (imageToRemove != null) {
+			imageToRemove.remove();
+			this.enemyShipImages.remove(imageToRemove);
+		}
+	}
+	
 	public void flagSpawned(PlayerFlag flag) {
 		AnimatedImage flagImage = new AnimatedImage(this.libGDXGame.flagWave01);
 		flagImage.setPosition(flag.getPosition().x, flag.getPosition().y);

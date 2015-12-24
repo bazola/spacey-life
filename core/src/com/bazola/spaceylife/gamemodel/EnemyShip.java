@@ -28,6 +28,8 @@ public class EnemyShip {
 	
 	private int sensorDistance = 100;
 	
+	private int weaponsRange = 40;
+	
 	private List<Alien> playerAliens;
 	
 	private Alien targetAlien;
@@ -81,8 +83,14 @@ public class EnemyShip {
 	}
 	
 	public boolean isAtDestination() {
-		return this.pointPair == null ||
-			   this.position.equals(this.pointPair.secondPoint);
+		
+		if (this.stateMachine.getCurrentState() == EnemyState.FOLLOW_ALIEN) {
+			return this.calculateDistance(this.targetAlien.getPosition(), this.position) <= this.weaponsRange;
+		
+		} else {
+	 		return this.pointPair == null ||
+	 			   this.position.equals(this.pointPair.secondPoint);
+		}
 	}
 	
 	public boolean searchForNearbyAlien() {

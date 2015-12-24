@@ -93,7 +93,7 @@ public class MainGame {
 	
 	public void update() {
 		for (Alien alien : this.playerAliens) {
-			alien.update(this.playerFlags, this.universe.getStars(), this.playerAliens);
+			alien.update(this.playerFlags, this.universe.getStars(), this.playerAliens, this.enemyShips);
 		}
 		for (EnemyShip enemyShip : this.enemyShips) {
 			enemyShip.update(this.playerAliens);
@@ -113,7 +113,7 @@ public class MainGame {
 	}
 	
 	public void spawnAlien() {
-		Alien alien = new Alien(this.playerHomeworld.getPosition(), this.random);
+		Alien alien = new Alien(this.playerHomeworld.getPosition(), this.random, this);
 		this.playerAliens.add(alien);
 		this.gameScreen.alienSpawned(alien);
 	}	
@@ -126,6 +126,11 @@ public class MainGame {
 	
 	public void enemyFiredWeaponAtAlien(EnemyShip enemyShip, Alien alien) {
 		this.gameScreen.enemyFiredWeaponAtAlien(enemyShip.getPosition(), alien.getPosition());
+	}
+	
+	public void alienEatingEnemy(Alien alien, EnemyShip enemyShip) {
+		this.enemyShips.remove(enemyShip);
+		this.gameScreen.enemyKilled(enemyShip);
 	}
 	
 	public boolean isWithinBounds(MapPoint point) {
