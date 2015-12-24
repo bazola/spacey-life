@@ -75,12 +75,14 @@ public class Alien {
 	public void update(List<PlayerFlag> playerFlags, Map<MapPoint, Star>stars, List<Alien> playerAliens) {
 		
 		if (this.state == AlienState.EATING_PLANET) {
+			
+			//VERY TEMPORARY
 			this.eatCount++;
 			if (this.eatCount > this.numTicksToEat) {
 				this.eatCount = 0;
 				this.state = AlienState.RESTING;
 			}
-			System.out.println(eatCount);
+			
 		} else {
 			this.moveToPlayerFlag(playerFlags);
 			
