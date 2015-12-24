@@ -47,7 +47,9 @@ public enum AlienState implements State<Alien> {
 	EAT_STAR {
 		@Override
 		public void update(Alien entity) {
-			System.out.println("eating star");
+			if (entity.eatStar()) {
+				entity.stateMachine.changeState(AlienState.IDLE);
+			}
 		}
 	};
 	

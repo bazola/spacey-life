@@ -87,6 +87,14 @@ public class Alien {
 		this.stateMachine.update();
 	}
 	
+	public boolean eatStar() {
+		if (this.targetStar == null) {
+			return true;
+		}
+		this.targetStar.addAlienEat();
+		return this.targetStar.getState() == StarState.PLAYER_CONTROLLED;
+	}
+	
 	public boolean isAtDestination() {
 		return this.pointPair == null ||
 			   this.position.equals(this.pointPair.secondPoint);
