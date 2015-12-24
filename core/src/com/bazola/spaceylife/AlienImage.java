@@ -51,6 +51,9 @@ public class AlienImage extends Image {
 		return this.alien;
 	}
 	
+	/**
+	 * This overridden act method allows the image to be animated
+	 */
     @Override
     public void act(float delta) {
     	super.act(delta);

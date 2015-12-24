@@ -124,7 +124,7 @@ public class Alien {
 		return this.calculateDistance(targetFlag.getPosition(), this.position) < this.minDistanceFromFlag;
 	}
 	
-	public boolean isEatableStarInRange() {
+	public boolean searchForEatableStar() {
 		List<MapPointDistanceTuple> closebyPointsForSort = new ArrayList<MapPointDistanceTuple>();
 		for (MapPoint point : stars.keySet()) {
 			double distance = this.calculateDistance(point, this.position);
@@ -201,7 +201,7 @@ public class Alien {
 			
 			MapPoint previousPosition = this.position;
 			this.position = new MapPoint((int)(xMove + this.position.x), (int)(yMove + this.position.y));
-			this.angle = this.getAngle(previousPosition, this.position);
+			this.angle = this.calculateAngle(previousPosition, this.position);
 		} else {
 			this.position = this.pointPair.secondPoint;
 		}
@@ -210,7 +210,7 @@ public class Alien {
 		this.rectangle.setPosition(this.position.x, this.position.y);
 	}
 	
-	private double getAngle(MapPoint origin, MapPoint destination) {
+	private double calculateAngle(MapPoint origin, MapPoint destination) {
 		double degree = Math.toDegrees(Math.atan2(destination.y - origin.y, 
                 								  destination.x - origin.x));
 		if (degree < 0) {

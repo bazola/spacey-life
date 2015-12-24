@@ -22,6 +22,8 @@ public class MainGame {
 	
 	private List<Alien> playerAliens = new ArrayList<Alien>();
 	
+	private List<EnemyShip> enemyShips = new ArrayList<EnemyShip>();
+	
 	private List<PlayerFlag> playerFlags = new ArrayList<PlayerFlag>();
 	private int flagLimit = 3;
 	
@@ -93,6 +95,9 @@ public class MainGame {
 		for (Alien alien : this.playerAliens) {
 			alien.update(this.playerFlags, this.universe.getStars(), this.playerAliens);
 		}
+		for (EnemyShip enemyShip : this.enemyShips) {
+			enemyShip.update(this.playerAliens);
+		}
 	}
 	
 	public Star getPlayerHomeworld() {
@@ -112,6 +117,13 @@ public class MainGame {
 		this.playerAliens.add(alien);
 		this.gameScreen.alienSpawned(alien);
 	}	
+	
+	public void spawnEnemyShip() {
+		EnemyShip ship = new EnemyShip(this.random, this.aiHomeworld.getPosition());
+		this.enemyShips.add(ship);
+		this.gameScreen.enemyShipSpawned(ship);
+	}
+	
 	/*
 	private Star findClosestStar(Collection<Star> stars, Star originStar) {
 		double smallestDistance = 1000000; //make sure that any distance will be less

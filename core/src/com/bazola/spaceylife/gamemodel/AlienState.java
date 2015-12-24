@@ -69,7 +69,7 @@ public enum AlienState implements State<Alien> {
 				!entity.isFlagNearEnough()) {
 				entity.stateMachine.changeState(AlienState.SEARCH_FLAG);
 			} else {
-				if (entity.isEatableStarInRange()) {
+				if (entity.searchForEatableStar()) {
 					entity.stateMachine.changeState(AlienState.SEARCH_STAR);
 				}
 			}

@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.Align;
 import com.bazola.spaceylife.gamemodel.MapPoint;
 import com.bazola.spaceylife.gamemodel.Star;
 
@@ -37,6 +38,7 @@ public class StarImage extends Image {
 		
 		this.playerCoverImage = new Image(playerCover);
 		this.playerCoverImage.setVisible(false);
+		this.playerCoverImage.setOrigin(Align.center);
 		this.playerCoverImage.setPosition(position.x - xOffset, position.y - yOffset);
 		this.addGrowShrinkActionToImage(this.playerCoverImage);
 		stage.addActor(this.playerCoverImage);

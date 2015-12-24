@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.bazola.spaceylife.gamemodel.Alien;
+import com.bazola.spaceylife.gamemodel.EnemyShip;
 import com.bazola.spaceylife.gamemodel.MainGame;
 import com.bazola.spaceylife.gamemodel.MapPoint;
 import com.bazola.spaceylife.gamemodel.PlayerFlag;
@@ -30,6 +31,7 @@ public class GameScreen extends BZScreenAdapter {
     
     private final List<StarImage> starImages = new ArrayList<StarImage>();
     private final List<AlienImage> alienImages = new ArrayList<AlienImage>();
+    private final List<EnemyShipImage> enemyShipImages = new ArrayList<EnemyShipImage>();
     
     private int WORLD_WIDTH = 4500;
     private int WORLD_HEIGHT = 3000;
@@ -120,6 +122,10 @@ public class GameScreen extends BZScreenAdapter {
         		image.update();
         	}
         	
+        	for (EnemyShipImage image : this.enemyShipImages) {
+        		image.update();
+        	}
+        	
         	for (StarImage image : this.starImages) {
         		image.update();
         	}
@@ -134,6 +140,7 @@ public class GameScreen extends BZScreenAdapter {
         	
         	if (this.alienImages.size() < this.maxAliens) {
         		this.game.spawnAlien();
+        		this.game.spawnEnemyShip();
         	}
         }
 	}
@@ -145,6 +152,12 @@ public class GameScreen extends BZScreenAdapter {
 		image.setMoveAnimation(this.libGDXGame.alienMove01);
 		image.setEatAnimation(this.libGDXGame.alienEat01);
 		this.alienImages.add(image);
+		this.libGDXGame.stage.addActor(image);
+	}
+	
+	public void enemyShipSpawned(EnemyShip ship) {
+		EnemyShipImage image = new EnemyShipImage(this.libGDXGame.shipTextures.get(ShipType.ENEMY_FIGHTER), ship);
+		this.enemyShipImages.add(image);
 		this.libGDXGame.stage.addActor(image);
 	}
 	
