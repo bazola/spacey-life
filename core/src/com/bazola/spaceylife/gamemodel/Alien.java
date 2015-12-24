@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import com.badlogic.gdx.ai.fsm.DefaultStateMachine;
+import com.badlogic.gdx.ai.fsm.StateMachine;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Alien {
@@ -45,9 +47,19 @@ public class Alien {
 	    }
 	};
 	
+	
+	
+	
+	
+	
+	private final StateMachine<Alien, AlienStateS> stateMachine;
+	
 	public Alien(MapPoint position, Random random) {
 		this.position = position;
 		this.random = random;
+		
+		this.stateMachine = new DefaultStateMachine<Alien, AlienStateS>(this);
+		this.stateMachine.changeState(AlienStateS.IDLE);
 		
 		this.angle = 0;
 		
@@ -73,6 +85,8 @@ public class Alien {
 	}
 
 	public void update(List<PlayerFlag> playerFlags, Map<MapPoint, Star>stars, List<Alien> playerAliens) {
+		
+		this.stateMachine.update();
 		
 		if (this.state == AlienState.EATING_PLANET) {
 			
