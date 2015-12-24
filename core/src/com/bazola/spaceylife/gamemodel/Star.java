@@ -12,6 +12,9 @@ public class Star {
 	
 	private StarState state;
 	
+	private int numEatsToConsume = 100;
+	private int currentEats = 0;
+	
 	public Star(Random random, MapPoint position) {
 		this.position = position;
 
@@ -34,5 +37,12 @@ public class Star {
 	
 	public void setAIControlled() {
 		this.state = StarState.AI_CONTROLLED;
+	}
+	
+	public void addAlienEat() {
+		this.currentEats ++;
+		if (this.currentEats > this.numEatsToConsume) {
+			this.setPlayerControlled();
+		}
 	}
 }

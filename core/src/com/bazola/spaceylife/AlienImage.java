@@ -32,7 +32,7 @@ public class AlienImage extends Image {
 		this.setPosition(alien.getPosition().x, alien.getPosition().y);
 		this.setRotation((float)alien.getAngle());
 		
-		if (this.alien.state == AlienState.EATING_PLANET) {
+		if (this.alien.stateMachine.getCurrentState() == AlienState.EAT_STAR) {
 			this.activeAnimation = this.eatAnimation;
 		} else {
 			this.activeAnimation = this.moveAnimation;

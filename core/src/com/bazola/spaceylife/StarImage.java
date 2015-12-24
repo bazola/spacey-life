@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.utils.Align;
 import com.bazola.spaceylife.gamemodel.MapPoint;
 import com.bazola.spaceylife.gamemodel.Star;
 
@@ -22,18 +21,21 @@ public class StarImage extends Image {
 		
 		stage.addActor(this);
 		
-		this.setAlign(Align.center);
-		
-		this.setPosition(position.x, position.y);
+		//the offset is important because it allows things to be
+		//rendered correctly without affecting the positions
+		//that are set by the game model
+		float xOffset = this.getWidth() / 2;
+		float yOffset = this.getHeight() / 2;
+		this.setPosition(position.x - xOffset, position.y - yOffset);
 		
 		this.aiCoverImage = new Image(aiCover);
 		this.aiCoverImage.setVisible(false);
-		this.aiCoverImage.setPosition(position.x, position.y);
+		this.aiCoverImage.setPosition(position.x - xOffset, position.y - yOffset);
 		stage.addActor(this.aiCoverImage);
 		
 		this.playerCoverImage = new Image(playerCover);
 		this.playerCoverImage.setVisible(false);
-		this.playerCoverImage.setPosition(position.x, position.y);
+		this.playerCoverImage.setPosition(position.x - xOffset, position.y - yOffset);
 		stage.addActor(this.playerCoverImage);
 	}
 	
