@@ -13,6 +13,19 @@ public enum EnemyState implements State<EnemyShip>{
 		}
 	},
 	
+	OPEN_FIRE {
+		@Override
+		public void update(EnemyShip entity) {
+			
+			if (!entity.searchForNearbyAlien()) {
+				entity.stateMachine.changeState(IDLE);
+			} else {
+				entity.fireWeapon();
+			}
+			
+		}
+	},
+	
 	START_PATROL {
 		@Override
 		public void enter(EnemyShip entity) {
@@ -26,7 +39,15 @@ public enum EnemyState implements State<EnemyShip>{
 			entity.move();
 			
 			if (entity.isAtDestination()) {
-				entity.stateMachine.changeState(EnemyState.IDLE);
+				
+				switch(entity.stateMachine.getPreviousState()) {
+				case FOLLOW_ALIEN:
+					entity.stateMachine.changeState(EnemyState.OPEN_FIRE);
+					break;
+				default:
+					entity.stateMachine.changeState(EnemyState.IDLE);
+					break;
+				}
 			}
 		}
 	};

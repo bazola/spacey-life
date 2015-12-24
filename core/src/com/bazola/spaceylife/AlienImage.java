@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.bazola.spaceylife.gamemodel.Alien;
 import com.bazola.spaceylife.gamemodel.AlienState;
 
@@ -21,6 +22,8 @@ public class AlienImage extends Image {
 	
 	public AlienImage(Texture texture, Alien alien) {
 		super(texture);
+		
+		this.setOrigin(Align.center);
 		
 		this.alien = alien;
 		this.alien.setRectangle(new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight()));

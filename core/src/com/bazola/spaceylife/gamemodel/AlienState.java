@@ -25,6 +25,7 @@ public enum AlienState implements State<Alien> {
 					break;
 				default:
 					entity.stateMachine.changeState(AlienState.IDLE);
+					break;
 				}
 			}
 		}

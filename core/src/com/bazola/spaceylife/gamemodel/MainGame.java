@@ -119,9 +119,20 @@ public class MainGame {
 	}	
 	
 	public void spawnEnemyShip() {
-		EnemyShip ship = new EnemyShip(this.random, this.aiHomeworld.getPosition());
+		EnemyShip ship = new EnemyShip(this.random, this.aiHomeworld.getPosition(), this);
 		this.enemyShips.add(ship);
 		this.gameScreen.enemyShipSpawned(ship);
+	}
+	
+	public void enemyFiredWeaponAtAlien(EnemyShip enemyShip, Alien alien) {
+		this.gameScreen.enemyFiredWeaponAtAlien(enemyShip.getPosition(), alien.getPosition());
+	}
+	
+	public boolean isWithinBounds(MapPoint point) {
+		return point.x >= 0 &&
+			   point.x <= this.worldWidth &&
+			   point.y >= 0 &&
+			   point.y <= this.worldHeight;
 	}
 	
 	/*

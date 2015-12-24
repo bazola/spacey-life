@@ -6,6 +6,8 @@ import java.util.Random;
 import java.util.Map.Entry;
 
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.bazola.spaceylife.gamemodel.Alien;
@@ -159,6 +161,16 @@ public class GameScreen extends BZScreenAdapter {
 		EnemyShipImage image = new EnemyShipImage(this.libGDXGame.shipTextures.get(ShipType.ENEMY_FIGHTER), ship);
 		this.enemyShipImages.add(image);
 		this.libGDXGame.stage.addActor(image);
+	}
+	
+	public void enemyFiredWeaponAtAlien(MapPoint enemyPos, MapPoint alienPos) {
+		Image laserImage = new Image(this.libGDXGame.laser01);
+		laserImage.setPosition(enemyPos.x, enemyPos.y);
+		SequenceAction sequence = new SequenceAction();
+		sequence.addAction(Actions.moveTo(alienPos.x, alienPos.y, 0.5f));
+		sequence.addAction(Actions.alpha(0, 0.5f));
+		laserImage.addAction(sequence);
+		this.libGDXGame.stage.addActor(laserImage);
 	}
 	
 	public void flagSpawned(PlayerFlag flag) {

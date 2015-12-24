@@ -12,6 +12,7 @@ import com.badlogic.gdx.ai.fsm.StateMachine;
 public class EnemyShip {
 	
 	private final Random random;
+	private final MainGame game;
 	
 	private MapPoint position;
 	
@@ -31,6 +32,9 @@ public class EnemyShip {
 	
 	private Alien targetAlien;
 	
+	private int weaponCooldownTime = 25;
+	private int currentWeaponCooldown = 0;
+	
 	private Comparator<AlienDistanceTuple> distanceComparator = new Comparator<AlienDistanceTuple>() {
 	    public int compare(AlienDistanceTuple a, AlienDistanceTuple b) {
 	        return Double.compare(a.distance, b.distance); //changed back to ascending
@@ -39,16 +43,17 @@ public class EnemyShip {
 	
 	public final StateMachine<EnemyShip, EnemyState> stateMachine;
 	
-	public EnemyShip(Random random, MapPoint position) {
+	public EnemyShip(Random random, MapPoint position, MainGame game) {
 		this.random = random;
 		this.position = position;
+		this.game = game;
 		
 		this.stateMachine = new DefaultStateMachine<EnemyShip, EnemyState>(this);
 		this.stateMachine.changeState(EnemyState.IDLE);
 
 		this.angle = 0;
 		
-		this.speed = 10;
+		this.speed = 5;
 	}
 	
 	public MapPoint getPosition() {
@@ -59,7 +64,16 @@ public class EnemyShip {
 		return this.angle;
 	}
 	
+	public void fireWeapon() {
+		if (this.currentWeaponCooldown < this.weaponCooldownTime) {
+			this.currentWeaponCooldown += this.weaponCooldownTime;
+			this.game.enemyFiredWeaponAtAlien(this, this.targetAlien);
+		}
+	}
+	
 	public void update(List<Alien> playerAliens) {
+		
+		this.currentWeaponCooldown--;
 		
 		this.playerAliens = playerAliens;
 		
@@ -96,17 +110,23 @@ public class EnemyShip {
 	}
 	
 	public void startNewPatrol() {
-		int randomX = this.random.nextInt(this.patrolMoveDistance);
-		int randomY = this.random.nextInt(this.patrolMoveDistance);
-		//50% chance to move negative instead of positive
-		if (this.random.nextBoolean()) {
-			randomX *= -1;
-		}
-		if (this.random.nextBoolean()) {
-			randomY *= -1;
+	
+		MapPoint patrolPoint = new MapPoint(-100, -100); //make sure it will fail the first time
+		//make sure to generate a point in bounds
+		while (!this.game.isWithinBounds(patrolPoint)) {
+			int randomX = this.random.nextInt(this.patrolMoveDistance);
+			int randomY = this.random.nextInt(this.patrolMoveDistance);
+			//50% chance to move negative instead of positive
+			if (this.random.nextBoolean()) {
+				randomX *= -1;
+			}
+			if (this.random.nextBoolean()) {
+				randomY *= -1;
+			}
+			patrolPoint = new MapPoint(randomX + this.position.x, randomY + this.position.y);
 		}
 		
-		this.pointPair = new MapPointPair(this.position, new MapPoint(this.position.x + randomX, this.position.y + randomY));
+		this.pointPair = new MapPointPair(this.position, patrolPoint);
 		
 		this.stateMachine.changeState(EnemyState.MOVE);
 	}

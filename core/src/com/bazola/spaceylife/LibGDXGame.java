@@ -55,6 +55,7 @@ public class LibGDXGame extends Game {
 	public Texture alien01;
 	public Texture aiPlanetCover01;
 	public Texture playerPlanetCover01;
+	public Texture laser01;
 	
 	public Animation alienMove01;
 	public Animation alienEat01;
@@ -116,6 +117,8 @@ public class LibGDXGame extends Game {
 		
 		this.aiPlanetCover01 = new Texture("aiStation02.png");
 		this.playerPlanetCover01 = new Texture("alienCovering01.png");
+		
+		this.laser01 = new Texture("purpleShot04.png");
 		
 		Texture alienMove01 = new Texture("slime_moving_01.png");
 		Texture alienMove02 = new Texture("slime_moving_02.png");

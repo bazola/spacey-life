@@ -59,7 +59,7 @@ public class Alien {
 		
 		this.angle = 0;
 		
-		this.speed = 10;
+		this.speed = 15;
 	}
 	
 	public void setRectangle(Rectangle rectangle) {

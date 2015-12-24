@@ -2,6 +2,7 @@ package com.bazola.spaceylife;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.Align;
 import com.bazola.spaceylife.gamemodel.EnemyShip;
 
 public class EnemyShipImage extends Image {
@@ -10,6 +11,8 @@ public class EnemyShipImage extends Image {
 	
 	public EnemyShipImage(TextureRegion texture, EnemyShip enemyShip) {
 		super(texture);
+		
+		this.setOrigin(Align.center);
 		
 		this.enemyShip = enemyShip;
 		
