@@ -184,7 +184,6 @@ public class Alien {
 		
 		if (this.pointPair == null ||
 			this.position.equals(this.pointPair.secondPoint)) {
-			//this.stateMachine.changeState(AlienState.IDLE);
 			return;
 		}
 		
@@ -205,7 +204,6 @@ public class Alien {
 			this.angle = this.getAngle(previousPosition, this.position);
 		} else {
 			this.position = this.pointPair.secondPoint;
-			//this.stateMachine.changeState(AlienState.IDLE);
 		}
 		
 		//only update rectangle after position changes

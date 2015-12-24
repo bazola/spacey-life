@@ -12,7 +12,7 @@ public class Star {
 	
 	private StarState state;
 	
-	private int numEatsToConsume = 100;
+	private int numEatsToConsume = 1000; //these will be incremented 1 per tick per alien
 	private int currentEats = 0;
 	
 	public Star(Random random, MapPoint position) {

@@ -3,6 +3,8 @@ package com.bazola.spaceylife;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.bazola.spaceylife.gamemodel.MapPoint;
 import com.bazola.spaceylife.gamemodel.Star;
@@ -36,6 +38,7 @@ public class StarImage extends Image {
 		this.playerCoverImage = new Image(playerCover);
 		this.playerCoverImage.setVisible(false);
 		this.playerCoverImage.setPosition(position.x - xOffset, position.y - yOffset);
+		this.addGrowShrinkActionToImage(this.playerCoverImage);
 		stage.addActor(this.playerCoverImage);
 	}
 	
@@ -48,11 +51,22 @@ public class StarImage extends Image {
 		case AI_CONTROLLED:
 			this.aiCoverImage.setVisible(true);
 			this.playerCoverImage.setVisible(false);
+			this.playerCoverImage.getActions().clear();
 			break;
 		case PLAYER_CONTROLLED:
 			this.playerCoverImage.setVisible(true);
+			if (this.playerCoverImage.getActions().size == 0) {
+				this.addGrowShrinkActionToImage(this.playerCoverImage);
+			}
 			this.aiCoverImage.setVisible(false);
 			break;
 		}
+	}
+	
+	private void addGrowShrinkActionToImage(Image image) {
+		SequenceAction sequence = new SequenceAction();
+		sequence.addAction(Actions.scaleBy(-0.1f, -0.1f, 1));
+		sequence.addAction(Actions.scaleBy(0.1f, 0.1f, 1));
+		image.addAction(Actions.forever(sequence));
 	}
 }
