@@ -125,7 +125,8 @@ public class MainGame {
 	}
 	
 	public void enemyFiredWeaponAtAlien(EnemyShip enemyShip, Alien alien) {
-		this.gameScreen.enemyFiredWeaponAtAlien(enemyShip.getPosition(), alien.getPosition());
+		this.playerAliens.remove(alien);
+		this.gameScreen.enemyFiredWeaponAtAlien(enemyShip, alien);
 	}
 	
 	public void alienEatingEnemy(Alien alien, EnemyShip enemyShip) {

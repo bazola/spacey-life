@@ -34,7 +34,7 @@ public class EnemyShip {
 	
 	private Alien targetAlien;
 	
-	private int weaponCooldownTime = 25;
+	private int weaponCooldownTime = 100;
 	private int currentWeaponCooldown = 0;
 	
 	private Comparator<AlienDistanceTuple> distanceComparator = new Comparator<AlienDistanceTuple>() {

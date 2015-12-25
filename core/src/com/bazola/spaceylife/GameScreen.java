@@ -35,8 +35,8 @@ public class GameScreen extends BZScreenAdapter {
     private final List<AlienImage> alienImages = new ArrayList<AlienImage>();
     private final List<EnemyShipImage> enemyShipImages = new ArrayList<EnemyShipImage>();
     
-    private int WORLD_WIDTH = 4500;
-    private int WORLD_HEIGHT = 3000;
+    private int WORLD_WIDTH = 1000;
+    private int WORLD_HEIGHT = 600;
     
     private final MainGame game;
     
@@ -142,12 +142,15 @@ public class GameScreen extends BZScreenAdapter {
         	
         	if (this.alienImages.size() < this.maxAliens) {
         		this.game.spawnAlien();
+        	}
+        	if (this.enemyShipImages.size() < this.maxEnemies) {
         		this.game.spawnEnemyShip();
         	}
         }
 	}
 	
 	private int maxAliens = 20;
+	private int maxEnemies = 20;
 	
 	public void alienSpawned(Alien alien) {
 		AlienImage image = new AlienImage(this.libGDXGame.alien01, alien);
@@ -163,12 +166,18 @@ public class GameScreen extends BZScreenAdapter {
 		this.libGDXGame.stage.addActor(image);
 	}
 	
-	public void enemyFiredWeaponAtAlien(MapPoint enemyPos, MapPoint alienPos) {
+	public void enemyFiredWeaponAtAlien(EnemyShip enemy, final Alien alien) {
 		Image laserImage = new Image(this.libGDXGame.laser01);
-		laserImage.setPosition(enemyPos.x, enemyPos.y);
+		laserImage.setPosition(enemy.getPosition().x, enemy.getPosition().y);
 		SequenceAction sequence = new SequenceAction();
-		sequence.addAction(Actions.moveTo(alienPos.x, alienPos.y, 0.5f));
+		sequence.addAction(Actions.moveTo(alien.getPosition().x, alien.getPosition().y, 0.5f));
 		sequence.addAction(Actions.alpha(0, 0.5f));
+		sequence.addAction(Actions.run(new Runnable() {
+			@Override
+			public void run() {
+				GameScreen.this.alienKilled(alien);
+			}
+		}));
 		laserImage.addAction(sequence);
 		this.libGDXGame.stage.addActor(laserImage);
 	}
@@ -185,6 +194,19 @@ public class GameScreen extends BZScreenAdapter {
 			this.enemyShipImages.remove(imageToRemove);
 		}
 	}
+	
+	private void alienKilled(Alien alien) {
+		AlienImage imageToRemove = null;
+		for (AlienImage image : this.alienImages) {
+			if (image.getAlien().equals(alien)) {
+				imageToRemove = image;
+			}
+		}
+		if (imageToRemove != null) {
+			imageToRemove.remove();
+			this.alienImages.remove(imageToRemove);
+		}
+ 	}
 	
 	public void flagSpawned(PlayerFlag flag) {
 		AnimatedImage flagImage = new AnimatedImage(this.libGDXGame.flagWave01);
