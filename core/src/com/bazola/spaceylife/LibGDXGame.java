@@ -60,6 +60,10 @@ public class LibGDXGame extends Game {
 	public Texture playerPlanetCover01;
 	public Texture laser01;
 	public Texture blackCircle;
+	public Texture nebula02;
+	public Texture nebula03;
+	public Texture nebula04;
+	public Texture nebula05;
 	
 	public Animation alienMove01;
 	public Animation alienEat01;
@@ -129,6 +133,11 @@ public class LibGDXGame extends Game {
 		this.laser01 = new Texture("purpleShot04.png");
 		
 		this.blackCircle = new Texture("blackCircle.png");
+		
+		this.nebula02 = new Texture("nebula02.png");
+		this.nebula03 = new Texture("nebula03.png");
+		this.nebula04 = new Texture("nebula04.png");
+		this.nebula05 = new Texture("nebula05.png");
 		
 		Texture alienMove01 = new Texture("slime_moving_01.png");
 		Texture alienMove02 = new Texture("slime_moving_02.png");

@@ -12,6 +12,9 @@ public class FogImage extends Image {
 	
 	public final int size;
 	
+	/**
+	 * Increase this to increase the range of uncovering fog
+	 */
 	public final int rangeMultiplier = 1;
 	
 	public FogImage(LibGDXGame libGDXGame, float size, int xPos, int yPos) {

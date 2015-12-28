@@ -7,11 +7,13 @@ import java.util.Random;
 import java.util.Set;
 import java.util.Map.Entry;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.bazola.spaceylife.gamemodel.Alien;
 import com.bazola.spaceylife.gamemodel.EnemyShip;
@@ -20,6 +22,7 @@ import com.bazola.spaceylife.gamemodel.MapPoint;
 import com.bazola.spaceylife.gamemodel.PlayerFlag;
 import com.bazola.spaceylife.gamemodel.Star;
 import com.bazola.spaceylife.gamemodel.UniverseFeature;
+import com.bazola.spaceylife.gamemodel.UniverseFeatureType;
 
 public class GameScreen extends BZScreenAdapter {
 	
@@ -90,6 +93,8 @@ public class GameScreen extends BZScreenAdapter {
     	gridImage.setSize(this.WORLD_WIDTH, this.WORLD_HEIGHT);
     	this.libGDXGame.stage.addActor(gridImage);
     	
+    	this.addNebulaImagesToStage();
+    	
     	this.addUniverseFeatureLabels();
     	
     	this.starImages.clear();
@@ -105,6 +110,37 @@ public class GameScreen extends BZScreenAdapter {
     	}
     	
     	this.addFog();
+    }
+    
+    private void addNebulaImagesToStage() {
+    	for (UniverseFeature feature : this.game.universe.getUniverseFeatures()) {
+    		if (feature.type == UniverseFeatureType.NEBULA) {
+    			Image nebulaImage = new Image(this.getRandomNebulaTexture());
+    			float size = feature.circle.radius * 2;
+    			nebulaImage.setPosition(feature.circle.x - size / 2, feature.circle.y - size / 2);
+    			nebulaImage.setSize(size, size);
+    			this.libGDXGame.stage.addActor(nebulaImage);
+    		}
+    	}
+    }
+    
+    /**
+     * This method is just for prototyping the images as I create them
+     */
+    private Texture getRandomNebulaTexture() {
+    	int randomNumber = this.random.nextInt(4);
+    	switch(randomNumber) {
+    	case 0:
+    		return this.libGDXGame.nebula02;
+    	case 1:
+    		return this.libGDXGame.nebula03;
+    	case 2:
+    		return this.libGDXGame.nebula04;
+    	case 3:
+    		return this.libGDXGame.nebula05;
+    	default:
+    		return this.libGDXGame.nebula05;
+    	}
     }
     
     private void addUniverseFeatureLabels() {
