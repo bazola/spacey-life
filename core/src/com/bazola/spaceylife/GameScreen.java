@@ -1,8 +1,10 @@
 package com.bazola.spaceylife;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.Map.Entry;
 
 import com.badlogic.gdx.math.Vector3;
@@ -36,6 +38,7 @@ public class GameScreen extends BZScreenAdapter {
     private final List<StarImage> starImages = new ArrayList<StarImage>();
     private final List<AlienImage> alienImages = new ArrayList<AlienImage>();
     private final List<EnemyShipImage> enemyShipImages = new ArrayList<EnemyShipImage>();
+    private final List<FogImage> fog = new ArrayList<FogImage>();
     
     /**
      * It makes sense to have these variables declared in this class, because
@@ -46,6 +49,9 @@ public class GameScreen extends BZScreenAdapter {
     private int WORLD_HEIGHT = 3000;
     
     private final MainGame game;
+    
+	private int maxAliens = 20;
+	private int maxEnemies = 20;
     
     public GameScreen(LibGDXGame libGDXGame) {
     	this.libGDXGame = libGDXGame;
@@ -97,6 +103,8 @@ public class GameScreen extends BZScreenAdapter {
     											this.libGDXGame.stage);
     		this.starImages.add(starImage);
     	}
+    	
+    	this.addFog();
     }
     
     private void addUniverseFeatureLabels() {
@@ -107,6 +115,19 @@ public class GameScreen extends BZScreenAdapter {
     		this.libGDXGame.stage.addActor(label);
     	}
     }
+    
+    private void addFog() {
+    	int fogSquareSize = this.WORLD_WIDTH / 12;
+    	int halfFogSquareSize = fogSquareSize / 2;
+    	for (int x = 0; x < this.WORLD_WIDTH + halfFogSquareSize; x+= halfFogSquareSize) {
+    		for (int y = 0; y < this.WORLD_HEIGHT + halfFogSquareSize; y+= halfFogSquareSize) {
+    			FogImage fogImage = new FogImage(this.libGDXGame, fogSquareSize, x, y);
+    			this.libGDXGame.fogStage.addActor(fogImage);
+    			this.fog.add(fogImage);
+    		}
+    	}
+    }
+    
     
 	@Override
 	public void render (float delta) {
@@ -164,11 +185,42 @@ public class GameScreen extends BZScreenAdapter {
         	if (this.enemyShipImages.size() < this.maxEnemies) {
         		this.game.spawnEnemyShip();
         	}
+        	
+        	this.processFog();
         }
 	}
 	
-	private int maxAliens = 20;
-	private int maxEnemies = 20;
+    private void processFog() {
+    	List<MapPoint> pointsToReveal = new ArrayList<MapPoint>();
+    	
+    	for (Alien alien : this.game.getPlayerAliens()) {
+    		pointsToReveal.add(alien.getPosition());
+    	}
+    	
+    	pointsToReveal.add(this.game.getPlayerHomeworld().getPosition());
+    	
+    	this.revealFog(pointsToReveal);
+    }
+    
+    private void revealFog(List<MapPoint> pointsToReveal) {
+    	Set<FogImage> fogToReveal = new HashSet<FogImage>();
+    	for (FogImage fogImage : this.fog) {
+    		for (MapPoint point : pointsToReveal) {
+    			if (fogImage.isNearby(point)) {
+    				fogToReveal.add(fogImage);
+    			}
+    		}
+    	}
+    	for (FogImage fogImage : fogToReveal) {
+    		fogImage.fadeOut();
+    	}
+    	for (FogImage fogImage : this.fog) {
+    		if (!fogToReveal.contains(fogImage) &&
+    			this.game.positionIsDarkZone(fogImage.position)) {
+    			fogImage.fadeIn();
+    		}
+    	}
+    }
 	
 	public void alienSpawned(Alien alien) {
 		AlienImage image = new AlienImage(this.libGDXGame.alien01, alien);

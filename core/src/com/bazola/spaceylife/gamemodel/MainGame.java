@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.badlogic.gdx.math.Vector2;
 import com.bazola.spaceylife.GameScreen;
 
 public class MainGame {
@@ -139,6 +140,22 @@ public class MainGame {
 			   point.x <= this.worldWidth &&
 			   point.y >= 0 &&
 			   point.y <= this.worldHeight;
+	}
+	
+	public boolean positionIsDarkZone(MapPoint point) {
+		UniverseFeature targetFeature = null;
+		for (UniverseFeature feature : this.universe.getUniverseFeatures()) {
+			if (feature.circle.contains(new Vector2(point.x, point.y))) {
+				targetFeature = feature;
+				break;
+			}
+		}
+		
+		if (targetFeature == null) {
+			return false;
+		}
+		
+		return targetFeature.type == UniverseFeatureType.DARK_ZONE;
 	}
 	
 	/*

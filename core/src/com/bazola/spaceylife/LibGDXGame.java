@@ -42,6 +42,9 @@ public class LibGDXGame extends Game {
 	public Stage stage;
 	public SpriteBatch batch;
 	
+	public Stage fogStage;
+	public SpriteBatch fogBatch;
+	
 	public OrthographicCamera hudCamera;
 	public SpriteBatch hudBatch;
 	public Stage hudStage;
@@ -56,6 +59,7 @@ public class LibGDXGame extends Game {
 	public Texture aiPlanetCover01;
 	public Texture playerPlanetCover01;
 	public Texture laser01;
+	public Texture blackCircle;
 	
 	public Animation alienMove01;
 	public Animation alienEat01;
@@ -97,6 +101,10 @@ public class LibGDXGame extends Game {
         this.batch = new SpriteBatch();
         this.stage = new Stage(new ScreenViewport(camera), batch);
         
+        this.fogBatch = new SpriteBatch();
+        this.fogStage = new Stage(new ScreenViewport(camera), fogBatch);
+        //this.fogStage.setDebugAll(true);
+        
         this.hudCamera = new OrthographicCamera(HUD_WIDTH, HUD_HEIGHT);
         this.hudCamera.setToOrtho(false, HUD_WIDTH, HUD_HEIGHT);
         this.hudBatch = new SpriteBatch();
@@ -119,6 +127,8 @@ public class LibGDXGame extends Game {
 		this.playerPlanetCover01 = new Texture("alienCovering01.png");
 		
 		this.laser01 = new Texture("purpleShot04.png");
+		
+		this.blackCircle = new Texture("blackCircle.png");
 		
 		Texture alienMove01 = new Texture("slime_moving_01.png");
 		Texture alienMove02 = new Texture("slime_moving_02.png");
@@ -205,6 +215,12 @@ public class LibGDXGame extends Game {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
 		batch.end();
+		
+		fogStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+		fogStage.draw();
+		fogBatch.setProjectionMatrix(camera.combined);
+		fogBatch.begin();
+		fogBatch.end();
 		
         hudCamera.update();
         hudBatch.setProjectionMatrix(hudCamera.combined);
