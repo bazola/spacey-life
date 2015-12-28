@@ -1,24 +1,22 @@
-todo
 
-idea:
+TODO UNIVERSE REGIONS:
+star arm
+
+IMPLEMENTED
+aliens now notice new flags, and also do not all move to the same flag
+universe regions
+
+IMPLEMENTED REGIONS
+star cluster
+dark zone with replenishign fog of war
+nebula with lower star density
+
+IDEA:
 scroll pane of flags along the bottom
 tap a flag to enable it, so you can choose how many flags
 double tap to zoom to the flag
 
-ai:
-they need to constantly check the active flags so that they do not need
-to complete the movement to a flag that is not there anymore
-
-universe:
-create concrete areas of the universe that have a "region" name as well as characteristics
-nebula
-galaxy center
-star cluster
-star arm
-place with fog of war
-These areas would be randomly generated during universe creation, and then there would
-be an exploration/discovery element to the game.
-
 more ideas:
 good/evil scale that depends on how many neutral ships you kill
 asymetrical gameplay where there are aliens/traders/fighters and you can pick a side
+flags and radar rings render above the fog of war

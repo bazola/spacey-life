@@ -63,6 +63,8 @@ public class GameScreen extends BZScreenAdapter {
     	this.addSwipeRecognizer();
     	
     	this.addActorsToStage();
+    	
+    	this.centerCameraOnPlayerHomeworld();
     }
     
 	private void addSwipeRecognizer() {
@@ -152,10 +154,12 @@ public class GameScreen extends BZScreenAdapter {
     }
     
     private void addFog() {
+    	//fog squares start and end off the edge of the map
+    	//also they overlap by half of their size
     	int fogSquareSize = this.WORLD_WIDTH / 12;
     	int halfFogSquareSize = fogSquareSize / 2;
-    	for (int x = 0; x < this.WORLD_WIDTH + halfFogSquareSize; x+= halfFogSquareSize) {
-    		for (int y = 0; y < this.WORLD_HEIGHT + halfFogSquareSize; y+= halfFogSquareSize) {
+    	for (int x = -fogSquareSize; x < this.WORLD_WIDTH + fogSquareSize; x+= halfFogSquareSize) {
+    		for (int y = -fogSquareSize; y < this.WORLD_HEIGHT + fogSquareSize; y+= halfFogSquareSize) {
     			FogImage fogImage = new FogImage(this.libGDXGame, fogSquareSize, x, y);
     			this.libGDXGame.fogStage.addActor(fogImage);
     			this.fog.add(fogImage);
@@ -163,6 +167,10 @@ public class GameScreen extends BZScreenAdapter {
     	}
     }
     
+    private void centerCameraOnPlayerHomeworld() {
+    	this.libGDXGame.camera.position.x = this.game.getPlayerHomeworld().getPosition().x;
+    	this.libGDXGame.camera.position.y = this.game.getPlayerHomeworld().getPosition().y;
+    }
     
 	@Override
 	public void render (float delta) {
