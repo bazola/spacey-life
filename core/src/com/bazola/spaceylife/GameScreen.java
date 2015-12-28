@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.bazola.spaceylife.gamemodel.Alien;
 import com.bazola.spaceylife.gamemodel.EnemyShip;
@@ -16,6 +17,7 @@ import com.bazola.spaceylife.gamemodel.MainGame;
 import com.bazola.spaceylife.gamemodel.MapPoint;
 import com.bazola.spaceylife.gamemodel.PlayerFlag;
 import com.bazola.spaceylife.gamemodel.Star;
+import com.bazola.spaceylife.gamemodel.UniverseFeature;
 
 public class GameScreen extends BZScreenAdapter {
 	
@@ -35,8 +37,13 @@ public class GameScreen extends BZScreenAdapter {
     private final List<AlienImage> alienImages = new ArrayList<AlienImage>();
     private final List<EnemyShipImage> enemyShipImages = new ArrayList<EnemyShipImage>();
     
-    private int WORLD_WIDTH = 1000;
-    private int WORLD_HEIGHT = 600;
+    /**
+     * It makes sense to have these variables declared in this class, because
+     * things like the flags and radar rings will actually be bigger if the
+     * world size is bigger for aesthetic reasons.
+     */
+    private int WORLD_WIDTH = 4500;
+    private int WORLD_HEIGHT = 3000;
     
     private final MainGame game;
     
@@ -77,8 +84,10 @@ public class GameScreen extends BZScreenAdapter {
     	gridImage.setSize(this.WORLD_WIDTH, this.WORLD_HEIGHT);
     	this.libGDXGame.stage.addActor(gridImage);
     	
+    	this.addUniverseFeatureLabels();
+    	
     	this.starImages.clear();
-
+    	
     	for (Entry<MapPoint, Star> star : this.game.universe.getStars().entrySet()) {
     		StarImage starImage = new StarImage(star.getValue(),
     											star.getKey(), 
@@ -87,6 +96,15 @@ public class GameScreen extends BZScreenAdapter {
     											this.libGDXGame.playerPlanetCover01,
     											this.libGDXGame.stage);
     		this.starImages.add(starImage);
+    	}
+    }
+    
+    private void addUniverseFeatureLabels() {
+    	for (UniverseFeature feature : this.game.universe.getUniverseFeatures()) {
+    		Label label = new Label(feature.type.name(), this.libGDXGame.skin);
+    		label.setPosition(feature.circle.x, feature.circle.y);
+    		label.setFontScale(4);
+    		this.libGDXGame.stage.addActor(label);
     	}
     }
     
