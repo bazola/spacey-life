@@ -27,6 +27,7 @@ public class MainGame {
 	
 	private List<PlayerFlag> playerFlags = new ArrayList<PlayerFlag>();
 	private int flagLimit = 3;
+	private boolean hasPlayerFlagsChanged = false;
 	
 	public MainGame(int width, int height, GameScreen gameScreen) {
 		this.gameScreen = gameScreen;
@@ -78,27 +79,32 @@ public class MainGame {
 	}
 	
 	public void setPlayerMarkedPoint(MapPoint point) {
+		
 		//create new flags up to the limit
 		if (this.playerFlags.size() < this.flagLimit) {
 			PlayerFlag flag = new PlayerFlag(point);
 			this.playerFlags.add(flag);
 			this.gameScreen.flagSpawned(flag);
+			
+		//else shuffle to last index
 		} else {
-			//shuffle to last index
 			PlayerFlag flag = this.playerFlags.remove(0);
 			this.playerFlags.add(flag);
 			flag.setPosition(point);
 			this.gameScreen.spawnRadarRingsAtFlagPlace(flag);
 		}
+		
+		this.hasPlayerFlagsChanged = true;
 	}
 	
 	public void update() {
 		for (Alien alien : this.playerAliens) {
-			alien.update(this.playerFlags, this.universe.getStars(), this.playerAliens, this.enemyShips);
+			alien.update(this.playerFlags, this.hasPlayerFlagsChanged, this.universe.getStars(), this.playerAliens, this.enemyShips);
 		}
 		for (EnemyShip enemyShip : this.enemyShips) {
 			enemyShip.update(this.playerAliens);
 		}
+		this.hasPlayerFlagsChanged = false;
 	}
 	
 	public Star getPlayerHomeworld() {

@@ -18,3 +18,7 @@ star arm
 place with fog of war
 These areas would be randomly generated during universe creation, and then there would
 be an exploration/discovery element to the game.
+
+more ideas:
+good/evil scale that depends on how many neutral ships you kill
+asymetrical gameplay where there are aliens/traders/fighters and you can pick a side

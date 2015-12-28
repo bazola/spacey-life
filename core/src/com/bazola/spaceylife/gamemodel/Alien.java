@@ -58,8 +58,8 @@ public class Alien {
 	private Map<MapPoint, Star> stars;
 	private List<EnemyShip> enemyShips;
 	
+	private PlayerFlag targetFlag;
 	private Star targetStar;
-	
 	private EnemyShip targetEnemy;
 	
 	public Alien(MapPoint position, Random random, MainGame game) {
@@ -91,7 +91,11 @@ public class Alien {
 		return this.angle;
 	}
 
-	public void update(List<PlayerFlag> playerFlags, Map<MapPoint, Star>stars, List<Alien> playerAliens, List<EnemyShip> enemyShips) {
+	public void update(List<PlayerFlag> playerFlags, 
+					   boolean hasPlayerFlagsChanged,
+					   Map<MapPoint, Star>stars, 
+					   List<Alien> playerAliens, 
+					   List<EnemyShip> enemyShips) {
 		
 		this.playerFlags = playerFlags;
 		this.stars = stars;
@@ -99,6 +103,10 @@ public class Alien {
 		this.enemyShips = enemyShips;
 		
 		this.stateMachine.update();
+		
+		if (hasPlayerFlagsChanged) {
+			this.stateMachine.changeState(AlienState.SEARCH_FLAG);
+		}
 	}
 	
 	public boolean eatStar() {
@@ -134,8 +142,10 @@ public class Alien {
 	}
 	
 	public boolean isFlagNearEnough() {
-		PlayerFlag targetFlag = playerFlags.get(playerFlags.size() - 1);
-		return this.calculateDistance(targetFlag.getPosition(), this.position) < this.minDistanceFromFlag;
+		if (this.targetFlag == null) {
+			return false;
+		}
+		return this.calculateDistance(this.targetFlag.getPosition(), this.position) < this.minDistanceFromFlag;
 	}
 	
 	public boolean searchForNearbyEnemy() {
@@ -199,8 +209,13 @@ public class Alien {
 	}
 	
 	public void setDestinationForFlagMove() {
-		this.pointPair = new MapPointPair(this.position, this.playerFlags.get(this.playerFlags.size() - 1).getPosition());
-		this.stateMachine.changeState(AlienState.MOVE);
+		//move to a random flag if not already close enough
+		if (!this.isFlagNearEnough()) {
+			int randomFlagIndex = this.random.nextInt(this.playerFlags.size());
+			this.targetFlag = this.playerFlags.get(randomFlagIndex);
+			this.pointPair = new MapPointPair(this.position, this.targetFlag.getPosition());
+			this.stateMachine.changeState(AlienState.MOVE);
+		}
 	}
 	
 	public void setDestinationForStarMove() {
