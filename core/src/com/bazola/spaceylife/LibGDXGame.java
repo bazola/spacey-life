@@ -74,6 +74,25 @@ public class LibGDXGame extends Game {
 	
 	private GameScreen gameScreen;
 	
+	public Texture screenOverlay01;
+	
+	private TextureAtlas angry01atlas;
+    public Animation angry01animation;
+    
+    private TextureAtlas screenBackgroundAtlas;
+    public Animation screenBackgroundAnimation;
+	
+    private void loadAnimations() {
+    	//remove this later
+    	this.screenOverlay01 = new Texture("screenFront.png");
+    	
+    	this.angry01atlas = new TextureAtlas(Gdx.files.internal("angry01.atlas"));
+        this.angry01animation = new Animation(1/8f, angry01atlas.getRegions());
+   
+        this.screenBackgroundAtlas = new TextureAtlas(Gdx.files.internal("screen01.atlas"));
+        this.screenBackgroundAnimation = new Animation(1/8f, screenBackgroundAtlas.getRegions());
+    }
+    
 	/**
 	 * Need to keep a reference to the atlases for the sake of disposing them
 	 * This is better than trying to grab a TextureRegion and dispose of the texture
@@ -187,6 +206,8 @@ public class LibGDXGame extends Game {
 		this.starTextures = this.loadStarTextures();
 		this.shipTextures = this.loadShipTextures();
 		this.planetTextures = this.loadPlanetTextures();
+		
+		this.loadAnimations();
 	}
 	
 	private void configureInputHandlers() {

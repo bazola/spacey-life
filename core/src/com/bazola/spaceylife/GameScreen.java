@@ -111,6 +111,21 @@ public class GameScreen extends BZScreenAdapter {
     	}
     	
     	this.addFog();
+    	
+    	this.addScreenOverlay();
+    }
+    
+    private void addScreenOverlay() {
+    	AnimatedImage bgImage = new AnimatedImage(this.libGDXGame.screenBackgroundAnimation);
+    	bgImage.setPosition(10, 15);
+    	this.libGDXGame.hudStage.addActor(bgImage);
+    	
+    	AnimatedImage testImage = new AnimatedImage(this.libGDXGame.angry01animation);
+    	testImage.setPosition(60, 10);
+    	this.libGDXGame.hudStage.addActor(testImage);
+    	
+    	Image screenOverlay = new Image(this.libGDXGame.screenOverlay01);
+    	this.libGDXGame.hudStage.addActor(screenOverlay);
     }
     
     private void addNebulaImagesToStage() {
