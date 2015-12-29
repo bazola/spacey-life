@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.Map.Entry;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -228,6 +229,8 @@ public class GameScreen extends BZScreenAdapter {
     	});
     	shipButtonsTable.add(smallAlienStack).width(LibGDXGame.HUD_WIDTH / 10).height(LibGDXGame.HUD_WIDTH / 10);
     	shipButtonsTable.row();
+    	
+    	shipButtonsTable.add(" ").row();
 
     	Stack largeAlienStack = new Stack();
     	largeAlienStack.add(new Image(this.libGDXGame.menuBackgroundSolid));
@@ -300,6 +303,10 @@ public class GameScreen extends BZScreenAdapter {
         
         if (this.timeSinceLastRender > this.timeBewteenRenders) {
         	
+        	//do not draw actors outside of camera view
+        	this.libGDXGame.stage.getRoot().setCullingArea(this.calculateCameraFrame());
+        	this.libGDXGame.fogStage.getRoot().setCullingArea(this.calculateCameraFrame());
+        	
         	for (AlienImage image : this.alienImages) {
         		image.update();
         	}
@@ -324,6 +331,22 @@ public class GameScreen extends BZScreenAdapter {
         	
         	this.resourceCountLabel.setText(String.valueOf(this.game.getPlayerResources()));
         }
+	}
+	
+	private Rectangle calculateCameraFrame() {
+    	//increase rectangle size by ratio so that popin does not occur
+    	//float ratio = 0.2f;
+    	//super low zoom levels cause popin problems
+    	float zoomLevel = Math.max(1, this.libGDXGame.camera.zoom);
+    	float frameWidth = this.libGDXGame.camera.viewportWidth * zoomLevel;
+    	//frameWidth = frameWidth + frameWidth * ratio;
+    	float frameHeight = this.libGDXGame.camera.viewportHeight * zoomLevel;
+    	//frameHeight = frameHeight + frameHeight * ratio; 
+    	float frameX = this.libGDXGame.camera.position.x - frameWidth / 2;
+    	//frameX = frameX - frameX * ratio;
+    	float frameY = this.libGDXGame.camera.position.y - frameHeight / 2;
+    	//frameY = frameY - frameY * ratio;
+    	return new Rectangle(frameX, frameY, frameWidth, frameHeight);
 	}
 	
     private void processFog() {

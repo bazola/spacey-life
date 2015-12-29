@@ -444,6 +444,7 @@ public class LibGDXGame extends Game {
         super.resize(width, height);
         this.backgroundStage.getViewport().update(width, height, false);
         this.stage.getViewport().update(width, height, false);
+        this.fogStage.getViewport().update(width, height, false);
         this.hudStage.getViewport().update(width, height, true);
     }
 	

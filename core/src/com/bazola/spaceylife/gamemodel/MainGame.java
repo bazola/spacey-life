@@ -199,9 +199,11 @@ public class MainGame {
 	}
 	
 	public void playerClickedLargeAlienButton() {
+		/*
 		if (this.playerResources >= this.largeAlienCost) {
 			this.playerResources -= this.largeAlienCost;
 		}
+		*/
 	}
 	
 	public void playerClickedFlagButtonAtIndex(int index) {
