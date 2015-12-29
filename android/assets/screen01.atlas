@@ -1,0 +1,62 @@
+
+screen01.png
+size: 2048,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+blank_screen01
+  rotate: false
+  xy: 2, 190
+  size: 289, 186
+  orig: 289, 186
+  offset: 0, 0
+  index: -1
+blank_screen02
+  rotate: false
+  xy: 2, 2
+  size: 289, 186
+  orig: 289, 186
+  offset: 0, 0
+  index: -1
+blank_screen03
+  rotate: false
+  xy: 293, 190
+  size: 289, 186
+  orig: 289, 186
+  offset: 0, 0
+  index: -1
+blank_screen04
+  rotate: false
+  xy: 293, 2
+  size: 289, 186
+  orig: 289, 186
+  offset: 0, 0
+  index: -1
+blank_screen05
+  rotate: false
+  xy: 584, 190
+  size: 289, 186
+  orig: 289, 186
+  offset: 0, 0
+  index: -1
+blank_screen06
+  rotate: false
+  xy: 584, 2
+  size: 289, 186
+  orig: 289, 186
+  offset: 0, 0
+  index: -1
+blank_screen07
+  rotate: false
+  xy: 875, 190
+  size: 289, 186
+  orig: 289, 186
+  offset: 0, 0
+  index: -1
+blank_screen08
+  rotate: false
+  xy: 875, 2
+  size: 289, 186
+  orig: 289, 186
+  offset: 0, 0
+  index: -1

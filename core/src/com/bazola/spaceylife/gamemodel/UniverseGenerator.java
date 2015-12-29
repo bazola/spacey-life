@@ -50,7 +50,7 @@ public class UniverseGenerator {
 			int randomSize = this.random.nextInt(maxSize - minSize) + minSize;
 			
 			Circle newCircle = new Circle(randomX, randomY, randomSize);
-			
+
 			boolean overlapsOrOutside = false;
 			for (UniverseFeature feature : universeRegions) {
 				if (feature.circle.overlaps(newCircle) ||
@@ -86,6 +86,30 @@ public class UniverseGenerator {
 			int starDensity = featureFound != null ? featureFound.type.starDensity : this.EMPTY_SPACE_DENSITY;
 			if (!this.regionContainsStar(starDensity, point)) {
 				this.stars.put(point, new Star(this.random, point));
+			}
+		}
+		
+		//create stars for galaxy arms
+		for (UniverseFeature feature : this.universeRegions) {
+			if (feature.type == UniverseFeatureType.SPIRAL_ARM) {
+				int fullCircle = 360;
+				int halfCircle = 180;
+				int randomAngle = this.random.nextInt(fullCircle);
+				int oppositeAngle = randomAngle + halfCircle;
+				if (oppositeAngle > 360) {
+					oppositeAngle -= 360;
+				}
+				
+				System.out.println("first = " + randomAngle);
+				System.out.println("opp = " + oppositeAngle);
+				
+				int randomX = (int)(feature.circle.x + Math.cos(Math.toRadians(randomAngle)) * feature.circle.radius);
+				int randomY = (int)(feature.circle.y + Math.sin(Math.toRadians(randomAngle)) * feature.circle.radius);
+				System.out.println("x = " + randomX + " y = " + randomY);
+				
+				int randomOppX = (int)(feature.circle.x + Math.cos(Math.toRadians(oppositeAngle)) * feature.circle.radius);
+				int randomOppY = (int)(feature.circle.y + Math.sin(Math.toRadians(oppositeAngle)) * feature.circle.radius);
+				System.out.println("oppX = " + randomOppX + " oppY = " + randomOppY);
 			}
 		}
 	}

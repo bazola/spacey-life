@@ -1,0 +1,76 @@
+
+hello01.png
+size: 2048,256
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+hello01
+  rotate: false
+  xy: 2, 2
+  size: 149, 193
+  orig: 149, 193
+  offset: 0, 0
+  index: -1
+hello02
+  rotate: false
+  xy: 153, 2
+  size: 149, 193
+  orig: 149, 193
+  offset: 0, 0
+  index: -1
+hello03
+  rotate: false
+  xy: 304, 2
+  size: 149, 193
+  orig: 149, 193
+  offset: 0, 0
+  index: -1
+hello04
+  rotate: false
+  xy: 455, 2
+  size: 149, 193
+  orig: 149, 193
+  offset: 0, 0
+  index: -1
+hello05
+  rotate: false
+  xy: 606, 2
+  size: 149, 193
+  orig: 149, 193
+  offset: 0, 0
+  index: -1
+hello06
+  rotate: false
+  xy: 757, 2
+  size: 149, 193
+  orig: 149, 193
+  offset: 0, 0
+  index: -1
+hello07
+  rotate: false
+  xy: 908, 2
+  size: 149, 193
+  orig: 149, 193
+  offset: 0, 0
+  index: -1
+hello08
+  rotate: false
+  xy: 1059, 2
+  size: 149, 193
+  orig: 149, 193
+  offset: 0, 0
+  index: -1
+hello09
+  rotate: false
+  xy: 1210, 2
+  size: 149, 193
+  orig: 149, 193
+  offset: 0, 0
+  index: -1
+hello10
+  rotate: false
+  xy: 1361, 2
+  size: 149, 193
+  orig: 149, 193
+  offset: 0, 0
+  index: -1

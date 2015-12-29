@@ -8,7 +8,7 @@ universe regions
 
 IMPLEMENTED REGIONS
 star cluster
-dark zone with replenishign fog of war
+dark zone with replenishing fog of war
 nebula with lower star density
 
 IDEA:

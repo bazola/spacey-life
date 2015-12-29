@@ -1,0 +1,83 @@
+
+bigAlien01.png
+size: 512,64
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+big_slime_eat01
+  rotate: false
+  xy: 2, 2
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+big_slime_moving01
+  rotate: false
+  xy: 2, 2
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+big_slime_eat02
+  rotate: false
+  xy: 52, 2
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+big_slime_eat03
+  rotate: false
+  xy: 102, 2
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+big_slime_eat04
+  rotate: false
+  xy: 152, 2
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+big_slime_eat05
+  rotate: false
+  xy: 202, 2
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+big_slime_eat06
+  rotate: false
+  xy: 252, 2
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+big_slime_eat07
+  rotate: false
+  xy: 302, 2
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+big_slime_eat08
+  rotate: false
+  xy: 352, 2
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+big_slime_moving02
+  rotate: false
+  xy: 402, 2
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+big_slime_moving03
+  rotate: false
+  xy: 452, 2
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1

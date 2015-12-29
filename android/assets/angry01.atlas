@@ -1,0 +1,76 @@
+
+angry01.png
+size: 2048,256
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+angry01
+  rotate: false
+  xy: 2, 2
+  size: 172, 188
+  orig: 172, 188
+  offset: 0, 0
+  index: -1
+angry02
+  rotate: false
+  xy: 176, 2
+  size: 172, 188
+  orig: 172, 188
+  offset: 0, 0
+  index: -1
+angry03
+  rotate: false
+  xy: 350, 2
+  size: 172, 188
+  orig: 172, 188
+  offset: 0, 0
+  index: -1
+angry04
+  rotate: false
+  xy: 524, 2
+  size: 172, 188
+  orig: 172, 188
+  offset: 0, 0
+  index: -1
+angry05
+  rotate: false
+  xy: 698, 2
+  size: 172, 188
+  orig: 172, 188
+  offset: 0, 0
+  index: -1
+angry06
+  rotate: false
+  xy: 872, 2
+  size: 172, 188
+  orig: 172, 188
+  offset: 0, 0
+  index: -1
+angry07
+  rotate: false
+  xy: 1046, 2
+  size: 172, 188
+  orig: 172, 188
+  offset: 0, 0
+  index: -1
+angry08
+  rotate: false
+  xy: 1220, 2
+  size: 172, 188
+  orig: 172, 188
+  offset: 0, 0
+  index: -1
+angry09
+  rotate: false
+  xy: 1394, 2
+  size: 172, 188
+  orig: 172, 188
+  offset: 0, 0
+  index: -1
+angry10
+  rotate: false
+  xy: 1568, 2
+  size: 172, 188
+  orig: 172, 188
+  offset: 0, 0
+  index: -1
