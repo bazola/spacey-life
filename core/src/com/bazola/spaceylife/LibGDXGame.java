@@ -113,6 +113,10 @@ public class LibGDXGame extends Game {
 	private TextureAtlas idle02Atlas;
 	private TextureAtlas screenBackgroundAtlas;
 	
+	public Animation bigAlienMove01;
+	public Animation bigAlienEat01;
+	private TextureAtlas bigAlien01Atlas;
+	
 	@Override
 	public void create () {
 		
@@ -251,7 +255,31 @@ public class LibGDXGame extends Game {
 		flagRegions[2] = new TextureRegion(flagWave03);
 		flagRegions[3] = new TextureRegion(flagWave04);
 		this.flagWave01 = new Animation(1/6f, flagRegions);
-
+		
+		this.bigAlien01Atlas = new TextureAtlas(Gdx.files.internal("bigAlien01.atlas"));
+		TextureRegion[] bigEatRegions = new TextureRegion[13];
+		bigEatRegions[0] = this.bigAlien01Atlas.findRegion("big_slime_eat01");
+		bigEatRegions[1] = this.bigAlien01Atlas.findRegion("big_slime_eat02");
+		bigEatRegions[2] = this.bigAlien01Atlas.findRegion("big_slime_eat03");
+		bigEatRegions[3] = this.bigAlien01Atlas.findRegion("big_slime_eat04");
+		bigEatRegions[4] = this.bigAlien01Atlas.findRegion("big_slime_eat05");
+		bigEatRegions[5] = this.bigAlien01Atlas.findRegion("big_slime_eat06");
+		bigEatRegions[6] = this.bigAlien01Atlas.findRegion("big_slime_eat07");
+		bigEatRegions[7] = this.bigAlien01Atlas.findRegion("big_slime_eat08");
+		bigEatRegions[8] = this.bigAlien01Atlas.findRegion("big_slime_eat07");
+		bigEatRegions[9] = this.bigAlien01Atlas.findRegion("big_slime_eat06");
+		bigEatRegions[10] = this.bigAlien01Atlas.findRegion("big_slime_eat05");
+		bigEatRegions[11] = this.bigAlien01Atlas.findRegion("big_slime_eat04");
+		bigEatRegions[12] = this.bigAlien01Atlas.findRegion("big_slime_eat03");
+		this.bigAlienEat01 = new Animation(1/6f, bigEatRegions);
+		
+		TextureRegion[] bigMoveRegions = new TextureRegion[4];
+		bigMoveRegions[0] = this.bigAlien01Atlas.findRegion("big_slime_moving01");
+		bigMoveRegions[1] = this.bigAlien01Atlas.findRegion("big_slime_moving02");
+		bigMoveRegions[2] = this.bigAlien01Atlas.findRegion("big_slime_moving03");
+		bigMoveRegions[3] = this.bigAlien01Atlas.findRegion("big_slime_moving02");
+		this.bigAlienMove01 = new Animation(1/6f, bigMoveRegions);
+		
     	this.angry01Atlas = new TextureAtlas(Gdx.files.internal("angry01.atlas"));
         this.angry01Animation = new Animation(1/8f, angry01Atlas.getRegions());
    
