@@ -29,6 +29,12 @@ public class MainGame {
 	private int flagLimit = 3;
 	private boolean hasPlayerFlagsChanged = false;
 	
+	private int playerResources = 0;
+	private int smallAlienCost = 100;
+	private int largeAlienCost = 500;
+	private int maxEnemies = 20;
+	private int startingAliens = 5;
+	
 	public MainGame(int width, int height, GameScreen gameScreen) {
 		this.gameScreen = gameScreen;
 		
@@ -40,6 +46,16 @@ public class MainGame {
 		this.universe = new UniverseGenerator(width, height, this.random);
 	
 		this.setPlayerAndAIHomeworlds();
+	}
+	
+	public void startGame() {
+		for (int i = 0; i < this.startingAliens; i++) {
+			this.spawnAlien();
+		}
+	}
+	
+	public int getPlayerResources() {
+		return this.playerResources;
 	}
 	
 	private void setPlayerAndAIHomeworlds() {
@@ -105,6 +121,17 @@ public class MainGame {
 			enemyShip.update(this.playerAliens);
 		}
 		this.hasPlayerFlagsChanged = false;
+		
+		//check for player stars and allocate resources for them
+		for (Star star : this.universe.getStars().values()) {
+			if (star.getState() == StarState.PLAYER_CONTROLLED) {
+				this.playerResources++;
+			}
+		}
+		
+    	if (this.enemyShips.size() < this.maxEnemies) {
+    		this.spawnEnemyShip();
+    	}
 	}
 	
 	public Star getPlayerHomeworld() {
@@ -162,6 +189,23 @@ public class MainGame {
 		}
 		
 		return targetFeature.type == UniverseFeatureType.DARK_ZONE;
+	}
+	
+	public void playerClickedSmallAlienButton() {
+		if (this.playerResources >= this.smallAlienCost) {
+			this.playerResources -= this.smallAlienCost;
+			this.spawnAlien();
+		}
+	}
+	
+	public void playerClickedLargeAlienButton() {
+		if (this.playerResources >= this.largeAlienCost) {
+			this.playerResources -= this.largeAlienCost;
+		}
+	}
+	
+	public void playerClickedFlagButtonAtIndex(int index) {
+		//TODO: fix this
 	}
 	
 	/*

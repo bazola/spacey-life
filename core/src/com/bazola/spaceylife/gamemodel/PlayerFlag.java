@@ -8,6 +8,8 @@ public class PlayerFlag {
 	
 	private Image image;
 	
+	public boolean isActive = true;
+	
 	public PlayerFlag(MapPoint position) {
 		this.position = position;
 	}
@@ -25,5 +27,9 @@ public class PlayerFlag {
 	
 	public void setImage(Image image) {
 		this.image = image;
+	}
+	
+	public Image getImage() {
+		return this.image;
 	}
 }

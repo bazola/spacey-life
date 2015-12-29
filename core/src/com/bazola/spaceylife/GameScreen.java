@@ -9,10 +9,18 @@ import java.util.Map.Entry;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.bazola.spaceylife.gamemodel.Alien;
 import com.bazola.spaceylife.gamemodel.EnemyShip;
@@ -28,6 +36,10 @@ public class GameScreen extends BZScreenAdapter {
 	public final Random random;
 	
 	private final LibGDXGame libGDXGame;
+	
+	private Table buttonTable;
+	private ButtonStyle greenButtonStyle;
+	private Label resourceCountLabel;
 	
     private double currentTime = 0;
     private double timeSinceLastRender = 0;
@@ -52,20 +64,25 @@ public class GameScreen extends BZScreenAdapter {
     
     private final MainGame game;
     
-	private int maxAliens = 20;
-	private int maxEnemies = 20;
-    
     public GameScreen(LibGDXGame libGDXGame, Random random) {
     	this.libGDXGame = libGDXGame;
     	this.random = random;
     	
     	this.game = new MainGame(this.WORLD_WIDTH, this.WORLD_HEIGHT, this);
     	
+		this.greenButtonStyle = new ButtonStyle();
+		this.greenButtonStyle.up = new NinePatchDrawable(this.libGDXGame.menuBackgroundSolid);
+		this.greenButtonStyle.down = new NinePatchDrawable(this.libGDXGame.menuBackgroundDark);
+		
     	this.addSwipeRecognizer();
     	
     	this.addActorsToStage();
     	
     	this.centerCameraOnPlayerHomeworld();
+    	
+    	this.createButtons();
+    	
+    	this.game.startGame();
     }
     
 	private void addSwipeRecognizer() {
@@ -173,6 +190,86 @@ public class GameScreen extends BZScreenAdapter {
     	this.libGDXGame.camera.position.y = this.game.getPlayerHomeworld().getPosition().y;
     }
     
+    private void createButtons() {
+    	this.buttonTable = new Table(this.libGDXGame.skin);
+    	this.buttonTable.setFillParent(true);
+    	this.libGDXGame.hudStage.addActor(this.buttonTable);
+    	
+    	Label exitButtonLabel = new Label("Exit", new LabelStyle(this.libGDXGame.bigButtonFont, null));
+    	Button exitButton = new Button(exitButtonLabel, this.libGDXGame.skin);
+    	exitButton.setStyle(this.greenButtonStyle);
+    	exitButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+            	GameScreen.this.clickedExitButton();
+            }
+    	});
+    	this.buttonTable.add(exitButton).expand().top().left();
+    	this.buttonTable.row();
+    	
+    	Table shipButtonsTable = new Table(this.libGDXGame.skin);
+    	Label resourcesTitle = new Label("Resources:", new LabelStyle(this.libGDXGame.smallButtonFont, null));
+    	shipButtonsTable.add(resourcesTitle);
+    	shipButtonsTable.row();
+    	this.resourceCountLabel = new Label("0", new LabelStyle(this.libGDXGame.smallButtonFont, null));
+    	shipButtonsTable.add(this.resourceCountLabel);
+    	shipButtonsTable.row();
+    	
+    	Stack smallAlienStack = new Stack();
+    	smallAlienStack.add(new Image(this.libGDXGame.menuBackgroundSolid));
+    	Image smallAlienImage = new Image(this.libGDXGame.alien01);
+    	//smallAlienImage.setScale(0.5f); //cant get it to align properly
+    	smallAlienStack.add(smallAlienImage);
+    	smallAlienStack.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+            	GameScreen.this.game.playerClickedSmallAlienButton();
+            }
+    	});
+    	shipButtonsTable.add(smallAlienStack).width(LibGDXGame.HUD_WIDTH / 10).height(LibGDXGame.HUD_WIDTH / 10);
+    	shipButtonsTable.row();
+
+    	Stack largeAlienStack = new Stack();
+    	largeAlienStack.add(new Image(this.libGDXGame.menuBackgroundSolid));
+    	Image largeAlien = new Image(this.libGDXGame.bigAlienMove01.getKeyFrame(0));
+    	largeAlienStack.add(largeAlien);
+    	largeAlienStack.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+            	GameScreen.this.game.playerClickedLargeAlienButton();
+            }
+    	});
+    	shipButtonsTable.add(largeAlienStack).width(LibGDXGame.HUD_WIDTH / 10).height(LibGDXGame.HUD_WIDTH / 10);
+    	this.buttonTable.add(shipButtonsTable).right();
+    	this.buttonTable.row();
+    	
+    	Table flagButtonsTable = new Table(this.libGDXGame.skin);
+    	int maxFlags = 3;
+    	for (int i = 0; i < maxFlags; i++) {
+    		Stack stack = new Stack();
+    		stack.add(new Image(this.libGDXGame.menuBackgroundSolid));
+    		Image flagImage = new Image(this.libGDXGame.flagWave01.getKeyFrame(0));
+    		stack.add(flagImage);
+    		final int index = i;
+    		stack.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                	GameScreen.this.clickedFlagButtonAtIndex(index);
+                }
+        	});
+    		flagButtonsTable.add(stack).width(LibGDXGame.HUD_WIDTH / 10).height(LibGDXGame.HUD_WIDTH / 10);
+    	}
+    	this.buttonTable.add(flagButtonsTable).bottom().left();
+    }
+    
+    private void clickedFlagButtonAtIndex(int index) {
+    	this.game.playerClickedFlagButtonAtIndex(index);
+    }
+    
+    private void clickedExitButton() {
+    	this.libGDXGame.exitToMainMenu();
+    }
+    
 	@Override
 	public void render (float delta) {
 		//handle button presses
@@ -223,14 +320,9 @@ public class GameScreen extends BZScreenAdapter {
         	
         	this.game.update();
         	
-        	if (this.alienImages.size() < this.maxAliens) {
-        		this.game.spawnAlien();
-        	}
-        	if (this.enemyShipImages.size() < this.maxEnemies) {
-        		this.game.spawnEnemyShip();
-        	}
-        	
         	this.processFog();
+        	
+        	this.resourceCountLabel.setText(String.valueOf(this.game.getPlayerResources()));
         }
 	}
 	
@@ -268,7 +360,7 @@ public class GameScreen extends BZScreenAdapter {
 	
 	public void alienSpawned(Alien alien) {
 		AlienImage image = new AlienImage(this.libGDXGame.alien01, alien);
-		image.setMoveAnimation(this.libGDXGame.station01Animation);
+		image.setMoveAnimation(this.libGDXGame.alienMove01);
 		image.setEatAnimation(this.libGDXGame.alienEat01);
 		this.alienImages.add(image);
 		this.libGDXGame.stage.addActor(image);

@@ -164,6 +164,16 @@ public class LibGDXGame extends Game {
         this.setScreen(this.gameScreen);
 	}
 	
+	public void exitToMainMenu() {
+		this.backgroundStage.clear();
+		this.stage.clear();
+		this.fogStage.clear();
+		this.hudStage.clear();
+		
+		this.menuScreen = new MenuScreen(this, this.random);
+		this.setScreen(this.menuScreen);
+	}
+	
 	private void loadResources() {
 		
         Texture patchTextureTransparent = new Texture("green9patchTransparent.png");
@@ -319,7 +329,6 @@ public class LibGDXGame extends Game {
         this.screenBackgroundAnimation = new Animation(1/8f, screenBackgroundAtlas.getRegions());
     }
     
-	
     private Map<String,Map<Integer,BitmapFont>> loadFonts(boolean shadow) {
     	String shadowString = "";
     	if (shadow) {
