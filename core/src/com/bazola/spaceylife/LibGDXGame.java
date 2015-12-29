@@ -76,19 +76,34 @@ public class LibGDXGame extends Game {
 	
 	public Texture screenOverlay01;
 	
-	private TextureAtlas angry01atlas;
-    public Animation angry01animation;
-    
-    private TextureAtlas screenBackgroundAtlas;
+	private TextureAtlas angry01Atlas;
+	private TextureAtlas hello01Atlas;
+	private TextureAtlas idle01Atlas;
+	private TextureAtlas idle02Atlas;
+	private TextureAtlas screenBackgroundAtlas;
+	
+    public Animation angry01Animation;
+    public Animation hello01Animation;
+    public Animation idle01Animation;
+    public Animation idle02Animation;
     public Animation screenBackgroundAnimation;
 	
     private void loadAnimations() {
     	//remove this later
     	this.screenOverlay01 = new Texture("screenFront.png");
     	
-    	this.angry01atlas = new TextureAtlas(Gdx.files.internal("angry01.atlas"));
-        this.angry01animation = new Animation(1/8f, angry01atlas.getRegions());
+    	this.angry01Atlas = new TextureAtlas(Gdx.files.internal("angry01.atlas"));
+        this.angry01Animation = new Animation(1/8f, angry01Atlas.getRegions());
    
+    	this.hello01Atlas = new TextureAtlas(Gdx.files.internal("hello01.atlas"));
+        this.hello01Animation = new Animation(1/8f, hello01Atlas.getRegions());
+    	
+        this.idle01Atlas = new TextureAtlas(Gdx.files.internal("idle01.atlas"));
+        this.idle01Animation = new Animation(1/8f, idle01Atlas.getRegions());
+        
+        this.idle02Atlas = new TextureAtlas(Gdx.files.internal("idle02.atlas"));
+        this.idle02Animation = new Animation(1/8f, idle02Atlas.getRegions());
+        
         this.screenBackgroundAtlas = new TextureAtlas(Gdx.files.internal("screen01.atlas"));
         this.screenBackgroundAnimation = new Animation(1/8f, screenBackgroundAtlas.getRegions());
     }

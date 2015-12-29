@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.Map.Entry;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
@@ -120,9 +121,14 @@ public class GameScreen extends BZScreenAdapter {
     	bgImage.setPosition(10, 15);
     	this.libGDXGame.hudStage.addActor(bgImage);
     	
-    	AnimatedImage testImage = new AnimatedImage(this.libGDXGame.angry01animation);
-    	testImage.setPosition(60, 10);
-    	this.libGDXGame.hudStage.addActor(testImage);
+    	List<Animation> talkingAlienAnimations = new ArrayList<Animation>();
+    	talkingAlienAnimations.add(this.libGDXGame.angry01Animation);
+    	talkingAlienAnimations.add(this.libGDXGame.idle01Animation);
+    	talkingAlienAnimations.add(this.libGDXGame.idle02Animation);
+    	talkingAlienAnimations.add(this.libGDXGame.hello01Animation);
+    	TalkingAlienImage talkingAlien = new TalkingAlienImage(talkingAlienAnimations, this.random);
+    	talkingAlien.setPosition(80, 10);
+    	this.libGDXGame.hudStage.addActor(talkingAlien);
     	
     	Image screenOverlay = new Image(this.libGDXGame.screenOverlay01);
     	this.libGDXGame.hudStage.addActor(screenOverlay);
