@@ -21,7 +21,9 @@ public class DesktopLauncher {
         //TexturePacker.process(settings, "texturePacker/idle01_jpg", "texturePacker", "idle01");
         //TexturePacker.process(settings, "texturePacker/idle02_jpg", "texturePacker", "idle02");
         //TexturePacker.process(settings, "texturePacker/screen", "texturePacker", "screen01");
-        */
+        //TexturePacker.process(settings, "texturePacker/station01", "texturePacker", "station01");
+        //TexturePacker.process(settings, "texturePacker/eye01", "texturePacker", "eye01");
+		*/
 		
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		new LwjglApplication(new LibGDXGame(), config);

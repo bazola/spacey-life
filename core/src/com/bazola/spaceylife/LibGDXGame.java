@@ -59,7 +59,6 @@ public class LibGDXGame extends Game {
 	
 	public Map<StarType, TextureRegion> starTextures;
 	public Map<ShipType, TextureRegion> shipTextures;
-	public Map<PlanetType, TextureRegion> planetTextures;
 	
 	public Texture gridBackground;
 	public Texture radarRing01;
@@ -93,6 +92,12 @@ public class LibGDXGame extends Game {
     public Animation idle02Animation;
     public Animation screenBackgroundAnimation;
     
+	public Animation bigAlienMove01;
+	public Animation bigAlienEat01;
+	
+	public Animation eye01Animation;
+	public Animation station01Animation;
+    
     private Map<String,Map<Integer,BitmapFont>> fontsShadow;
     
     public BitmapFont titleFont;
@@ -105,17 +110,16 @@ public class LibGDXGame extends Game {
 	 */
 	private TextureAtlas starAtlasForDispose;
 	private TextureAtlas shipAtlasForDispose;
-	private TextureAtlas planetAtlasForDispose;
 	
 	private TextureAtlas angry01Atlas;
 	private TextureAtlas hello01Atlas;
 	private TextureAtlas idle01Atlas;
 	private TextureAtlas idle02Atlas;
 	private TextureAtlas screenBackgroundAtlas;
-	
-	public Animation bigAlienMove01;
-	public Animation bigAlienEat01;
+
 	private TextureAtlas bigAlien01Atlas;
+	private TextureAtlas eye01Atlas;
+	private TextureAtlas station01Atlas;
 	
 	@Override
 	public void create () {
@@ -202,7 +206,6 @@ public class LibGDXGame extends Game {
 		
 		this.starTextures = this.loadStarTextures();
 		this.shipTextures = this.loadShipTextures();
-		this.planetTextures = this.loadPlanetTextures();
 		
 		this.loadAnimations();
 		
@@ -279,6 +282,26 @@ public class LibGDXGame extends Game {
 		bigMoveRegions[2] = this.bigAlien01Atlas.findRegion("big_slime_moving03");
 		bigMoveRegions[3] = this.bigAlien01Atlas.findRegion("big_slime_moving02");
 		this.bigAlienMove01 = new Animation(1/6f, bigMoveRegions);
+		
+		this.station01Atlas = new TextureAtlas(Gdx.files.internal("station01.atlas"));
+		TextureRegion[] stationRegions = new TextureRegion[13];
+		stationRegions[0] = this.station01Atlas.findRegion("station01");
+		stationRegions[1] = this.station01Atlas.findRegion("station02");
+		stationRegions[2] = this.station01Atlas.findRegion("station03");
+		stationRegions[3] = this.station01Atlas.findRegion("station04");
+		stationRegions[4] = this.station01Atlas.findRegion("station05");
+		stationRegions[5] = this.station01Atlas.findRegion("station06");
+		stationRegions[6] = this.station01Atlas.findRegion("station07");
+		stationRegions[7] = this.station01Atlas.findRegion("station08");
+		stationRegions[8] = this.station01Atlas.findRegion("station07");
+		stationRegions[9] = this.station01Atlas.findRegion("station06");
+		stationRegions[10] = this.station01Atlas.findRegion("station05");
+		stationRegions[11] = this.station01Atlas.findRegion("station04");
+		stationRegions[12] = this.station01Atlas.findRegion("station03");
+		this.station01Animation = new Animation(1/6f, stationRegions);
+		
+		this.eye01Atlas = new TextureAtlas(Gdx.files.internal("eye01.atlas"));
+		this.eye01Animation = new Animation(1f, eye01Atlas.getRegions());
 		
     	this.angry01Atlas = new TextureAtlas(Gdx.files.internal("angry01.atlas"));
         this.angry01Animation = new Animation(1/8f, angry01Atlas.getRegions());
@@ -407,17 +430,6 @@ public class LibGDXGame extends Game {
 		return textures;
 	}
 	
-	private Map<PlanetType, TextureRegion> loadPlanetTextures() {
-		Map<PlanetType, TextureRegion> textures =  new HashMap<PlanetType, TextureRegion>();
-		this.planetAtlasForDispose = new TextureAtlas("planets01.atlas");
-		for (PlanetType type : PlanetType.values()) {
-			AtlasRegion region = this.planetAtlasForDispose.findRegion(type.fileName);
-			TextureRegion textureRegion = region;
-			textures.put(type, textureRegion);
-		}
-		return textures;
-	}
-	
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
@@ -443,13 +455,15 @@ public class LibGDXGame extends Game {
 		
 		this.starAtlasForDispose.dispose();
 		this.shipAtlasForDispose.dispose();
-		this.planetAtlasForDispose.dispose();
 		
 		this.angry01Atlas.dispose();
 		this.hello01Atlas.dispose();
 		this.idle01Atlas.dispose();
 		this.idle02Atlas.dispose();
 		this.screenBackgroundAtlas.dispose();
+		this.bigAlien01Atlas.dispose();
+		this.eye01Atlas.dispose();
+		this.station01Atlas.dispose();
 		
 		this.titleFont.dispose();
 		this.bigButtonFont.dispose();

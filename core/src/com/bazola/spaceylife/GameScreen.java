@@ -268,7 +268,7 @@ public class GameScreen extends BZScreenAdapter {
 	
 	public void alienSpawned(Alien alien) {
 		AlienImage image = new AlienImage(this.libGDXGame.alien01, alien);
-		image.setMoveAnimation(this.libGDXGame.alienMove01);
+		image.setMoveAnimation(this.libGDXGame.station01Animation);
 		image.setEatAnimation(this.libGDXGame.alienEat01);
 		this.alienImages.add(image);
 		this.libGDXGame.stage.addActor(image);
