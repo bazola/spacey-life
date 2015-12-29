@@ -2,6 +2,7 @@ package com.bazola.spaceylife;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -22,6 +23,8 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 public class LibGDXGame extends Game {
+	
+	private final Random random = new Random();
 	
 	public static float STAGE_WIDTH;
 	public static float STAGE_HEIGHT;
@@ -73,6 +76,7 @@ public class LibGDXGame extends Game {
 	public Skin skin;
 	
 	private GameScreen gameScreen;
+	private MenuScreen menuScreen;
 	
 	public Texture screenOverlay01;
 	
@@ -150,7 +154,12 @@ public class LibGDXGame extends Game {
 	
 		this.configureInputHandlers();
 		
-        this.gameScreen = new GameScreen(this);
+		this.menuScreen = new MenuScreen(this, this.random);
+		this.setScreen(this.menuScreen);
+	}
+	
+	public void clickedPlayButton() {
+        this.gameScreen = new GameScreen(this, this.random);
         this.setScreen(this.gameScreen);
 	}
 	

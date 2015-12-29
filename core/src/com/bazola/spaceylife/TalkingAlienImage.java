@@ -22,7 +22,6 @@ public class TalkingAlienImage extends Image {
 
 	public TalkingAlienImage(List<Animation> animations, Random random) {
 		super(animations.get(0).getKeyFrames()[0]); //very first frame
-		super.setSize(130, 180);
 		
 		this.random = random;
 		

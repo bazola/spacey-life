@@ -8,7 +8,6 @@ import java.util.Set;
 import java.util.Map.Entry;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
@@ -26,7 +25,7 @@ import com.bazola.spaceylife.gamemodel.UniverseFeatureType;
 
 public class GameScreen extends BZScreenAdapter {
 	
-	public final Random random = new Random();
+	public final Random random;
 	
 	private final LibGDXGame libGDXGame;
 	
@@ -56,8 +55,9 @@ public class GameScreen extends BZScreenAdapter {
 	private int maxAliens = 20;
 	private int maxEnemies = 20;
     
-    public GameScreen(LibGDXGame libGDXGame) {
+    public GameScreen(LibGDXGame libGDXGame, Random random) {
     	this.libGDXGame = libGDXGame;
+    	this.random = random;
     	
     	this.game = new MainGame(this.WORLD_WIDTH, this.WORLD_HEIGHT, this);
     	
@@ -112,26 +112,6 @@ public class GameScreen extends BZScreenAdapter {
     	}
     	
     	this.addFog();
-    	
-    	this.addScreenOverlay();
-    }
-    
-    private void addScreenOverlay() {
-    	AnimatedImage bgImage = new AnimatedImage(this.libGDXGame.screenBackgroundAnimation);
-    	bgImage.setPosition(10, 15);
-    	this.libGDXGame.hudStage.addActor(bgImage);
-    	
-    	List<Animation> talkingAlienAnimations = new ArrayList<Animation>();
-    	talkingAlienAnimations.add(this.libGDXGame.angry01Animation);
-    	talkingAlienAnimations.add(this.libGDXGame.idle01Animation);
-    	talkingAlienAnimations.add(this.libGDXGame.idle02Animation);
-    	talkingAlienAnimations.add(this.libGDXGame.hello01Animation);
-    	TalkingAlienImage talkingAlien = new TalkingAlienImage(talkingAlienAnimations, this.random);
-    	talkingAlien.setPosition(80, 10);
-    	this.libGDXGame.hudStage.addActor(talkingAlien);
-    	
-    	Image screenOverlay = new Image(this.libGDXGame.screenOverlay01);
-    	this.libGDXGame.hudStage.addActor(screenOverlay);
     }
     
     private void addNebulaImagesToStage() {
