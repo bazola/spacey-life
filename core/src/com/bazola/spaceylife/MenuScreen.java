@@ -6,12 +6,15 @@ import java.util.Random;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
 
 public class MenuScreen extends BZScreenAdapter {
@@ -21,9 +24,16 @@ public class MenuScreen extends BZScreenAdapter {
 	
 	private Table buttonTable;
 	
+	private ButtonStyle greenButtonStyle;
+	
 	public MenuScreen(LibGDXGame libGDXGame, Random random) {
 		this.libGDXGame = libGDXGame;
 		this.random = random;
+		
+		this.greenButtonStyle = new ButtonStyle();
+		this.greenButtonStyle.up = new NinePatchDrawable(this.libGDXGame.menuBackgroundSolid);
+		this.greenButtonStyle.down = new NinePatchDrawable(this.libGDXGame.menuBackgroundDark);
+		
 		this.create();
 	}
 	
@@ -71,27 +81,95 @@ public class MenuScreen extends BZScreenAdapter {
 		this.buttonTable.setFillParent(true);
 		this.libGDXGame.hudStage.addActor(this.buttonTable);
 		
-		Label titleLabel = new Label("You Are The Aliens", this.libGDXGame.skin);
-		titleLabel.setFontScale(4);
+		this.buttonTable.add(" ").row(); //spacing
+		this.buttonTable.add(" ").row(); //spacing
+		Label titleLabel = new Label("You Are The Aliens", new LabelStyle(this.libGDXGame.titleFont, null));
 		this.buttonTable.add(titleLabel).top().expand();
 		this.buttonTable.row();
 	}
 	
 	private void createButtons() {
-		TextButton playButton = new TextButton("Play", this.libGDXGame.skin);
+		Label playButtonLabel = new Label("Play", new LabelStyle(this.libGDXGame.bigButtonFont, null));
+		Button playButton = new Button(playButtonLabel, this.libGDXGame.skin);
+		playButton.setStyle(this.greenButtonStyle);
 		playButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
             	MenuScreen.this.clickedPlay();
             }
 		});
-		this.buttonTable.add(playButton).width(LibGDXGame.HUD_WIDTH/2).height(LibGDXGame.HUD_HEIGHT/5);
+		
+		Label creditsButtonLabel = new Label("Credits", new LabelStyle(this.libGDXGame.bigButtonFont, null));
+		Button creditsButton = new Button(creditsButtonLabel, this.libGDXGame.skin);
+		creditsButton.setStyle(this.greenButtonStyle);
+		creditsButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+            	MenuScreen.this.clickedCredits();
+            }
+		});
+		
+		this.buttonTable.add(playButton).width(LibGDXGame.HUD_WIDTH / 3).height(LibGDXGame.HUD_HEIGHT / 8);
+		this.buttonTable.row();
+		this.buttonTable.add(creditsButton).width(LibGDXGame.HUD_WIDTH / 3).height(LibGDXGame.HUD_HEIGHT / 8);
 	}
 	
 	private void clickedPlay() {
 		this.libGDXGame.backgroundStage.clear();
 		this.buttonTable.clear();
 		this.libGDXGame.clickedPlayButton();
+	}
+	
+	private void clickedCredits() {
+		this.buttonTable.clear();
+		
+		Table creditsTable = new Table(this.libGDXGame.skin);
+		creditsTable.setBackground(new NinePatchDrawable(this.libGDXGame.menuBackgroundTransparent));
+		this.buttonTable.add(creditsTable).width(LibGDXGame.HUD_WIDTH / 1.4f).height(LibGDXGame.HUD_HEIGHT / 1.5f);
+	
+		Label creditsLabel = new Label("Credits", new LabelStyle(this.libGDXGame.bigButtonFont, null));
+		creditsTable.add(creditsLabel);
+		creditsTable.row();
+		creditsTable.add(" ").row();
+		
+		for (String string : this.creditStrings()) {
+			Label label = new Label(string, new LabelStyle(this.libGDXGame.smallButtonFont, null));
+			creditsTable.add(label);
+			creditsTable.row();
+		}
+		
+		creditsTable.add(" ").row();
+		
+		Label exitButtonLabel = new Label("Close", new LabelStyle(this.libGDXGame.bigButtonFont, null));
+		Button exitButton = new Button(exitButtonLabel, this.libGDXGame.skin);
+		exitButton.setBackground(new NinePatchDrawable(this.libGDXGame.menuBackgroundSolid));
+		exitButton.setStyle(this.greenButtonStyle);
+		exitButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+            	MenuScreen.this.clickedCloseCredits();
+            }
+		});
+		creditsTable.add(exitButton).width(LibGDXGame.HUD_WIDTH / 4).height(LibGDXGame.HUD_HEIGHT / 8);
+	}
+	
+	private void clickedCloseCredits() {
+		this.buttonTable.clear();
+		this.create();
+	}
+	
+	private List<String> creditStrings() {
+		List<String> creditStrings = new ArrayList<String>();
+		creditStrings.add("Game by bazola");
+		creditStrings.add("Programmer Art by bazola");
+		creditStrings.add("Art by Ivan Voirol");
+		creditStrings.add("Art by Master484");
+		creditStrings.add("UI Art by TokyoGeisha");
+		creditStrings.add("Art by ChaosShark");
+		creditStrings.add("Art by Bert-o-Naught");
+		creditStrings.add("Art by Rawdanitsu");
+		creditStrings.add("Art by Nekith");
+		return creditStrings;
 	}
 
 	@Override
