@@ -6,6 +6,7 @@ import java.util.Random;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -45,7 +46,8 @@ public class MenuScreen extends BZScreenAdapter {
 	
     private void createBackground() {
     	Image background = new Image(this.libGDXGame.gridBackground);
-    	background.setSize(LibGDXGame.STAGE_WIDTH, LibGDXGame.STAGE_HEIGHT);
+    	background.addAction(Actions.alpha(0.5f));
+    	background.setSize(LibGDXGame.HUD_WIDTH, LibGDXGame.HUD_HEIGHT);
     	this.libGDXGame.backgroundStage.addActor(background);
     	
     	Table bgTable = new Table();
@@ -154,6 +156,7 @@ public class MenuScreen extends BZScreenAdapter {
 	}
 	
 	private void clickedCloseCredits() {
+		this.libGDXGame.backgroundStage.clear();
 		this.buttonTable.clear();
 		this.create();
 	}
@@ -170,6 +173,46 @@ public class MenuScreen extends BZScreenAdapter {
 		creditStrings.add("Art by Rawdanitsu");
 		creditStrings.add("Art by Nekith");
 		return creditStrings;
+	}
+	
+	private DirectionLeftRight leftRight = DirectionLeftRight.LEFT;
+	private DirectionUpDown upDown = DirectionUpDown.DOWN;
+	private enum DirectionLeftRight {
+		LEFT(-1),
+		RIGHT(1);
+		public final int move;
+		private DirectionLeftRight(int move) {
+			this.move = move;
+		}
+	}
+	private enum DirectionUpDown {
+		UP(1),
+		DOWN(-1);
+		public final int move;
+		private DirectionUpDown(int move) {
+			this.move = move;
+		}
+	}
+	
+	@Override
+	public void render(float delta) {
+		
+		this.libGDXGame.parallaxCamera.position.x += this.leftRight.move;
+		this.libGDXGame.parallaxCamera.position.y += this.upDown.move;
+		
+		//change directions when camera moves past the top layer of parallax
+		if (this.libGDXGame.parallaxCamera.position.x > this.libGDXGame.parallaxDrawer.topLayerWidth) {
+			this.leftRight = DirectionLeftRight.LEFT;
+		}
+		if (this.libGDXGame.parallaxCamera.position.x < 0) {
+			this.leftRight = DirectionLeftRight.RIGHT;
+		}
+		if (this.libGDXGame.parallaxCamera.position.y > this.libGDXGame.parallaxDrawer.topLayerHeight) {
+			this.upDown = DirectionUpDown.DOWN;
+		}
+		if (this.libGDXGame.parallaxCamera.position.y < 0) {
+			this.upDown = DirectionUpDown.UP;
+		}
 	}
 
 	@Override

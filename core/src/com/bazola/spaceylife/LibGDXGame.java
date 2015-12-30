@@ -23,7 +23,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
@@ -45,6 +44,10 @@ public class LibGDXGame extends Game {
 	public OrthographicCamera backgroundCamera;
 	public SpriteBatch backgroundBatch;
 	public Stage backgroundStage;
+
+	public ParallaxCamera parallaxCamera;
+	public SpriteBatch parallaxBatch;
+	public ParallaxDrawer parallaxDrawer;
 	
 	public OrthographicCamera camera;
 	public Stage stage;
@@ -72,6 +75,8 @@ public class LibGDXGame extends Game {
 	public Texture nebula04;
 	public Texture nebula05;
 	public Texture screenOverlay01;
+	public Texture seamlessSpace;
+	public Texture seamlessSpaceTrans;
 
 	public Skin skin;
 
@@ -134,10 +139,21 @@ public class LibGDXGame extends Game {
 	
 		this.loadResources();
 		
-        this.backgroundCamera = new OrthographicCamera(STAGE_WIDTH, STAGE_HEIGHT);
-        this.backgroundCamera.setToOrtho(false, STAGE_WIDTH, STAGE_HEIGHT);
+        this.backgroundCamera = new OrthographicCamera(HUD_WIDTH, HUD_WIDTH);
+        this.backgroundCamera.setToOrtho(false, HUD_WIDTH, HUD_WIDTH);
         this.backgroundBatch = new SpriteBatch();
-        this.backgroundStage = new Stage(new FitViewport(STAGE_WIDTH, STAGE_HEIGHT, backgroundCamera), backgroundBatch);
+        this.backgroundStage = new Stage(new StretchViewport(HUD_WIDTH, HUD_WIDTH, backgroundCamera), backgroundBatch);
+
+        this.parallaxCamera = new ParallaxCamera(STAGE_WIDTH, STAGE_HEIGHT);
+        this.parallaxBatch = new SpriteBatch();
+        this.parallaxDrawer = new ParallaxDrawer(this.random,
+        										 this.parallaxBatch, 
+        									     this.seamlessSpace, 
+        									     this.seamlessSpaceTrans, 
+        									     4500, //hard coded world sizes here
+        									     3000,
+        									     (int)LibGDXGame.STAGE_WIDTH, 
+        									     (int)LibGDXGame.STAGE_HEIGHT);
         
         this.camera = new OrthographicCamera(STAGE_WIDTH, STAGE_HEIGHT);
         this.camera.setToOrtho(false, STAGE_WIDTH, STAGE_HEIGHT);
@@ -160,6 +176,8 @@ public class LibGDXGame extends Game {
 	}
 	
 	public void clickedPlayButton() {
+		this.parallaxCamera.position.x = 0;
+		this.parallaxCamera.position.y = 0;
         this.gameScreen = new GameScreen(this, this.random);
         this.setScreen(this.gameScreen);
 	}
@@ -213,6 +231,9 @@ public class LibGDXGame extends Game {
 		this.nebula05 = new Texture("nebula05.png");
 		
     	this.screenOverlay01 = new Texture("screenFront.png");
+    	
+    	this.seamlessSpace = new Texture("seamlessSpace.png");
+    	this.seamlessSpaceTrans = new Texture("seamlessSpaceTrans.png");
 		
 		this.starTextures = this.loadStarTextures();
 		this.shipTextures = this.loadShipTextures();
@@ -369,8 +390,11 @@ public class LibGDXGame extends Game {
 	private void configureInputHandlers() {
 		this.inputHandler.addProcessor(this.hudStage); 
         this.inputHandler.addProcessor(this.stage);
+        
         this.cameraPanner = new CameraPanner(this.camera);
         this.cameraPanner.setEnabled(true);
+        this.cameraPanner.setParallaxCamera(this.parallaxCamera);
+        
         this.pinchZoomer = new PinchZoomer(this.camera);
         this.pinchZoomer.setEnabled(true);
         this.scrollWheelZoomer = new ScrollWheelZoomer(this.camera);
@@ -388,13 +412,27 @@ public class LibGDXGame extends Game {
 	
 		super.render();
 		
+        parallaxCamera.update();
+        parallaxBatch.setProjectionMatrix(parallaxCamera.calculateParallaxMatrix(0.05f, 0.05f));
+        parallaxBatch.begin();
+        parallaxDrawer.drawBottomLayer();
+        parallaxBatch.end();
+        parallaxBatch.setProjectionMatrix(parallaxCamera.calculateParallaxMatrix(0.4f, 0.4f));
+        parallaxBatch.begin();
+        parallaxDrawer.drawMiddleLayer();
+        parallaxBatch.end();
+        parallaxBatch.setProjectionMatrix(parallaxCamera.calculateParallaxMatrix(0.7f, 0.7f));
+        parallaxBatch.begin();
+        parallaxDrawer.drawTopLayer();
+        parallaxBatch.end();
+        
 		backgroundCamera.update();
 		backgroundStage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         backgroundBatch.setProjectionMatrix(backgroundCamera.combined);
         backgroundBatch.begin();
         backgroundBatch.end();
         backgroundStage.draw();
-		 
+        
         camera.update();
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
@@ -462,6 +500,8 @@ public class LibGDXGame extends Game {
 		this.nebula04.dispose();
 		this.nebula05.dispose();
 		this.screenOverlay01.dispose();
+		this.seamlessSpace.dispose();
+		this.seamlessSpaceTrans.dispose();
 		
 		this.starAtlasForDispose.dispose();
 		this.shipAtlasForDispose.dispose();

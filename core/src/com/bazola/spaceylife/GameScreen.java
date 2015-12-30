@@ -110,6 +110,7 @@ public class GameScreen extends BZScreenAdapter {
     
     private void addActorsToStage() {
     	Image gridImage = new Image(this.libGDXGame.gridBackground);
+    	gridImage.addAction(Actions.alpha(0.5f));
     	gridImage.setSize(this.WORLD_WIDTH, this.WORLD_HEIGHT);
     	this.libGDXGame.stage.addActor(gridImage);
     	
