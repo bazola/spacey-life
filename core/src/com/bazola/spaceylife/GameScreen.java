@@ -125,6 +125,7 @@ public class GameScreen extends BZScreenAdapter {
     											this.libGDXGame.starTextures.get(star.getValue().type),
     											this.libGDXGame.aiPlanetCover01,
     											this.libGDXGame.playerPlanetCover01,
+    											this.libGDXGame.station01Animation,
     											this.libGDXGame.stage);
     		this.starImages.add(starImage);
     	}

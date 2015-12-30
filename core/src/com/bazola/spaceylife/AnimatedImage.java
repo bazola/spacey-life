@@ -8,6 +8,8 @@ public class AnimatedImage extends Image {
 	
     protected Animation animation = null;
     private float stateTime = 0;
+    
+    public boolean paused = false;
 
     public AnimatedImage(Animation animation) {
         super(animation.getKeyFrame(0));
@@ -16,7 +18,10 @@ public class AnimatedImage extends Image {
 
     @Override
     public void act(float delta) {
+    	super.act(delta);
+    	if (this.paused) {
+    		return;
+    	}
         ((TextureRegionDrawable)getDrawable()).setRegion(animation.getKeyFrame(stateTime+=delta, true));
-        super.act(delta);
     }
 }

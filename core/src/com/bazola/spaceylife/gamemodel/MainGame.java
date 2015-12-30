@@ -58,7 +58,7 @@ public class MainGame {
 	private void createPlayers() {
 		this.alienPlayer = new AlienPlayer(this);
 		this.fighterPlayer = new FighterPlayer(this);
-		this.traderPlayer = new TraderPlayer();
+		this.traderPlayer = new TraderPlayer(this);
 	}
 	
 	public int getPlayerResources() {
