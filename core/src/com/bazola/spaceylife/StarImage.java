@@ -45,22 +45,25 @@ public class StarImage extends Image {
 	}
 	
 	public void update() {
-		switch(this.star.getState()) {
-		case NEUTRAL:
+		switch(this.star.getOwner()) {
+		case NONE:
 			this.playerCoverImage.setVisible(false);
 			this.aiCoverImage.setVisible(false);
 			break;
-		case AI_CONTROLLED:
+		case FIGHTER:
 			this.aiCoverImage.setVisible(true);
 			this.playerCoverImage.setVisible(false);
 			this.playerCoverImage.getActions().clear();
 			break;
-		case PLAYER_CONTROLLED:
+		case ALIEN:
 			this.playerCoverImage.setVisible(true);
 			if (this.playerCoverImage.getActions().size == 0) {
 				this.addGrowShrinkActionToImage(this.playerCoverImage);
 			}
 			this.aiCoverImage.setVisible(false);
+			break;
+		case TRADER:
+			
 			break;
 		}
 	}

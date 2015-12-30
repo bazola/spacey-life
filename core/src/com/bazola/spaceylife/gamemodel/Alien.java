@@ -10,6 +10,7 @@ import java.util.Random;
 import com.badlogic.gdx.ai.fsm.DefaultStateMachine;
 import com.badlogic.gdx.ai.fsm.StateMachine;
 import com.badlogic.gdx.math.Rectangle;
+import com.bazola.spaceylife.gamemodel.players.PlayerType;
 
 public class Alien {
 
@@ -114,7 +115,7 @@ public class Alien {
 			return true;
 		}
 		this.targetStar.addAlienEat();
-		return this.targetStar.getState() == StarState.PLAYER_CONTROLLED;
+		return this.targetStar.getOwner() == PlayerType.ALIEN;
 	}
 	
 	public boolean isAtDestination() {
@@ -179,7 +180,7 @@ public class Alien {
 		if (closebyPointsForSort.size() > 0) {
 			for (MapPointDistanceTuple tuple : closebyPointsForSort) {
 				Star star = stars.get(tuple.point);
-				if (star.getState() != StarState.PLAYER_CONTROLLED) {
+				if (star.getOwner() != PlayerType.ALIEN) {
 					if (this.calculateDistance(star.getPosition(), this.position) > this.minDistanceFromPlanet) {
 						
 						this.targetStar = star;
@@ -220,7 +221,7 @@ public class Alien {
 	
 	public void setDestinationForStarMove() {
 		if (this.targetStar == null ||
-			this.targetStar.getState() == StarState.PLAYER_CONTROLLED) {
+			this.targetStar.getOwner() == PlayerType.ALIEN) {
 			this.stateMachine.changeState(AlienState.IDLE);
 		} else {
 			this.pointPair = new MapPointPair(this.position, this.targetStar.getPosition());

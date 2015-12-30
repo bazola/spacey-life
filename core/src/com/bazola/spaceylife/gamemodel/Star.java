@@ -3,6 +3,7 @@ package com.bazola.spaceylife.gamemodel;
 import java.util.Random;
 
 import com.bazola.spaceylife.StarType;
+import com.bazola.spaceylife.gamemodel.players.PlayerType;
 
 public class Star {
 	
@@ -10,7 +11,7 @@ public class Star {
 	
 	private final MapPoint position;
 	
-	private StarState state;
+	private PlayerType owner;
 	
 	private int numEatsToConsume = 1000; //these will be incremented 1 per tick per alien
 	private int currentEats = 0;
@@ -20,29 +21,28 @@ public class Star {
 
 		this.type = StarType.values()[random.nextInt(StarType.values().length)];
 	
-		this.state = StarState.NEUTRAL;
+		this.owner = PlayerType.NONE;
 	}
 
 	public MapPoint getPosition() {
 		return this.position;
 	}
 	
-	public StarState getState() {
-		return this.state;
+	public PlayerType getOwner() {
+		return this.owner;
 	}
 	
-	public void setPlayerControlled() {
-		this.state = StarState.PLAYER_CONTROLLED;
-	}
-	
-	public void setAIControlled() {
-		this.state = StarState.AI_CONTROLLED;
+	/**
+	 * Used when setting the homeworld
+	 */
+	public void setOwner(PlayerType type) {
+		this.owner = type;
 	}
 	
 	public void addAlienEat() {
 		this.currentEats ++;
 		if (this.currentEats > this.numEatsToConsume) {
-			this.setPlayerControlled();
+			this.owner = PlayerType.ALIEN;
 		}
 	}
 }

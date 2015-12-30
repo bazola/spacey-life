@@ -79,11 +79,11 @@ public class GameScreen extends BZScreenAdapter {
     	
     	this.addActorsToStage();
     	
-    	this.centerCameraOnPlayerHomeworld();
-    	
     	this.createButtons();
     	
     	this.game.startGame();
+    	
+    	this.centerCameraOnPlayerHomeworld();
     }
     
 	private void addSwipeRecognizer() {
@@ -187,8 +187,8 @@ public class GameScreen extends BZScreenAdapter {
     }
     
     private void centerCameraOnPlayerHomeworld() {
-    	this.libGDXGame.camera.position.x = this.game.getPlayerHomeworld().getPosition().x;
-    	this.libGDXGame.camera.position.y = this.game.getPlayerHomeworld().getPosition().y;
+    	this.libGDXGame.camera.position.x = this.game.getAlienHomeworld().getPosition().x;
+    	this.libGDXGame.camera.position.y = this.game.getAlienHomeworld().getPosition().y;
     }
     
     private void createButtons() {
@@ -356,7 +356,7 @@ public class GameScreen extends BZScreenAdapter {
     		pointsToReveal.add(alien.getPosition());
     	}
     	
-    	pointsToReveal.add(this.game.getPlayerHomeworld().getPosition());
+    	pointsToReveal.add(this.game.getAlienHomeworld().getPosition());
     	
     	this.revealFog(pointsToReveal);
     }
