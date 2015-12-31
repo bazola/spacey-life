@@ -28,3 +28,10 @@ make camera movements smooth
 the parallax sprites need to be sized based on screen size
 add sounds
 add planets to the stars? could be visible on the map as an arc and orb, each additional planet being a bigger arc
+
+images needed
+empty green box for music button
+different font for the universe features?
+
+
+

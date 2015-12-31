@@ -169,8 +169,9 @@ public class MainGame {
 	}
 	
 	public void playerClickedSmallAlienButton() {
-		if (this.playerResources >= this.smallAlienCost) {
-			this.playerResources -= this.smallAlienCost;
+		int maintenance = this.alienPlayer.getSmallAliens().size();
+		if (this.playerResources >= this.smallAlienCost + maintenance) {
+			this.playerResources -= this.smallAlienCost + maintenance;
 			this.spawnAlien();
 		}
 	}
