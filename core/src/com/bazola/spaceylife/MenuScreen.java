@@ -132,7 +132,7 @@ public class MenuScreen extends BZScreenAdapter {
 		
 		Table creditsTable = new Table(this.libGDXGame.skin);
 		creditsTable.setBackground(new NinePatchDrawable(this.libGDXGame.menuBackgroundTransparent));
-		this.buttonTable.add(creditsTable).width(LibGDXGame.HUD_WIDTH / 1.4f).height(LibGDXGame.HUD_HEIGHT / 1.5f);
+		this.buttonTable.add(creditsTable).width(LibGDXGame.HUD_WIDTH * 0.8f).height(LibGDXGame.HUD_HEIGHT * 0.8f);
 	
 		Label creditsLabel = new Label("Credits", new LabelStyle(this.libGDXGame.bigButtonFont, null));
 		creditsTable.add(creditsLabel);
@@ -177,6 +177,8 @@ public class MenuScreen extends BZScreenAdapter {
 		creditStrings.add("Art by Bert-o-Naught");
 		creditStrings.add("Art by Rawdanitsu");
 		creditStrings.add("Art by Nekith");
+		creditStrings.add("Art by n4pgamer");
+		creditStrings.add("Music by Kevin MacLeod");
 		return creditStrings;
 	}
 	

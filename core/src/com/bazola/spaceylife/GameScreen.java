@@ -35,6 +35,7 @@ import com.bazola.spaceylife.gamemodel.gamepieces.EnemyShip;
 import com.bazola.spaceylife.gamemodel.gamepieces.Star;
 import com.bazola.spaceylife.uielements.AlienImage;
 import com.bazola.spaceylife.uielements.AnimatedImage;
+import com.bazola.spaceylife.uielements.BZImageButton;
 import com.bazola.spaceylife.uielements.EnemyShipImage;
 import com.bazola.spaceylife.uielements.FogImage;
 import com.bazola.spaceylife.uielements.RadarRing;
@@ -52,6 +53,7 @@ public class GameScreen extends BZScreenAdapter {
 	
 	private Label resourceCountLabel;
 	private Label smallCostLabel;
+	private Label bigCostLabel;
 	
     private double currentTime = 0;
     private double timeSinceLastRender = 0;
@@ -230,20 +232,24 @@ public class GameScreen extends BZScreenAdapter {
     	this.resourceCountLabel = new Label("0", new LabelStyle(this.libGDXGame.smallButtonFont, null));
     	shipButtonsTable.add(this.resourceCountLabel);
     	shipButtonsTable.row();
-    	
-    	Stack smallAlienStack = new Stack();
-    	smallAlienStack.add(new Image(this.libGDXGame.menuBackgroundSolid));
+
     	Image smallAlienImage = new Image(this.libGDXGame.alien01);
-    	//smallAlienImage.setScale(0.5f); //cant get it to align properly
-    	smallAlienStack.add(smallAlienImage);
-    	smallAlienStack.addListener(new ClickListener() {
+    	BZImageButton smallAlienButton = new BZImageButton(this.libGDXGame.menuBackgroundSolid,
+    													   this.libGDXGame.menuBackgroundDark,
+    													   smallAlienImage,
+    													   0.5f,
+    													   shipButtonsTable,
+    													   LibGDXGame.HUD_WIDTH / 10,
+    													   LibGDXGame.HUD_WIDTH / 10);
+    	
+    	smallAlienButton.getButton().addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
             	GameScreen.this.game.playerClickedSmallAlienButton();
             }
     	});
-    	shipButtonsTable.add(smallAlienStack).width(LibGDXGame.HUD_WIDTH / 10).height(LibGDXGame.HUD_WIDTH / 10);
-    	shipButtonsTable.row();
+    	
+    	shipButtonsTable.row();								   
     	
     	Label smallTitleLabel = new Label("Small", new LabelStyle(this.libGDXGame.smallButtonFont, null));
     	shipButtonsTable.add(smallTitleLabel);
@@ -252,21 +258,33 @@ public class GameScreen extends BZScreenAdapter {
     	this.smallCostLabel = new Label("0", new LabelStyle(this.libGDXGame.smallButtonFont, null));
     	shipButtonsTable.add(this.smallCostLabel);
     	shipButtonsTable.row();
-    
     	
-    	//shipButtonsTable.add(" ").row();
-
-    	Stack largeAlienStack = new Stack();
-    	largeAlienStack.add(new Image(this.libGDXGame.menuBackgroundSolid));
-    	Image largeAlien = new Image(this.libGDXGame.bigAlienMove01.getKeyFrame(0));
-    	largeAlienStack.add(largeAlien);
-    	largeAlienStack.addListener(new ClickListener() {
+    	Image bigAlienImage = new Image(this.libGDXGame.bigAlienMove01.getKeyFrame(0));
+    	BZImageButton bigAlienButton = new BZImageButton(this.libGDXGame.menuBackgroundSolid,
+    													 this.libGDXGame.menuBackgroundDark,
+    													 bigAlienImage,
+    													 1f,
+    													 shipButtonsTable,
+    													 LibGDXGame.HUD_WIDTH / 10,
+    													 LibGDXGame.HUD_WIDTH / 10);
+    	
+    	bigAlienButton.getButton().addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
             	GameScreen.this.game.playerClickedLargeAlienButton();
             }
     	});
-    	shipButtonsTable.add(largeAlienStack).width(LibGDXGame.HUD_WIDTH / 10).height(LibGDXGame.HUD_WIDTH / 10);
+    	
+    	shipButtonsTable.row();
+    	
+    	Label bigTitleLabel = new Label("Big", new LabelStyle(this.libGDXGame.smallButtonFont, null));
+    	shipButtonsTable.add(bigTitleLabel);
+    	shipButtonsTable.row();
+    	
+    	this.bigCostLabel = new Label("0", new LabelStyle(this.libGDXGame.smallButtonFont, null));
+    	shipButtonsTable.add(this.bigCostLabel);
+    	shipButtonsTable.row();
+    	
     	this.buttonTable.add(shipButtonsTable).right();
     	this.buttonTable.row();
     	
@@ -356,6 +374,7 @@ public class GameScreen extends BZScreenAdapter {
         	
         	this.resourceCountLabel.setText(String.valueOf(this.game.getPlayerResources()));
         	this.smallCostLabel.setText(String.valueOf(this.game.getSmallAlienCost()));
+        	this.bigCostLabel.setText(String.valueOf(this.game.getLargeAlienCost()));
         }
 	}
 	

@@ -176,6 +176,10 @@ public class MainGame {
 		return this.smallAlienCost + maintenance;
 	}
 	
+	public int getLargeAlienCost() {
+		return this.largeAlienCost;
+	}
+	
 	public void playerClickedSmallAlienButton() {
 		int maintenance = this.alienPlayer.getSmallAliens().size();
 		if (this.playerResources >= this.smallAlienCost + maintenance) {

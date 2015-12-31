@@ -34,5 +34,5 @@ empty green box for music button
 different font for the universe features?
 randomize starting positions
 parallax moves differently depending on how the hud stage is stretched
-
+sound for not enough money when purchasing
 
