@@ -25,6 +25,6 @@ public class SoundPlayer {
 			return;
 		}
 		Sound sound = this.libGDXGame.sounds.get(soundType);
-		sound.play();
+		sound.play(0.6f); //play sounds at half volume
 	}
 }

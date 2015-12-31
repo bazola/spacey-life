@@ -27,8 +27,11 @@ public class ParallaxDrawer {
 	public ParallaxDrawer(Random random, SpriteBatch targetBatch, Texture starTexture, Texture starTextureTrans, int worldWidth, int worldHeight, int stageWidth, int stageHeight) {
 		this.random = random;
 		this.batch = targetBatch;
-		this.stageWidth = stageWidth;
-		this.stageHeight = stageHeight;
+		this.stageWidth = stageWidth * 2;
+		this.stageHeight = stageHeight * 2;
+		
+		worldWidth *=2;
+		worldHeight *=2;
 		
 		this.starTexture = starTexture;
 		this.starTextureTrans = starTextureTrans;

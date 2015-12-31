@@ -151,7 +151,7 @@ public class LibGDXGame extends Game {
         this.backgroundBatch = new SpriteBatch();
         this.backgroundStage = new Stage(new StretchViewport(HUD_WIDTH, HUD_WIDTH, backgroundCamera), backgroundBatch);
 
-        this.parallaxCamera = new ParallaxCamera(STAGE_WIDTH, STAGE_HEIGHT);
+        this.parallaxCamera = new ParallaxCamera(HUD_WIDTH, HUD_HEIGHT);
         this.parallaxBatch = new SpriteBatch();
         this.parallaxDrawer = new ParallaxDrawer(this.random,
         										 this.parallaxBatch, 
@@ -159,8 +159,8 @@ public class LibGDXGame extends Game {
         									     this.seamlessSpaceTrans, 
         									     4500, //hard coded world sizes here
         									     3000,
-        									     (int)LibGDXGame.STAGE_WIDTH, 
-        									     (int)LibGDXGame.STAGE_HEIGHT);
+        									     (int)LibGDXGame.HUD_WIDTH, 
+        									     (int)LibGDXGame.HUD_HEIGHT);
         
         this.camera = new OrthographicCamera(STAGE_WIDTH, STAGE_HEIGHT);
         this.camera.setToOrtho(false, STAGE_WIDTH, STAGE_HEIGHT);
@@ -183,6 +183,7 @@ public class LibGDXGame extends Game {
 	}
 	
 	public void clickedPlayButton() {
+		this.camera.zoom = 1;
 		this.parallaxCamera.position.x = 0;
 		this.parallaxCamera.position.y = 0;
         this.gameScreen = new GameScreen(this, this.random);

@@ -28,9 +28,9 @@ public class MusicPlayer {
 	
 	public void startMusic() {
 		if (this.currentTrack == null ||
-				!this.currentTrack.isPlaying()) {
+			!this.currentTrack.isPlaying()) {
 				this.selectRandomTrack(false);
-			}
+		}
 	}
 	
 	public void disableMusic() {
@@ -59,7 +59,7 @@ public class MusicPlayer {
 			return;
 		}
 
-		this.nextTrack = MusicType.values()[this.random.nextInt(MusicType.values().length)];
+		this.nextTrack = MusicType.getSongs().get(this.random.nextInt(MusicType.getSongs().size()));
 		
 		if (playSilence) {
 			this.currentTrack = this.libGDXGame.music.get(MusicType.getSilence());
