@@ -5,6 +5,9 @@ import java.util.Random;
 
 import com.badlogic.gdx.math.Vector2;
 import com.bazola.spaceylife.GameScreen;
+import com.bazola.spaceylife.gamemodel.gamepieces.Alien;
+import com.bazola.spaceylife.gamemodel.gamepieces.EnemyShip;
+import com.bazola.spaceylife.gamemodel.gamepieces.Star;
 import com.bazola.spaceylife.gamemodel.players.AlienPlayer;
 import com.bazola.spaceylife.gamemodel.players.FighterPlayer;
 import com.bazola.spaceylife.gamemodel.players.PlayerType;

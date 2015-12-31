@@ -23,14 +23,23 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.bazola.spaceylife.gamemodel.Alien;
-import com.bazola.spaceylife.gamemodel.EnemyShip;
+import com.bazola.spaceylife.audio.SoundType;
+import com.bazola.spaceylife.camera.SimpleDirectionGestureDetector;
 import com.bazola.spaceylife.gamemodel.MainGame;
 import com.bazola.spaceylife.gamemodel.MapPoint;
 import com.bazola.spaceylife.gamemodel.PlayerFlag;
-import com.bazola.spaceylife.gamemodel.Star;
 import com.bazola.spaceylife.gamemodel.UniverseFeature;
 import com.bazola.spaceylife.gamemodel.UniverseFeatureType;
+import com.bazola.spaceylife.gamemodel.gamepieces.Alien;
+import com.bazola.spaceylife.gamemodel.gamepieces.EnemyShip;
+import com.bazola.spaceylife.gamemodel.gamepieces.Star;
+import com.bazola.spaceylife.uielements.AlienImage;
+import com.bazola.spaceylife.uielements.AnimatedImage;
+import com.bazola.spaceylife.uielements.EnemyShipImage;
+import com.bazola.spaceylife.uielements.FogImage;
+import com.bazola.spaceylife.uielements.RadarRing;
+import com.bazola.spaceylife.uielements.ShipType;
+import com.bazola.spaceylife.uielements.StarImage;
 
 public class GameScreen extends BZScreenAdapter {
 	

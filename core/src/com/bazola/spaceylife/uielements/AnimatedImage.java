@@ -1,4 +1,4 @@
-package com.bazola.spaceylife;
+package com.bazola.spaceylife.uielements;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;

@@ -1,4 +1,4 @@
-package com.bazola.spaceylife.gamemodel;
+package com.bazola.spaceylife.gamemodel.gamepieces;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,6 +10,12 @@ import java.util.Random;
 import com.badlogic.gdx.ai.fsm.DefaultStateMachine;
 import com.badlogic.gdx.ai.fsm.StateMachine;
 import com.badlogic.gdx.math.Rectangle;
+import com.bazola.spaceylife.gamemodel.EnemyDistanceTuple;
+import com.bazola.spaceylife.gamemodel.MainGame;
+import com.bazola.spaceylife.gamemodel.MapPoint;
+import com.bazola.spaceylife.gamemodel.MapPointDistanceTuple;
+import com.bazola.spaceylife.gamemodel.MapPointPair;
+import com.bazola.spaceylife.gamemodel.PlayerFlag;
 import com.bazola.spaceylife.gamemodel.players.PlayerType;
 
 public class Alien {

@@ -1,9 +1,9 @@
-package com.bazola.spaceylife;
+package com.bazola.spaceylife.uielements;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
-import com.bazola.spaceylife.gamemodel.EnemyShip;
+import com.bazola.spaceylife.gamemodel.gamepieces.EnemyShip;
 
 public class EnemyShipImage extends Image {
 

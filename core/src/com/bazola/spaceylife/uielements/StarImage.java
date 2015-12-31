@@ -1,4 +1,4 @@
-package com.bazola.spaceylife;
+package com.bazola.spaceylife.uielements;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
 import com.bazola.spaceylife.gamemodel.MapPoint;
-import com.bazola.spaceylife.gamemodel.Star;
+import com.bazola.spaceylife.gamemodel.gamepieces.Star;
 
 public class StarImage extends Image {
 

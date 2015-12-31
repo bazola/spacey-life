@@ -1,4 +1,4 @@
-package com.bazola.spaceylife;
+package com.bazola.spaceylife.uielements;
 
 import java.util.List;
 import java.util.Random;

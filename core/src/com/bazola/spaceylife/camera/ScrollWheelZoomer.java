@@ -1,4 +1,4 @@
-package com.bazola.spaceylife;
+package com.bazola.spaceylife.camera;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;

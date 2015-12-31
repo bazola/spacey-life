@@ -1,4 +1,4 @@
-package com.bazola.spaceylife;
+package com.bazola.spaceylife.audio;
 
 public enum SoundType {
 	ALIEN_CALL_01("sounds/alienCall01.mp3"),

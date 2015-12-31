@@ -1,4 +1,4 @@
-package com.bazola.spaceylife;
+package com.bazola.spaceylife.uielements;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -6,8 +6,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import com.bazola.spaceylife.gamemodel.Alien;
-import com.bazola.spaceylife.gamemodel.AlienState;
+import com.bazola.spaceylife.gamemodel.gamepieces.Alien;
+import com.bazola.spaceylife.gamemodel.gamepieces.AlienState;
 
 public class AlienImage extends Image {
 	

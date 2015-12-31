@@ -1,4 +1,4 @@
-package com.bazola.spaceylife;
+package com.bazola.spaceylife.uielements;
 
 public enum PlanetType {
 	

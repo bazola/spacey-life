@@ -1,4 +1,4 @@
-package com.bazola.spaceylife.gamemodel;
+package com.bazola.spaceylife.gamemodel.gamepieces;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,6 +8,10 @@ import java.util.Random;
 
 import com.badlogic.gdx.ai.fsm.DefaultStateMachine;
 import com.badlogic.gdx.ai.fsm.StateMachine;
+import com.bazola.spaceylife.gamemodel.AlienDistanceTuple;
+import com.bazola.spaceylife.gamemodel.MainGame;
+import com.bazola.spaceylife.gamemodel.MapPoint;
+import com.bazola.spaceylife.gamemodel.MapPointPair;
 
 public class EnemyShip {
 	

@@ -4,7 +4,7 @@ import com.badlogic.gdx.ai.fsm.DefaultStateMachine;
 import com.badlogic.gdx.ai.fsm.StateMachine;
 import com.bazola.spaceylife.gamemodel.MainGame;
 import com.bazola.spaceylife.gamemodel.MapPoint;
-import com.bazola.spaceylife.gamemodel.Star;
+import com.bazola.spaceylife.gamemodel.gamepieces.Star;
 
 public class TraderPlayer {
 	

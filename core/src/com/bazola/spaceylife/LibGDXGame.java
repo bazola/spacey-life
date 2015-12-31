@@ -27,6 +27,15 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.bazola.spaceylife.audio.MusicPlayer;
+import com.bazola.spaceylife.audio.MusicType;
+import com.bazola.spaceylife.audio.SoundPlayer;
+import com.bazola.spaceylife.audio.SoundType;
+import com.bazola.spaceylife.camera.CameraPanner;
+import com.bazola.spaceylife.camera.PinchZoomer;
+import com.bazola.spaceylife.camera.ScrollWheelZoomer;
+import com.bazola.spaceylife.uielements.ShipType;
+import com.bazola.spaceylife.uielements.StarType;
 
 public class LibGDXGame extends Game {
 	

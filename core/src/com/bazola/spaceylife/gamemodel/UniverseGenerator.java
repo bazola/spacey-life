@@ -7,6 +7,7 @@ import java.util.Random;
 
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.bazola.spaceylife.gamemodel.gamepieces.Star;
 
 public class UniverseGenerator {
 	

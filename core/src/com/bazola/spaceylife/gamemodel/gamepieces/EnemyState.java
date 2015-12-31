@@ -1,4 +1,4 @@
-package com.bazola.spaceylife.gamemodel;
+package com.bazola.spaceylife.gamemodel.gamepieces;
 
 import com.badlogic.gdx.ai.fsm.State;
 import com.badlogic.gdx.ai.msg.Telegram;

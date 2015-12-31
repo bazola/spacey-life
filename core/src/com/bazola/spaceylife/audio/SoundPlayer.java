@@ -1,6 +1,7 @@
-package com.bazola.spaceylife;
+package com.bazola.spaceylife.audio;
 
 import com.badlogic.gdx.audio.Sound;
+import com.bazola.spaceylife.LibGDXGame;
 
 public class SoundPlayer {
 	

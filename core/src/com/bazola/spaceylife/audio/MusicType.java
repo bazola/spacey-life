@@ -1,4 +1,4 @@
-package com.bazola.spaceylife;
+package com.bazola.spaceylife.audio;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,5 +1,7 @@
 package com.bazola.spaceylife.gamemodel;
 
+import com.bazola.spaceylife.gamemodel.gamepieces.Alien;
+
 public class AlienDistanceTuple {
 	
 	public final Alien alien;

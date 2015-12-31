@@ -1,9 +1,11 @@
-package com.bazola.spaceylife.gamemodel;
+package com.bazola.spaceylife.gamemodel.gamepieces;
 
 import java.util.Random;
 
-import com.bazola.spaceylife.StarType;
+import com.bazola.spaceylife.gamemodel.MainGame;
+import com.bazola.spaceylife.gamemodel.MapPoint;
 import com.bazola.spaceylife.gamemodel.players.PlayerType;
+import com.bazola.spaceylife.uielements.StarType;
 
 public class Star {
 	

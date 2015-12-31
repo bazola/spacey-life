@@ -17,6 +17,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
+import com.bazola.spaceylife.uielements.AnimatedImage;
+import com.bazola.spaceylife.uielements.TalkingAlienImage;
 
 public class MenuScreen extends BZScreenAdapter {
 
