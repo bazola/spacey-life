@@ -21,3 +21,10 @@ good/evil scale that depends on how many neutral ships you kill
 asymetrical gameplay where there are aliens/traders/fighters and you can pick a side
 flags and radar rings render above the fog of war
 keep track of how many aliens are at each flag, provide a way for the player to decide priority
+
+
+TODO
+make camera movements smooth
+the parallax sprites need to be sized based on screen size
+add sounds
+add planets to the stars? could be visible on the map as an arc and orb, each additional planet being a bigger arc

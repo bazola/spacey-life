@@ -9,6 +9,8 @@ import java.util.Random;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -126,6 +128,11 @@ public class LibGDXGame extends Game {
 	private TextureAtlas eye01Atlas;
 	private TextureAtlas station01Atlas;
 	
+	public Map<MusicType, Music> music;
+	public Map<SoundType, Sound> sounds;
+	public MusicPlayer musicPlayer;
+	public SoundPlayer soundPlayer;
+	
 	@Override
 	public void create () {
 		
@@ -242,6 +249,11 @@ public class LibGDXGame extends Game {
 		
 		this.fontsShadow = this.loadFonts(true);
 		this.configureFonts();
+		
+		this.music = this.loadMusic();
+		this.sounds = this.loadSounds();
+		this.musicPlayer = new MusicPlayer(this, this.random);
+		this.soundPlayer = new SoundPlayer(this);
 	}
 	
     private void loadAnimations() {
@@ -385,6 +397,22 @@ public class LibGDXGame extends Game {
     	
 	    this.bigButtonFont = this.fontsShadow.get("otherf").get(40);
 	    this.smallButtonFont = this.fontsShadow.get("otherf").get(30);
+    }
+    
+    private Map<MusicType, Music> loadMusic() {
+    	Map<MusicType, Music> music = new HashMap<MusicType, Music>();
+    	for (MusicType type : MusicType.values()) {
+    		music.put(type, Gdx.audio.newMusic(Gdx.files.internal(type.path)));
+    	}
+    	return music;
+    }
+    
+    private Map<SoundType, Sound> loadSounds() {
+    	Map<SoundType, Sound> sounds = new HashMap<SoundType, Sound>();
+    	for (SoundType type : SoundType.values()) {
+    		sounds.put(type, Gdx.audio.newSound(Gdx.files.internal(type.path)));
+    	}
+    	return sounds;
     }
     
 	private void configureInputHandlers() {

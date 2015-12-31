@@ -36,7 +36,7 @@ public class MainGame {
 		this.worldWidth = width;
 		this.worldHeight = height;
 		
-		this.universe = new UniverseGenerator(width, height, this.random);
+		this.universe = new UniverseGenerator(width, height, this.random, this);
 		
 		this.setupGame();
 	}
@@ -185,6 +185,10 @@ public class MainGame {
 	
 	public void playerClickedFlagButtonAtIndex(int index) {
 		//TODO: fix this
+	}
+	
+	public void aliensCapturedStar() {
+		this.gameScreen.alienCapturedStar();
 	}
 	
 	/*

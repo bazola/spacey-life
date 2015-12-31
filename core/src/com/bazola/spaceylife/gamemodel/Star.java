@@ -11,13 +11,16 @@ public class Star {
 	
 	private final MapPoint position;
 	
+	private final MainGame game;
+	
 	private PlayerType owner;
 	
 	private int numEatsToConsume = 1000; //these will be incremented 1 per tick per alien
 	private int currentEats = 0;
 	
-	public Star(Random random, MapPoint position) {
+	public Star(Random random, MapPoint position, MainGame game) {
 		this.position = position;
+		this.game = game;
 
 		this.type = StarType.values()[random.nextInt(StarType.values().length)];
 	
@@ -43,6 +46,7 @@ public class Star {
 		this.currentEats ++;
 		if (this.currentEats > this.numEatsToConsume) {
 			this.owner = PlayerType.ALIEN;
+			this.game.aliensCapturedStar();
 		}
 	}
 }

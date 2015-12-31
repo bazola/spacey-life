@@ -36,6 +36,8 @@ public class MenuScreen extends BZScreenAdapter {
 		this.greenButtonStyle.down = new NinePatchDrawable(this.libGDXGame.menuBackgroundDark);
 		
 		this.create();
+		
+		this.libGDXGame.musicPlayer.playTitle();
 	}
 	
 	private void create() {
@@ -119,6 +121,7 @@ public class MenuScreen extends BZScreenAdapter {
 	private void clickedPlay() {
 		this.libGDXGame.backgroundStage.clear();
 		this.buttonTable.clear();
+		this.libGDXGame.musicPlayer.stopMusic();
 		this.libGDXGame.clickedPlayButton();
 	}
 	

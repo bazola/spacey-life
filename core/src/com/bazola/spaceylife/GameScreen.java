@@ -84,6 +84,8 @@ public class GameScreen extends BZScreenAdapter {
     	this.game.startGame();
     	
     	this.centerCameraOnPlayerHomeworld();
+    	
+    	this.libGDXGame.musicPlayer.startMusic();
     }
     
 	private void addSwipeRecognizer() {
@@ -272,6 +274,7 @@ public class GameScreen extends BZScreenAdapter {
     }
     
     private void clickedExitButton() {
+    	this.libGDXGame.musicPlayer.stopMusic();
     	this.libGDXGame.exitToMainMenu();
     }
     
@@ -389,12 +392,16 @@ public class GameScreen extends BZScreenAdapter {
 		image.setEatAnimation(this.libGDXGame.alienEat01);
 		this.alienImages.add(image);
 		this.libGDXGame.stage.addActor(image);
+		
+		this.libGDXGame.soundPlayer.playSound(SoundType.ALIEN_SPAWN_01);
 	}
 	
 	public void enemyShipSpawned(EnemyShip ship) {
 		EnemyShipImage image = new EnemyShipImage(this.libGDXGame.shipTextures.get(ShipType.ENEMY_FIGHTER), ship);
 		this.enemyShipImages.add(image);
 		this.libGDXGame.stage.addActor(image);
+		
+		this.libGDXGame.soundPlayer.playSound(SoundType.FIGHTER_SPAWN_01);
 	}
 	
 	public void enemyFiredWeaponAtAlien(EnemyShip enemy, final Alien alien) {
@@ -411,6 +418,8 @@ public class GameScreen extends BZScreenAdapter {
 		}));
 		laserImage.addAction(sequence);
 		this.libGDXGame.stage.addActor(laserImage);
+		
+		this.libGDXGame.soundPlayer.playSound(SoundType.SHOT_01);
 	}
 	
 	public void enemyKilled(EnemyShip enemyShip) {
@@ -424,6 +433,7 @@ public class GameScreen extends BZScreenAdapter {
 			imageToRemove.remove();
 			this.enemyShipImages.remove(imageToRemove);
 		}
+		this.libGDXGame.soundPlayer.playSound(SoundType.FIGHTE_DIE_01);
 	}
 	
 	private void alienKilled(Alien alien) {
@@ -437,6 +447,7 @@ public class GameScreen extends BZScreenAdapter {
 			imageToRemove.remove();
 			this.alienImages.remove(imageToRemove);
 		}
+		this.libGDXGame.soundPlayer.playSound(SoundType.ALIEN_DIE_01);
  	}
 	
 	public void flagSpawned(PlayerFlag flag) {
@@ -467,6 +478,16 @@ public class GameScreen extends BZScreenAdapter {
 		
 		this.libGDXGame.stage.addActor(radarRing);
 		this.libGDXGame.stage.addActor(radarRing2);
+		
+		this.libGDXGame.soundPlayer.playSound(SoundType.PLACE_FLAG_01);
+	}
+	
+	public void fighterCapturedStar() {
+		this.libGDXGame.soundPlayer.playSound(SoundType.FIGHTER_CAPTURE_01);
+	}
+	
+	public void alienCapturedStar() {
+		this.libGDXGame.soundPlayer.playSound(SoundType.ALIEN_CAPTURE_01);
 	}
 	
 	private void tappedScreen(float x, float y) {

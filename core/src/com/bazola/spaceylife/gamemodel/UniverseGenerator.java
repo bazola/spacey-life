@@ -10,6 +10,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public class UniverseGenerator {
 	
+	private final MainGame game;
+	
 	private final int worldWidth;
 	private final int worldHeight;
 	private final Random random;
@@ -22,7 +24,8 @@ public class UniverseGenerator {
 	private final List<UniverseFeature> universeRegions;
 	private final HashMap<MapPoint, Star> stars = new HashMap<MapPoint, Star>();
 
-	public UniverseGenerator(int width, int height, Random random) {
+	public UniverseGenerator(int width, int height, Random random, MainGame game) {
+		this.game = game;
 		
 		this.random = random;
 		this.worldWidth = width;
@@ -85,7 +88,7 @@ public class UniverseGenerator {
 			//otherwise use the empty space star density
 			int starDensity = featureFound != null ? featureFound.type.starDensity : this.EMPTY_SPACE_DENSITY;
 			if (!this.regionContainsStar(starDensity, point)) {
-				this.stars.put(point, new Star(this.random, point));
+				this.stars.put(point, new Star(this.random, point, this.game));
 			}
 		}
 		
