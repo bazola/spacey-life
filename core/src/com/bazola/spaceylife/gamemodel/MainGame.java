@@ -168,6 +168,11 @@ public class MainGame {
 		return targetFeature.type == UniverseFeatureType.DARK_ZONE;
 	}
 	
+	public int getSmallAlienCost() {
+		int maintenance = this.alienPlayer.getSmallAliens().size();
+		return this.smallAlienCost + maintenance;
+	}
+	
 	public void playerClickedSmallAlienButton() {
 		int maintenance = this.alienPlayer.getSmallAliens().size();
 		if (this.playerResources >= this.smallAlienCost + maintenance) {

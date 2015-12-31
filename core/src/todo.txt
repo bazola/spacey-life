@@ -32,6 +32,7 @@ add planets to the stars? could be visible on the map as an arc and orb, each ad
 images needed
 empty green box for music button
 different font for the universe features?
-
+randomize starting positions
+parallax moves differently depending on how the hud stage is stretched
 
 

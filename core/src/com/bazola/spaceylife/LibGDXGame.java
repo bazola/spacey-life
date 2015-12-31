@@ -547,5 +547,12 @@ public class LibGDXGame extends Game {
 		this.titleFont.dispose();
 		this.bigButtonFont.dispose();
 		this.smallButtonFont.dispose();
+		
+		for (Music music : this.music.values()) {
+			music.dispose();
+		}
+		for (Sound sound : this.sounds.values()) {
+			sound.dispose();
+		}
 	}
 }

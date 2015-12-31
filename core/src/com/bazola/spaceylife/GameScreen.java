@@ -40,7 +40,9 @@ public class GameScreen extends BZScreenAdapter {
 	
 	private Table buttonTable;
 	private ButtonStyle greenButtonStyle;
+	
 	private Label resourceCountLabel;
+	private Label smallCostLabel;
 	
     private double currentTime = 0;
     private double timeSinceLastRender = 0;
@@ -169,9 +171,9 @@ public class GameScreen extends BZScreenAdapter {
     
     private void addUniverseFeatureLabels() {
     	for (UniverseFeature feature : this.game.universe.getUniverseFeatures()) {
-    		Label label = new Label(feature.type.name(), this.libGDXGame.skin);
+    		Label label = new Label(feature.type.displayName, new LabelStyle(this.libGDXGame.titleFont, null));
+    		label.addAction(Actions.alpha(0.8f));
     		label.setPosition(feature.circle.x, feature.circle.y);
-    		label.setFontScale(4);
     		this.libGDXGame.stage.addActor(label);
     	}
     }
@@ -213,7 +215,7 @@ public class GameScreen extends BZScreenAdapter {
     	this.buttonTable.row();
     	
     	Table shipButtonsTable = new Table(this.libGDXGame.skin);
-    	Label resourcesTitle = new Label("Resources:", new LabelStyle(this.libGDXGame.smallButtonFont, null));
+    	Label resourcesTitle = new Label("Manna", new LabelStyle(this.libGDXGame.smallButtonFont, null));
     	shipButtonsTable.add(resourcesTitle);
     	shipButtonsTable.row();
     	this.resourceCountLabel = new Label("0", new LabelStyle(this.libGDXGame.smallButtonFont, null));
@@ -234,7 +236,16 @@ public class GameScreen extends BZScreenAdapter {
     	shipButtonsTable.add(smallAlienStack).width(LibGDXGame.HUD_WIDTH / 10).height(LibGDXGame.HUD_WIDTH / 10);
     	shipButtonsTable.row();
     	
-    	shipButtonsTable.add(" ").row();
+    	Label smallTitleLabel = new Label("Small", new LabelStyle(this.libGDXGame.smallButtonFont, null));
+    	shipButtonsTable.add(smallTitleLabel);
+    	shipButtonsTable.row();
+    	
+    	this.smallCostLabel = new Label("0", new LabelStyle(this.libGDXGame.smallButtonFont, null));
+    	shipButtonsTable.add(this.smallCostLabel);
+    	shipButtonsTable.row();
+    
+    	
+    	//shipButtonsTable.add(" ").row();
 
     	Stack largeAlienStack = new Stack();
     	largeAlienStack.add(new Image(this.libGDXGame.menuBackgroundSolid));
@@ -335,6 +346,7 @@ public class GameScreen extends BZScreenAdapter {
         	this.processFog();
         	
         	this.resourceCountLabel.setText(String.valueOf(this.game.getPlayerResources()));
+        	this.smallCostLabel.setText(String.valueOf(this.game.getSmallAlienCost()));
         }
 	}
 	
