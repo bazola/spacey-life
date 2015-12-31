@@ -9,6 +9,7 @@ public enum SoundType {
 	FIGHTER_CAPTURE_01("sounds/fighterCapture01.mp3"),
 	FIGHTE_DIE_01("sounds/fighterDie01.mp3"),
 	FIGHTER_SPAWN_01("sounds/fighterSpawn01.mp3"),
+	NO_02("sounds/no02.mp3"),
 	PLACE_FLAG_01("sounds/placeFlag02.mp3"),
 	SHOT_01("sounds/shot01.mp3"),
 	TRADER_CAPTURE_01("sounds/traderCapture01.mp3"),

@@ -180,20 +180,23 @@ public class MainGame {
 		return this.largeAlienCost;
 	}
 	
-	public void playerClickedSmallAlienButton() {
+	public boolean playerClickedSmallAlienButton() {
 		int maintenance = this.alienPlayer.getSmallAliens().size();
 		if (this.playerResources >= this.smallAlienCost + maintenance) {
 			this.playerResources -= this.smallAlienCost + maintenance;
 			this.spawnAlien();
+			return true;
 		}
+		return false;
 	}
 	
-	public void playerClickedLargeAlienButton() {
+	public boolean playerClickedLargeAlienButton() {
 		/*
 		if (this.playerResources >= this.largeAlienCost) {
 			this.playerResources -= this.largeAlienCost;
 		}
 		*/
+		return false;
 	}
 	
 	public void playerClickedFlagButtonAtIndex(int index) {

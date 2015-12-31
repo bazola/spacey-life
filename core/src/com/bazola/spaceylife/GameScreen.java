@@ -245,7 +245,7 @@ public class GameScreen extends BZScreenAdapter {
     	smallAlienButton.getButton().addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-            	GameScreen.this.game.playerClickedSmallAlienButton();
+            	GameScreen.this.playerClickedSmallAlienButton();
             }
     	});
     	
@@ -271,7 +271,7 @@ public class GameScreen extends BZScreenAdapter {
     	bigAlienButton.getButton().addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-            	GameScreen.this.game.playerClickedLargeAlienButton();
+            	GameScreen.this.playerClickedLargeAlienButton();
             }
     	});
     	
@@ -314,6 +314,18 @@ public class GameScreen extends BZScreenAdapter {
     private void clickedExitButton() {
     	this.libGDXGame.musicPlayer.stopMusic();
     	this.libGDXGame.exitToMainMenu();
+    }
+    
+    private void playerClickedSmallAlienButton() {
+    	if (!this.game.playerClickedSmallAlienButton()) {
+    		this.libGDXGame.soundPlayer.playSound(SoundType.NO_02);
+    	}
+    }
+    
+    private void playerClickedLargeAlienButton() {
+    	if (!this.game.playerClickedLargeAlienButton()) {
+    		this.libGDXGame.soundPlayer.playSound(SoundType.NO_02);
+    	}
     }
     
 	@Override

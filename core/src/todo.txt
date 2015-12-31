@@ -2,14 +2,19 @@
 TODO UNIVERSE REGIONS:
 star arm
 
-IMPLEMENTED
-aliens now notice new flags, and also do not all move to the same flag
-universe regions
-
 IMPLEMENTED REGIONS
 star cluster
 dark zone with replenishing fog of war
 nebula with lower star density
+
+IMPLEMENTED
+aliens now notice new flags, and also do not all move to the same flag
+universe regions
+the parallax sprites need to be sized based on screen size
+add sounds
+add sound for not enough money when purchasing
+
+
 
 IDEA:
 scroll pane of flags along the bottom
@@ -25,14 +30,11 @@ keep track of how many aliens are at each flag, provide a way for the player to 
 
 TODO
 make camera movements smooth
-the parallax sprites need to be sized based on screen size
-add sounds
 add planets to the stars? could be visible on the map as an arc and orb, each additional planet being a bigger arc
+change the flag to something that makes more sense thematically
 
-images needed
-empty green box for music button
-different font for the universe features?
 randomize starting positions
-parallax moves differently depending on how the hud stage is stretched
-sound for not enough money when purchasing
+currently the parallax moves differently depending on how the hud stage is stretched
+
+
 
